@@ -1,86 +1,84 @@
 ---
 description: >-
-  This section describes the basic messages that provide Thinger.io Server API
-  to interact with its backend functionalities.
+  本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
 ---
 
-# SERVER API
+# 伺服器 API
 
-All the examples described in this documentation defines URL endpoints based on an relative path, assuming the host is just your server IP, domain, or just the default Thinger.io server. For all calls issued over the default Thinger.io cloud, the host address will be the following:
+>本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
+
+本文件中描述的所有示範都基於相對路徑定義URL，假設主機未被設定為您自行建立的伺服器IP、網域，則預設伺服器如下：
 
 ```text
 https://api.thinger.io
 ```
 
-_Notice_ that if you are running the Thinger.io server in your own host or domain, a secure HTTPS request may fail if you do not configure the appropriate SSL certificate. You can also use non-secure HTTP for your calls, but it is not recommended in production environments.
+**請注意** 如果您在自己的主機或網域中執行Thinger.io伺服器，則在未設定相應的SSL證書的情況下，HTTPS請求可能會失敗。您也可以使用HTTP進行呼叫，但不建議在生產環境中使用。
 
-## Authentication API
+## 驗證 API
 
-### REST API Authentication
+### REST API 驗證
 
-All queries done to the API Rest interface must be signed in order to access the user resources. So, all request must include an `Authorization` header that includes the access token to the account:
+每次存取伺服器上的API，都需要經過驗證。因此所有API存取動作都要包含一個存取令牌的 `Authorization` 標頭：
 
 ```text
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODYwNDkxNTcsImlhdCI6MTQ4NjA0MTk1NywidXNyIjoianQifQ.pkyG43xiEhDtUHLxuycYv156FGuvNh6nDKQ07kGcaGk
 ```
 
-The access token is a JWT Token that needs to be obtained from the user credentials, from a refresh token, or just a from a user-defined access token. So there are two different concepts:
+本服務使用的Token格式為JWT，token內容可使用jwt-decoder解析。
+存取令牌有兩個不同的概念：使用使用者憑據、刷新令牌取得動態存取令牌，或是直接由使用者定義。
 
-#### Access Token
+#### 存取令牌\(Access Token\)
 
-Is the token used for granting access to API requests. It should be included in the HTTP `Authorization` header along with the keyword `Bearer`. It can be also included as a URL parameter in the HTTP request, with the key `authorization` \(case-sensitive\), and the token as the value.
+此種令牌用於存取API資源，要存取任何API時都需要將此令牌與`Bearer`關鍵字一起包含在HTTP標頭的 `authorization` 項目中。其中 `authorization` 區分大小寫。
 
-_Notice_ that when this token is obtained from user credentials, or from a refresh token, it has a validity of **2 hours**. So it must be refreshed periodically in order have a valid access token.
+_Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透過刷新令牌進行刷新。
 
-#### Refresh Token
+#### 刷新令牌(Refresh Token)
 
-The refresh token is a token that cannot provide access to the user resources, but can be used for getting fresh access token in case they expired.
+此種令牌用於刷新並取得存取令牌，本身不提供存取使用者資源的權限，使用刷新令牌時其本身也會刷新。將刷新令牌儲存於安全區域，即使存取令牌以某種方式洩漏，攻擊者也無法長時間存取裝置。若刷新令牌也遭洩漏，可以手動註銷刷新令牌以阻止被取得新的刷新令牌，中止非預期的存取。
 
-This token, obtained with the user credentials, or with a valid refresh token, has a validity of around **2 months** from issue date, and will be refreshed every time you use it for getting a new pair of access, and refresh tokens.
+本平台身分驗證的設計模式為：透過帳號密碼進行初次身分驗證，同時取得刷新令牌與存取令牌。
+刷新令牌有效期限(Expiration time)為 2 個月。並且您使用它時也會進行刷新。之後皆使用存取令牌存取API，並於刷新令牌過期前，使用刷新令牌更新並同時取得存取令牌與刷新令牌。
 
-So, the idea behind the authentication is that you need to use the user credentials for getting both an access token and a refresh token. You can keep the refresh token in a secure place, and use the access token for accessing user resources. Once the access token has been expired, then use the refresh token for getting a new access token and a new refresh token.
+#### 使用者令牌(User Token)
 
-This way, if the account is used periodically, the user credentials are not required for the authentication process. If the access token is leaked in some way, then the attacker would have a short timespan of access. If the refresh token is also leaked, it can be revoked manually to avoid its use for getting new tokens.
-
-#### User Token
-
-The tokens defined by the user in their account, can be used just like any other access token to authenticate the request. However, as contrary as the tokens obtained from the user credentials, this token does not expire by default, and the user can define the access level over the account resources. So, in this way, the user could define a token for accessing a single device, or for writing to a data bucket without comprising other account resources.
-
-This kind of tokens can be defined directly from the Thinger.io Console in the `Access Tokens` section. The following picture illustrates how to add permissions to the token for writing to a single bucket, but you can configure them for granting access to different resources and actions of your account.
+此種令牌可由控制面板中以 `Access Token` 項目建立並規範存取權限，將其限定使用於特定行為，如寫入資料存儲區、存取裝置特定資源的長期存取。
+這種令牌使用方式與存取令牌相同，不同的是這種令牌不會過期。
 
 ![](.gitbook/assets/token_permission.png)
 
-### Getting Tokens From User Credentials
+### 透過使用者憑證取得驗證令牌
 
-This method allows getting both the access token and refresh token from the user credentials. It should be used the first time the user logs into the application.
+此方式提供使用者使用帳號與密碼取得令牌(包含存取令牌與刷新令牌)。首次進行API存取時會使用該方法。
 
 * **URL**
 
-  ```text
-    /oauth/token
+  ```
+  /oauth/token
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
-    POST
+  ```
+  POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/x-www-form-urlencoded
   ```
 
-* **Body**
+* **內文**
 
-  ```text
-    grant_type=password&username=username&password=password
+  ```
+  grant_type=password&username=username&password=password
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content:**
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **回應內容：**
 
     ```javascript
     {  
@@ -91,9 +89,9 @@ This method allows getting both the access token and refresh token from the user
        "token_type":"bearer"
     }
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized
-  * **Content:** 
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized
+  * **回應內容：** 
 
     ```javascript
      {  
@@ -103,37 +101,37 @@ This method allows getting both the access token and refresh token from the user
      }
     ```
 
-### Getting Tokens With Refresh Token
+### 使用刷新令牌取得令牌
 
-This method allows getting fresh access token and refresh token from a valid refresh token. It should be called every time the access token has been expired or the refresh token is likely to expire.
+此方法允許使用有效的刷新令牌取得新的令牌(包含存取令牌與刷新令牌)。每當存取令牌過期或刷新令牌可能過期時都該使用該方法刷新。
 
 * **URL**
 
-  ```text
-    /oauth/token
+  ```
+  /oauth/token
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
-    POST
+  ```
+  POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/x-www-form-urlencoded
   ```
 
-* **Body**
+* **內文**
 
-  ```text
-    grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTEzMTIzNTcsImlhdCI6MTQ4NjA0MTk1NywianRpIjoiNTg5MzMzNjUzOWNiZWY0YWEzMDE1YWJjIn0.BYwRii9eL7jeQQQqMbuBEZAvwmmVRAU8kWYCNZEDn0s
+  ```
+  grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTEzMTIzNTcsImlhdCI6MTQ4NjA0MTk1NywianRpIjoiNTg5MzMzNjUzOWNiZWY0YWEzMDE1YWJjIn0.BYwRii9eL7jeQQQqMbuBEZAvwmmVRAU8kWYCNZEDn0s
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content:** 
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **回應內容：** 
 
     ```javascript
     {  
@@ -144,9 +142,9 @@ This method allows getting fresh access token and refresh token from a valid ref
        "token_type":"bearer"
     }
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized
-  * **Content:** 
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized
+  * **回應內容：** 
 
     ```javascript
      {  
@@ -156,13 +154,13 @@ This method allows getting fresh access token and refresh token from a valid ref
      }
     ```
 
-### Detecting Access Token Expire
+### 確認令牌有效期限
 
-The access token expires in around 2 hours from its issue date. There are two ways to determine if the access token has been expired in order to request a new one.
+存取令牌在發布後約2小時後到期。有兩種方法可以確定存取令牌是否已過期以決定是否請求新的存取令牌。
 
-#### Checking the JWT contents
+#### 解析JWT資訊
 
-The first way of checking if an access token is expired, is by parsing the JWT and decoding the payload data. An access token will have a payload like the following:
+檢查存取令牌是否過期的第一種方法是解析JWT並解碼有效負載(Payload)資訊。存取令牌將具有如下所示的有效負載(Payload)：
 
 ```javascript
 {
@@ -172,41 +170,43 @@ The first way of checking if an access token is expired, is by parsing the JWT a
 }
 ```
 
-The `exp` field is the unix timestamp in seconds \(UTC\) when the token will expire. If your request is after this timestamp, then, the request will fail.
+`exp`字段是令牌過期時的以秒為單位的unix時間戳（UTC）。如果您的請求時間在此時間戳之後，則請求將失敗。
 
-#### Checking server response
+#### 檢測伺服器回應
 
-It is possible to check the validity of an access token simply by trying to access any user resource. If the access token is expired, then the authentication will fail, and the API Request query will return a `401 Unautorized`.
+只需嘗試存取任何使用者資源，就可以檢查存取令牌的有效性。如果存取令牌過期，則身份驗證將失敗，並且API請求查詢將回傳一個`401 Unautorized`。
 
-## Devices API
+## 裝置API
 
-### List User Devices
+以下方法將介紹如何透過API進行裝置操作，如取得裝置資訊、新增與刪除裝置、使用裝置特定資源等。同時介紹另一個存取模式。
 
-This method allows getting user devices.
+### 列出使用者裝置
+
+此方法允許取得使用者設備清單與詳細狀態資訊。
 
 * **URL**
 
-  ```text
-    /v1/users/{USER_ID}/devices
+  ```
+  /v1/users/{USER_ID}/devices
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   GET
   ```
 
-* **URL Params**
+* **URL 參數**
 
-  **Optional:** Search devices by its identified by adding the following url parameter:
+  **可選：** 通過新增以下URL參數來使用ID指定裝置：
 
-  ```text
+  ```
   id=[device id]
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content:** Array of devices, with the device identifier, description, and connection status.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **回應內容：** 裝置陣列，包含裝置ID，描述和連接狀態。
 
     ```javascript
     [  
@@ -220,34 +220,34 @@ This method allows getting user devices.
       }
     ]
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized
-  * **Code:** 400 Bad request if the search device name is not valid
-  * **Code:** 404 Not Found
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized
+  * **HTTP狀態：** 400 Bad request if the search device name is not valid
+  * **HTTP狀態：** 404 Not Found
 
-### Add User Device
+### 新增使用者裝置
 
-This method allows add a device to an user
+此方法允許將裝置新增到目前的使用者帳戶。
 
 * **URL**
 
-  ```text
-    /v1/users/{USER_ID}/devices
+  ```
+  /v1/users/{USER_ID}/devices
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/json;charset=UTF-8
   ```
 
-* **Body**
+* **內文**
 
   ```javascript
    {  
@@ -257,55 +257,54 @@ This method allows add a device to an user
    }
   ```
 
-* **Success Response:**
-  * **Code:** 200
-* **Error Response:**
+* **成功回應：**
+  * **HTTP狀態：** 200
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 400 Bad request. If there are missing fields, the device is id is not valid \(only \[a-zA-Z0-9\_\]{1,25} is allowed\), the device already exists, or the user account is limited.
 
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 400 Bad request. If there are missing fields, the device is id is not valid \(only \[a-zA-Z0-9\_\]{1,25} is allowed\), the device already exists, or the user account is limited.
+### **刪除使用者裝置**
 
-  **Delete User Device**
-
-  This method allows removing an specific device.
+  此方法允許刪除特定裝置。
 
   * **URL**
 
-    ```text
+    ```
     /v1/users/{USER_ID}/devices/{DEVICE_ID}
     ```
 
-  * **Method:**
+  * **方法(Method)**
 
-    ```text
+    ```
     DELETE
     ```
 
-  * **Success Response:**
-    * **Code:** 200
-  * **Error Response:**
-    * **Code:** 401 Unauthorized. If the auth is not success.
-    * **Code:** 400 Bad request. If the device is connected.
-    * **Code:** 404 Not Found. If the device does not exists.
+  * **成功回應：**
+    * **HTTP狀態：** 200
+  * **錯誤回應：**
+    * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+    * **HTTP狀態：** 400 Bad request. If the device is connected.
+    * **HTTP狀態：** 404 Not Found. If the device does not exists.
 
-### Get Device Stats
+### 取得裝置狀態資訊
 
-This method allows getting information about the device statistics in real-time from its latest connection, like connection timestamp, remote IP address, or transmitted data.
+此方法允許即時從其最近建立的連接取得有關裝置的狀態資訊（如連接時間戳，遠端IP地址或傳輸數據）。
 
 * **URL**
 
-  ```text
-    /v1/users/{USER_ID}/devices/{DEVICE_ID}/stats
+  ```
+  /v1/users/{USER_ID}/devices/{DEVICE_ID}/stats
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   GET
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content:** Information about the device, like its connection state and timestamp, its current IP address, and transmitted data.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **回應內容：** 有關裝置的資訊，如連接狀態和時間戳，目前IP地址和傳輸數據。
 
     ```javascript
     {  
@@ -316,33 +315,37 @@ This method allows getting information about the device statistics in real-time 
       "tx_bytes":854
     }
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized
-  * **Code:** 400 Bad request if the search device name is not valid
-  * **Code:** 404 Not Found
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized
+  * **HTTP狀態：** 400 Bad request if the search device name is not valid
+  * **HTTP狀態：** 404 Not Found
 * **Note**
 
-  This method can be used with Server Sent Events \(SSE\) to get real-time updates about device stats, like tx and rx bytes. If you cannot add the Authorization header to the SSE client, you can add the access token to the url like `?authorization=eyJhbGci...`.
+  此方法可與伺服器發送事件（SSE）一起使用，以取得有關裝置狀態資訊的即時更新，如tx和rx字節。如果您無法將授權標頭新增到SSE客戶端，則可以將存取令牌以`?authorization=eyJhbGci...`的方式附加到URL中。
 
-### Get Device Tokens
+### 裝置令牌(Device Token)
 
-This method allows getting information about the tokens issued to providing access to a particular device and resource.
+如前段說明所示，裝置令牌可做為`Access Token`使用，存取範圍限制為該裝置所擁有的資源，"存取裝置資源"章節的內容皆可以`裝置令牌`作為`存取令牌`使用。
+
+### 取得裝置令牌
+
+此方法允許取得有關發出令牌的資訊，以提供對特定裝置和資源的存取。
 
 * **URL**
 
-  ```text
-    /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
+  ```
+  /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
-    GET
+  ```
+  GET
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content:** Array with information for each device token.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **回應內容：** 包含每個裝置令牌資訊的陣列。
 
     ```javascript
     [  
@@ -353,35 +356,35 @@ This method allows getting information about the tokens issued to providing acce
        }
     ]
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized
-  * **Code:** 404 Not Found
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized
+  * **HTTP狀態：** 404 Not Found
 
-### Add Device Token
+### 新增裝置令牌
 
-This method allows creating a device token so it can be used later to access the authorized device and resources. The generated token can also expire automatically at some given time.
+此方法允許建立裝置令牌，以便以後可以使用它來存取授權的裝置和資源。生成的令牌也可以在某個給定時間自動到期。
 
-Use the generated token in the Authorization header when accessing the device resources, in the same way as an access token. You can pass also the device token as an url parameter, like `?authorization=eyJhbGciOi...`
+存取裝置資源時，請使用Authorization標頭中生成的令牌，方法與存取令牌相同。您也可以將裝置令牌作為url參數傳遞，例如`?authorization=eyJhbGciOi...`
 
 * **URL**
 
-  ```text
-    /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
+  ```
+  /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/json;charset=UTF-8
   ```
 
-* **Body**
+* **內文**
 
   ```javascript
     {
@@ -391,11 +394,11 @@ Use the generated token in the Authorization header when accessing the device re
     }
   ```
 
-  **Note:** `token_resources` and `token_expiration` fields are optional. Use this fields only if you need to limit the access to the device resources, or make the token expire at a given time in UTC.
+  **注意**： `token_resources`和`token_expiration`都是可選的。僅當您需要限制對裝置資源的存取權限或使令牌在給定的UTC時間到期時，才使用此字段。
 
-* **Success Response:**
-  * **Code:** 200
-  * **Body:** Information about the created token, like its identifier, name and token itself.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **內文:**有關建立的令牌的資訊，例如其標識符，名稱和令牌本身。
 
     ```javascript
     {
@@ -404,65 +407,65 @@ Use the generated token in the Authorization header when accessing the device re
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXYiOiJkZXZpY2UyIiwiZXhwIjoxNDg3ODk0NDAwLCJpYXQiOjE0ODYwNjQ2NDEsImp0aSI6IjU4OTM4YzAxNmY3ODllMTVlZTE1YjU4MyIsInJlcyI6WyJvcGVuIiwiY3xvc2UiXSwidXNyIjoiYWx2YXJvbGIifQ.lAYQcdMD92RbYzhCfgvkIb2R15DqcWGmdb07cxgE8bM"
     }
     ```
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 400 Bad request. If there are missing fields.
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 400 Bad request. If there are missing fields.
 
-### Delete Device Token
+### 刪除裝置令牌
 
-This method allows removing a given device token.
+此方法允許刪除指定的裝置令牌。
 
 * **URL**
 
-  ```text
+  ```
   /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens/:token_id
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   DELETE
   ```
 
-* **Success Response:**
-  * **Code:** 200
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 404 Not Found. If the token cannot be found.
+* **成功回應：**
+  * **HTTP狀態：** 200
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 404 Not Found. If the token cannot be found.
 
-### Access Device Resources
+### 存取裝置資源
 
-You can access all your device resources by calling API endpoints according to your account id, your device id, and the resource you define in your own devices. This section describes how to access different types of resources, like output, input, input/output, and callback resources.
+您可以根據您的使用者ID，裝置ID以及您自己在裝置中定義的資源以API進行存取。本節介紹如何存取不同類型的資源，如輸出，輸入，輸入/輸出和回調(CallBack)資源。
 
-#### Output Resources
+#### 輸出資源
 
-Device output resources are the way external processes or services can query information to connected devices, like sensed parameters, reading the current device state, or any other value it is required to extract from the device.
+輸出資源是外部程式或服務可以向連接的裝置查詢資訊的方式，例如感測的數據，讀取目前裝置狀態或從裝置中提取所需的任何其他值。
 
-This method allows accessing an output resource defined in your device, so you can read the contents provided by each resource in real-time. This way, every API call will execute your output resource to fill the information defined in the resource.
+此方法允許存取裝置中定義的輸出資源，因此您可以即時讀取每個資源提供的內容。這樣每個API調用都將執行輸出資源以填充資源中定義的資訊。
 
 * **URL**
 
-  ```text
+  ```
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   GET
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content-type**: application/json
-  * **Body**: A JSON document with the key `out` that stores your resource definition.
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 404 Not Found. If the device or resource is not available.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **內容類型(Content-Type)**: application/json
+  * **內文**: A JSON document with the key `out` that stores your resource definition.
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 404 Not Found. If the device or resource is not available.
 
-**Example 1**
+**範例 1**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have a resource in your device defined like this:
+如果您的帳戶是`alvarolb`，您的裝置ID是`nodemcu`，並且您的裝置中的資源定義如下：
 
 ```cpp
 thing["location"] >> [](pson& out){
@@ -471,7 +474,7 @@ thing["location"] >> [](pson& out){
 };
 ```
 
-You can send a HTTP GET request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/location](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/location) to get the latitude and longitude from the device:
+您可以通過向[https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/location](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/location) 發送HTTP GET請求，以取得裝置的緯度和經度：
 
 ```javascript
 {
@@ -482,9 +485,9 @@ You can send a HTTP GET request over [https://api.thinger.io/v2/users/alvarolb/d
 }
 ```
 
-**Example 2**
+**範例 2**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have a resource in your device defined like this:
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中的資源定義如下：
 
 ```cpp
 thing["temperature"] >> [](pson& out){
@@ -492,7 +495,7 @@ thing["temperature"] >> [](pson& out){
 };
 ```
 
-You can send a HTTP GET request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/temperature](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/temperature) to get the current temperature:
+您可以通過向[https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/temperature](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/temperature) 發送HTTP GET請求以取得目前溫度：
 
 ```javascript
 {
@@ -500,31 +503,31 @@ You can send a HTTP GET request over [https://api.thinger.io/v2/users/alvarolb/d
 }
 ```
 
-#### Input Resources
+#### 輸入資源
 
-Device input resources are the way the connected devices can receive information from the cloud, like actuating over them to activate a motor, switch a relay, move a servo, or setting a different logical configuration.
+裝置輸入資源是連接裝置可以從雲端接收資訊的方式，例如通過它們啟動馬達，切換繼電器，移動伺服或進行不同的邏輯設定。
 
-This method allows pushing data to an input resource defined in your device, so you can send data to your resources in real-time. Therefore, this call will execute your device resource with some information.
+此方法允許您將資料即時推送到裝置中定義的輸入資源，因此，調用時將會使用某些資訊來存取您的裝置資源。
 
 * **URL**
 
-  ```text
+  ```
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/json;charset=UTF-8
   ```
 
-* **Body**
+* **內文**
 
   ```javascript
   {  
@@ -532,15 +535,15 @@ This method allows pushing data to an input resource defined in your device, so 
   }
   ```
 
-* **Success Response:**
-  * **Code:** 200 OK. If your device is connected and the resource was called successfully.
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 404 Not Found. If the device or resource is not available.
+* **成功回應：**
+  * **HTTP狀態：** 200 OK. If your device is connected and the resource was called successfully.
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 404 Not Found. If the device or resource is not available.
 
-**Example 1**
+**範例 1**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have an input resource in your device defined like this, i.e., for turning on/off a relay:
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中有一個輸入資源，例如，用於打開/關閉繼電器(Relay)：
 
 ```cpp
 thing["relay"] << [](pson& in){
@@ -548,7 +551,7 @@ thing["relay"] << [](pson& in){
 };
 ```
 
-You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/relay](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/relay) to change the current state:
+您可以通過向 [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/relay](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/relay) 發送HTTP POST請求以更改目前狀態：
 
 ```javascript
 {
@@ -566,9 +569,9 @@ curl \
   https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/relay
 ```
 
-**Example 2**
+**範例 2**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have an input resource in your device defined like this, i.e., for changing an RGB light color:
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中有一個輸入資源，例如，用於更改RGB燈顏色：
 
 ```cpp
 thing["rgb"] << [](pson& in){
@@ -579,7 +582,7 @@ thing["rgb"] << [](pson& in){
 };
 ```
 
-You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/rgb](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/rgb) to set the current color:
+您可以通過向 [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/rgb](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/rgb) 發送HTTP POST請求以設定目前顏色：
 
 ```javascript
 {
@@ -591,7 +594,7 @@ You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/
 }
 ```
 
-Curl example:
+Curl 範例:
 
 ```bash
 curl \
@@ -603,9 +606,9 @@ curl \
   https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/rgb
 ```
 
-**Example 3**
+**範例 3**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have an input resource in your device defined like this, i.e., for executing a linux command, changing a text on a screen, etc:
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中有一個輸入資源，例如，用於執行linux命令，更改螢幕上的文字等：
 
 ```cpp
 thing["command"] << [](pson& in){
@@ -614,7 +617,7 @@ thing["command"] << [](pson& in){
 };
 ```
 
-You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/command](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/command) to set the current color:
+您可以通過向 [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/command](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/command) 發送HTTP POST請求變更文字：
 
 ```javascript
 {
@@ -622,7 +625,7 @@ You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/
 }
 ```
 
-Curl example:
+Curl 範例:
 
 ```bash
 curl \
@@ -634,29 +637,29 @@ curl \
   https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/command
 ```
 
-#### Input/Output Resources
+#### 輸入/輸出資源
 
-Device resources can be defined also as input/output resources, that is, they can provide an output based on an input.
+裝置資源也可以定義為輸入/輸出資源，也就是說，它們可以基於輸入提供輸出。
 
 * **URL**
 
-  ```text
+  ```
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   POST
   ```
 
-* **Content Type**
+* **內容類型(Content-Type)**
 
-  ```text
+  ```
   Content-Type:application/json;charset=UTF-8
   ```
 
-* **Body**
+* **內文**
 
   ```javascript
   {  
@@ -664,17 +667,17 @@ Device resources can be defined also as input/output resources, that is, they ca
   }
   ```
 
-* **Success Response:**
-  * **Code:** 200
-  * **Content-type**: application/json
-  * **Body**: A JSON document with the key `out` that stores your resource output.
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 404 Not Found. If the device or resource is not available.
+* **成功回應：**
+  * **HTTP狀態：** 200
+  * **內容類型(Content-Type)**: application/json
+  * **內文**: A JSON document with the key `out` that stores your resource output.
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 404 Not Found. If the device or resource is not available.
 
-**Example 1**
+**範例 1**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have an input/output resource `io` in your device defined like this, i.e., for returning the sum and multiplication:
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中的輸入/輸出資源`io`定義如下，即用於回傳總和和乘法：
 
 ```cpp
 thing["io"] = [](pson& in, pson& out){
@@ -683,9 +686,9 @@ thing["io"] = [](pson& in, pson& out){
 };
 ```
 
-You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/io](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/io) to get the result based on the input:
+您可以通過向[https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/io](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/io) 發送HTTP POST請求，以根據輸入獲得結果：
 
-**Input**
+**輸入**
 
 ```javascript
 {
@@ -696,7 +699,7 @@ You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/
 }
 ```
 
-**Output**
+**輸出**
 
 ```javascript
 {
@@ -707,7 +710,7 @@ You can send a HTTP POST request over [https://api.thinger.io/v2/users/alvarolb/
 }
 ```
 
-**Curl Example**
+**Curl 範例**
 
 ```bash
 curl \
@@ -719,33 +722,33 @@ curl \
   https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/io
 ```
 
-#### Resources without parameters
+#### 沒有參數的資源
 
-This kind of resources does not provide or requires any information to be executed. They are just like functions defined in the device that can be called as required, for example, to force a device update, reboot the system, or any other action.
+這種資源不提供或要求任何資訊。它們就像裝置中定義的可以根據需要調用的功能，例如，強制裝置更新，重啟系統或任何其他操作。
 
-This API method allows calling a resource defined in your device, so you can execute the associated function.
+此API方法允許調用裝置中定義的資源，因此您可以執行相關的功能。
 
 * **URL**
 
-  ```text
+  ```
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **Method:**
+* **方法(Method)**
 
-  ```text
+  ```
   GET
   ```
 
-* **Success Response:**
-  * **Code:** 200 OK. If your device is connected and the resource was called successfully.
-* **Error Response:**
-  * **Code:** 401 Unauthorized. If the auth is not success.
-  * **Code:** 404 Not Found. If the device or resource is not available.
+* **成功回應：**
+  * **HTTP狀態：** 200 OK. If your device is connected and the resource was called successfully.
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 404 Not Found. If the device or resource is not available.
 
-**Example 1**
+**範例 1**
 
-If your account is `alvarolb`, your device identifier is `nodemcu`, and you have a resource `reset` in your device defined like this, i.e., for rebooting the ESP8266 device.
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您裝置中的`reset`的資源定義如下，即重新啟動ESP8266裝置。
 
 ```cpp
 thing["reset"] = [](){
@@ -753,7 +756,7 @@ thing["reset"] = [](){
 };
 ```
 
-You can send a HTTP GET request over [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/reset](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/reset) to reboot the device:
+您可以通過向 [https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/reset](https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/reset) 發送HTTP GET請求以重啟裝置：
 
 ```bash
 curl \
@@ -761,19 +764,19 @@ curl \
   https://api.thinger.io/v2/users/alvarolb/devices/nodemcu/reset
 ```
 
-## User API
+## 使用者 API
 
 Work in progress...
 
-## Endpoints API
+## 端點 API
 
 Work in progress...
 
-## Dashboards API
+## 儀表板 API
 
 Work in progress...
 
-## Buckets API
+## 儲存桶 API
 
 Work in progress...
 

@@ -1,17 +1,31 @@
 ---
 description: >-
-  This section will cover how to create devices firmware using Thinger.io
-  libraries to easily create data input and output resources, calling endpoints,
-  or streaming data to real-time WebSockets, etc.
+  此節內容包含如何使用Thinger.io程式庫簡單的建立適用於裝置的韌體，其中包含輸入與輸出資源、調用端點或基於WebSockets的即時串流等等。
 ---
 
-# FIRMWARE CODING
+# 編寫韌體程式
 
-## Sketch Overview
+## 草圖概述
+一支經典的Arduino程式結構通常長得像這樣，它具有一個`setup()`方法與一個`loop()`方法。
 
-Almost all Arduino Sketches looks the same. There is a setup method, and there is a loop method. Nothing changes here while integrating with Thinger.io. However you must know where you should define your device resources, or where it is possible to interact with external services. In general terms, any device resource \(led, relay, sensor, servo, etc.\) must be defined inside the `setup()` method. As well as you initialize your devices, set the input/output direction of a digital pin, or initialize the Serial port speed, you also need to initialize here your resources. This basically consists on configuring what values or resources you want to expose over the Internet.
+``` cpp
+void setup() {
+}
 
-The `loop()` is the place to always call to the `thing.handle()` method, so the thinger libraries can handle the connection with the platform. This is the place also for calling your endpoints, or streaming real-time data to an open WebSocket. Please, take into account to **do not add any delay inside the `loop()`** except if you know what you are doing, like working with deep sleep modes or so in your device. Any other delay will condition the proper functioning of Thinger in your device. Also it can be bad to read a sensor value in every loop if the sensor takes too much time to complete a read. This will result in a device with a noticeable lag while attending to our commands.
+void loop() {
+}
+```
+
+`setup()`用於初始化裝置，`loop()`則為執行階段的迴圈。
+結合Thinger.io程式庫後，這些區段並不會有任何改變。
+但是你需要知道需在何處定義你的裝置資源，或是在哪裡與外部服務進行互動。
+一般而言，在`setup()`方法中，所有的裝置資源`(led、繼電器、控制接腳、伺服馬達、需要被執行的函數等`)都需要在此時被定義。
+而當您在初始化您的裝置、設定腳位的輸入/輸出狀態或初始化串列埠的速度的同時，你也需要初始化您的資源。基本上包含設定哪些資源或值需要在網路上被公開。
+
+並於loop()階段不斷的調用`thing.handle();`來回應伺服器的要求。因此thinger函式庫可以處理與平台的通訊。
+在此處，您可以調用端點或開啟WebSocket即時串流資訊。
+
+因此結構會變成如此範例所示：
 
 ```cpp
 // add required headers according to your device
@@ -38,43 +52,54 @@ void loop() {
 }
 ```
 
-You can easily start with some available example for your device after you install the client libraries.
+::: info
+請記得，不要在`loop()`中加入任何`dalay()`，除非您知道自己在做什麼，像是在您的裝置上使用深度睡眠模式等。
+:::
+這當中的任何延遲都將限制裝置的正常運作，如果傳感器讀取時間較長，那麼在每個循環中讀取傳感器值或許不是好方法，這將導致裝置接收來自控制台的命令時明顯延遲。
+
+安裝程式庫後，您就可以輕鬆地從一些預設範例開始工作。
 
 ![](.gitbook/assets/arduino-examples.png)
 
-> It is recommended to start with some of the examples available in the Arduino IDE when you install the libraries
+> 建議您從thinger.io程式庫提供的範例開始工作。
 
-## Setting Credentials
+## 設定驗證資訊
 
-All the devices connected to the platform needs to be authenticated against the server. When you create a [device in the console](https://link_to_console) you are basically creating a new device identifier and setting a device credential. Therefore, you need to setup this credentials also in your Arduino code so the device can be recognized and associated to your account. This is normally done while initializing the Thinger instance in the code. That is, when you define the `thing` instance. Replace here your `username`, `deviceId`, and `deviceCredential` with the values you have registered in the cloud.
+所有連接到雲端平台的裝置都需要經過身分認證，其中包含三個部分
+
+- `username`
+- `deviceId`
+- `deviceCredential`
+
+當您[在控制台中建立裝置](https://link_to_console)時，基本上是在建立一個新的`Device Id`並設定`Device Credential`。
+因此您需要在給裝置的Arduino程式中加入您所提供的同一組驗證資訊，以讓伺服端可以識別裝置並與帳戶進行關聯。此行為通常在`thing`物件被實體化時完成。
+
+因此，將範例中的`username`,`deviceId`和`deviceCredential`替換為您在雲端中註冊時的資訊吧：
 
 ```cpp
 ThingerWifi thing("username", "deviceId", "deviceCredential");
 ```
 
-## Adding Resources
+## 新增資源
 
-In the Thinger.io platform, each device can define several resources. You can think that a resource is anything you can sense or actuate. For example, a typical resource will be a sensor value like temperature or humidity, or a relay that turns on and off a light. This way, you should define the resources you need to expose over the Internet.
+在 Thinger.io 平台中，每個裝置都可以定義多個資源，資源是您可以感測或觸發的任何東西。
+例如溫度或濕度等傳感器值，或者打開和關閉燈的繼電器等。
+你應該定義所有需要在網路上揭露的資源，且由於資源在初始化階段即被提供，因此所有資源都需要在草稿碼的`setup()`方法中定義，初始化後則可根據需求對資源進行存取。
 
-All resources must be defined inside the `setup()` method of the Arduino sketch. This way the resources are configured at the beginning, but can be accessed later as necessary.
+資源的型別共有三種，將在以下各節中進行說明。
 
-There are three different types of resources, which are explained in the following sections.
+### 輸入資源
 
-### Input Resources
+如果您需要控制或啟動IoT裝置，則需要定義輸入資源。通過這種方式，輸入資源可以為您的裝置提供資訊。
+例如打開和關閉燈或繼電器，改變伺服馬達位置，調整裝置參數等的資源。
+要定義輸入資源，請使用`<<`指向資源名稱的運算子，它使用了 C++ 11 Lambda 函數來定義函數。
+範例為接受一個參數的輸入資源函數，`pson`是一種泛型，可以包含布林值、數字、浮點數、字符串，甚至是JSON文件中的結構化資訊。
+以下小節將說明如何為典型應用定義輸入資源。
 
-If you need to control or actuate your IoT device, it is necessary to define an input resource. In this way, an input resource is anything that can provide information to your device. For example, it can be a resource for turning on and off a light or a relay, change a servo position, adjust a device parameter, etc.
-
-To define an input resource it is used the operator `<<` pointing to the resource name, and it uses a C++11 Lambda function to define the function.
-
-The input resource function takes one parameter of type `pson` that is a variable type that can contain booleans, numbers, floats, strings, or even structured information like in a JSON document.
-
-The following subsections will show how to define different input resources for typical use cases.
-
-#### _**Turn on/off a led, a relay, etc**_
-
-This kind of resources only requires an on/off state so it can be enabled or disabled as required. As the `pson` type can hold multiple data types, we can think that the `pson` parameter of the input function is like a boolean.
-
-So, inside the `setup` function you can place a resource called `led` \(but you can use any other name\), of input type \(using the operator `<<`\), that takes a reference to a `pson` parameter. This example will turn on/off the digital pin 10 using a ternary operator over the `in` parameter.
+#### **打開/關閉LED、繼電器等**
+這種資源只需要一個開/關狀態，因此可以根據需要啟用或禁用它。由於`pson`型別包含多種型別，我們可以認為`pson`輸入函數的參數類似於布林值。
+因此，在`setup()`內，您可以放置​​一個名為`led`（您也可以使用任何其他名稱）的資源，使用`<<`作為運算子，然後使用`pson`作為輸入參數型別。
+該範例將使用`in`參數作為條件，以三元運算子來打開/關閉數位引腳10。
 
 ```cpp
 thing["led"] << [](pson& in){
@@ -82,9 +107,10 @@ thing["led"] << [](pson& in){
 };
 ```
 
-#### _**Modify a servo position**_
+#### **修改伺服馬達位置**
 
-Modifying a servo position is quite similar to turning on/off a led. In this case, however, it is necessary to use an integer value. As the `pson` type can hold multiple data types, we can still use the `pson` type as an integer value.
+修改伺服馬達位置非常類似於打開/關閉LED。但在這種情況下，參數必須使用整數。
+由於`pson`可以包含多種型別，我們仍然可以將`pson`型別作為整數使用。
 
 ```cpp
 thing["servo"] << [](pson& in){
@@ -92,20 +118,20 @@ thing["servo"] << [](pson& in){
 };
 ```
 
-#### _**Update sketch variables**_
+#### **更新草稿碼中的變數**
 
-You can use the input resources also for updating your sketch variables, so you can change your device behaviour dynamically. This is quite useful in some situations where you want to temporary disable an alarm, change the reporting intervals, update an hysteresis value, and so on. In this way, you can define additional resources to change your variables.
+您可以使用輸入資源更新變數，所以可以動態變更裝置行為。這在您臨時希望關閉警報，更改報告間隔，更新遲滯值\(hysteresis value\)等情況下，這非常有用。您可以通過定義額外的資源來更改變數。
 
 ```cpp
-float hysteresis = 0; // defined as a global variable
+float hysteresis = 0; // 定義一個全域變數
 thing["hysteresis"] << [](pson& in){
     hysteresis = in;
 };
 ```
 
-#### _**Pass multiple data**_
+#### **傳遞多個資料**
 
-The `pson` data type can hold not only different data types, but also is fully compatible with JSON documents. So you can use the Pson data type to receive multiple values at the same time. This example will receive two different floats that are stored with the `lat` and `lon` keys.
+`pson`型別可以同時容納不同的型別，與JSON文件也完全相容。因此，您可以使用`pson`型別同時接收多個值。此範例將接收使用`lat`和`lon`鍵(key)存儲的兩個不同的浮點數(float value)。
 
 ```cpp
 thing["location"] << [](pson& in){
@@ -114,13 +140,27 @@ thing["location"] << [](pson& in){
 };
 ```
 
-#### _**Show Input Resources State in Dashboards and API**_
+#### **在Dashboard與API中顯示輸入資源狀態**
 
-The Dashboards or API works in a way that when you open them, they query the associated resources to correctly print its current state, i.e., the switch is on or off. In this way, when the API or a Dashboard is open, each associated input resource is called, receiving empty data in the call, as there is no intention to control the resource \(the pson input will be empty\).
+::: tip 在儀錶板或API中顯示狀態
+前幾項的編寫模式不適合由API或Dashboard存取，因其並無法處理`查詢`操作。
+:::
 
-So, how the Dashboards or the API knows what is the current state of an input resource? The resource must set its current state in the input parameter, if it is empty, or use the input value if there is one. This way, we can obtain three different things: query the current resource state \(without modifying it\), modify the current resource state, and obtain the expected input on the resource \(this is how the API explorer on the device works\).
+儀表板與API的工作方式是：當您打開它們時，它們會查詢相關資源以同步顯示其目前狀態（即開關處於打開或關閉狀態）。
+也就是說，當API或儀表板打開時，它們會使用空數據(意即`pson`輸入為空)調用每個相關的輸入資源以同步資訊。
 
-Therefore, a correct input resource definition that actually allows to display the current state of the resource in a Dashboard or in the API, will be like this example code.
+那麼，Dashboards或API在同步階段如何知道輸入資源的目前狀態是什麼？
+
+1. 如果接收到的資源為空，則表示客戶端資源值不存在。須由控制端先給定一個初始值。
+2. 如果接收到的資源存在，則控制端使用客戶端資源值，同步完成。
+
+因此，我們得到操作流程：
+
+1. 查詢資源\(不進行修改\)
+2. 修改資源
+3. 查詢資源\(取得資源的預期輸入\)
+
+因此，實際上允許在儀表板或API中顯示資源的目前狀態的正確輸入資源定義將類似於此範例程式碼。
 
 ```cpp
 thing["resource"] << [](pson& in){
@@ -133,7 +173,7 @@ thing["resource"] << [](pson& in){
 }
 ```
 
-This sample code basically returns the current state \(like a boolean, a number, etc\) if there is no input control, or use the incoming data to update the current state. This can be easily adapted for controlling a led, while showing its current state in the dashboard once opened or updated.
+如果輸入值為空，以下範例程式基本上會回傳目前狀態（如布林值，數字等），否則使用傳入值更新目前狀態。這可以很容易地適用於控制LED，同時在儀表板打開或變更其狀態時顯示目前狀態。
 
 ```cpp
 thing["led"] << [](pson& in){
@@ -146,21 +186,17 @@ thing["led"] << [](pson& in){
 }
 ```
 
-Note: for controlling a digital pin just use the method explained in the Easier Resources Section.
+注意：要控制數位引腳，只需使用`更易用的資源定義`部分中說明的方法。
 
-### Output Resources
+### 輸出資源
+當您需要感知或讀取傳感器值（如溫度，濕度等）時，通常應使用輸出資源。因此，輸出資源對於從裝置中提取資訊非常有用。
+為了定義輸出資源，使用運算子`>>`指出資源名稱，它使用 C ++ 11 Lambda 函數來定義輸出函數。
+範例為接受一個參數的輸出資源函數，`pson`是一種泛型，可以包含布林值、數字、浮點數、字符串，甚至是JSON文件中的結構化資訊。
+以下小節將說明如何為典型應用定義輸出資源。
 
-Output resources should be used in general when you need to sense or read a sensor value, like temperature, humidity, etc. So the output resources are quite useful for extracting information from the device.
+#### **讀取傳感器值**
 
-To define an output resource it is used the operator `>>` pointing out of the resource name, and it uses a C++11 Lambda function to define the output function.
-
-The output resource function takes one parameter of `pson` type that is a variable type that can contain booleans, numbers, floats, strings, or even structured information like in a JSON document.
-
-The following subsections will show how to define different output resources for typical use cases.
-
-#### _**Read a sensor value**_
-
-Defining an output resource is quite similar to defining an input resource, but in this case it is used the operator `>>`. In the callback function we can fill the out value with any value we want, like in this case the output from a sensor reading.
+定義輸出資源與定義輸入資源非常相似，不同的是它使用運算子`>>`。在回調函數中，可以用任何我們想要的值替換輸出值(out value)，比如像這樣輸出傳感器值。
 
 ```cpp
 thing["temperature"] >> [](pson& out){
@@ -168,9 +204,9 @@ thing["temperature"] >> [](pson& out){
 };
 ```
 
-#### _**Read multiple data**_
+#### **讀取多個數據**
 
-In the same way the input resources can receive multiple values at the same time, the output resources can also provide multiple data. This is an example for providing both latitude and longitude from a GPS.
+輸入資源可以同時接收多個數據，輸出資源也可以相同的方式提供多個數據。這是從GPS提供緯度和經度的範例。
 
 ```cpp
 thing["location"] >> [](pson& out){
@@ -179,22 +215,22 @@ thing["location"] >> [](pson& out){
 };
 ```
 
-#### _**Read sketch variables**_
+#### **讀取草稿碼中的變數**
 
-If your sketch cannot provide a single sensor reading, as it is doing some kind of data integration, an output resource can be used also for reading your sketch variables, where the computed result is updated frequently.
+如果您的草稿碼無法提供單個傳感器讀數，因為它正在進行某種數據收集，則輸出資源也可用於讀取計算結果會經常更新的變數。
 
 ```cpp
-float yaw = 0; // defined as a global variable
+float yaw = 0; // 定義一個全域變數
 thing["yaw"] >> [](pson& out){
       out = yaw;
 };
 ```
 
-### Input/Output Resources
+### 輸入/輸出資源
 
-The last resource type is a resource that not only takes an input or an output, but takes both parameters. This is quite useful when you want to read an output that depends on a input, i.e., when you need to provide a changing reference value to a sensor.
-
-This kind of resources are defined with the operator `=`. In this case the function takes two different `pson` parameters. One for input data and another one for output data. This example provides an altitude reading using the BMP180 Sensor. It takes the reference altitude as input, and provides the current altitude as output.
+最後一種資源類型是不僅僅只能接受輸入或輸出的資源，此種資源可以接受輸入或輸出。當您想要讀取依賴於輸入的輸出時，即當您需要向傳感器提供變化的參考值時，這非常有用。
+這種資源通常由`=`運算子定義。這種資源採用兩個不同的`pson`參數。一個用於輸入數據，另一個用於輸出數據。
+此範例使用BMP180傳感器提供高度讀數。它將參考高度作為輸入，並提供目前高度作為輸出。
 
 ```cpp
 thing["altitude"] = [](pson& in, pson& out){
@@ -202,7 +238,7 @@ thing["altitude"] = [](pson& in, pson& out){
 };
 ```
 
-You can also define more complex input/output resources, that takes several input values, to provide also multiple output values, like in this example that takes `value1` and `value2` to provide the `sum` and `mult` values.
+您還可以定義更複雜（具有多個輸入值）的輸入/輸出資源，以提供多個輸出值，例如此範例中包含`value1`和`value2`提供`sum`和`mult`值。
 
 ```cpp
 thing["in_out"] = [](pson& in, pson& out){
@@ -211,11 +247,10 @@ thing["in_out"] = [](pson& in, pson& out){
 };
 ```
 
-### Resources without parameters
+### 沒有參數的資源
 
-It is also possible to define resources that does not require any input nor generates any output. They are just like callbacks that can be executed as you want, for example to reboot the device, or do some required action.
-
-In this case, the resource is defined as a function without any input or output parameters.
+您也可以定義不需要任何輸入也不會產生任何輸出的資源。它們就像可以根據請求執行的回調，例如重啟裝置或執行一些特定操作。
+在這種情況下，資源將沒有任何輸入或輸出參數。
 
 ```cpp
 thing["resource"] = [](){
@@ -223,50 +258,52 @@ thing["resource"] = [](){
 };
 ```
 
-## Easier Resources
+## 更易用的資源
 
-The client library also includes some useful syntactic sugar definitions for declaring resources more easily without having to think in input or or output resources. This syntactic sugar features are macros that are expanded automatically to define the resources in the standard way.
+客戶端程式庫中還包含用於更輕鬆聲明資源的語法定義，其無需考慮該資源屬於輸入或輸出。這種語法特性基於自動擴展定義成標準資源的腳本。
 
-The advantage of using this kind of definitions is that your resources will be able to handle state when you query them from the API. For example, if you have a digital pin enabled or disabled, you will be able to see its current state both in the API explorer or in a dashboard.
+使用這種定義的優點是，當您從API查詢時，您的資源將能夠處理狀態查詢。例如，如果啟用或禁用了數位引腳，則可以在API資源管理器或儀表板中檢視其目前狀態。
 
-### Control a digital pin
+### 控制數位引腳
 
-This kind of resources will allow defining a resource for declaring a control over a digital pin, so you can alternate over on/off states, that can be used for controlling a led, a relay, a light, etc.
+這種資源定義用於數位引腳控制的資源，因此您可以在開啟/關閉狀態間切換，這可以用於控制LED、繼電器、電燈等。
 
-It is required to define the digital pin as OUTPUT in your setup code, or the resource will not work properly.
+同時需要在`setup()`中將數位引腳定義為`OUTPUT`，否則資源將無法正常工作。
 
 ```cpp
 thing["relay"] << digitalPin(PIN_NUMBER);
 thing["relay"] << invertedDigitalPin(PIN_NUMBER);
 ```
 
-### Define Output Resources
+### 定義輸出資源
 
-This kind of resources will allow defining a resource for declaring a read-only resource, like a value obtained from a sensor, or a given variable in our sketch.
-
-In this example we are defining a resource that exposes a sensor reading, like the DHT11 sensor temperature.
+這種資源定義唯讀資源，例如從傳感器獲取的值，或者草稿碼中給定的變數。
+在這個例子中，我們定義了一個用於披露傳感器讀數的資源，比如DHT11傳感器溫度。
 
 ```cpp
 thing["temperature"] >> outputValue(dht.readTemperature());
 ```
 
-But it is also possible to define a output resource for any global variable in our sketch.
+我們也可以在程式中為任何全域變數定義輸出資源。
 
 ```cpp
 thing["variable"] >> outputValue(myVar);
 ```
 
-### Modify Sketch Variables
+### 修改草稿碼中的變數
 
-Our sketch usually defines some parameters or variables that are used inside the loop code. This kind of resources are normally used to handle or control the execution behaviour. With this kind of resources we can modify any parameter we want to expose, like a float, an integer, a boolean, etc.
+我們的草稿碼常常定義了一些在`loop()`中使用的參數或變數，如要修改這種變數可以定義這種資源。
+使用這種資源，我們可以修改我們想要披露的任何參數，比如浮點數，整數，布林值等。
+這種資源通常用於處理或控制行為。
 
-In this example it is possible to remotely modify the boolean `sdLogging` variable defined as a global variable.
+在此範例中，我們可以遠端修改被定義為全域變數的布林變數 `sdLogging`
 
 ```cpp
 thing["logging"] << inputValue(sdLogging);
 ```
 
-It is also possible to define a callback function to know when the variable has changed, so we can perform any other action. For this use case, define the resource as the following to have some code executed when the `hysteresisVar` changes.
+我們可以定義一個回調函數來知道變數何時發生了變化，因此可以透過回調函數執行其他操作。
+對於此範例，資源定義的回調函數包含了其他內容，回調函數將在`hysteresisVar`被更改時執行已定義的內容。
 
 ```cpp
 thing["hysteresis"] << inputValue(hysteresisVar, {
@@ -276,26 +313,35 @@ thing["hysteresis"] << inputValue(hysteresisVar, {
 });
 ```
 
-### Servo control
+### 控制伺服馬達
 
-It is also possible to define a resource for controlling a servo instance. This way, the defined resource will automatically handle your servo instance, reading its current position, or changing to a new one according to the API interactions.
+您也可以定義用於控制伺服馬達的資源，定義的資源將根據API互動自動處理伺服馬達的讀取或更新位置事件。
 
-For defining a servo resource just define and initialize your servo as usual, and then use the declared instance in the resource definition.
+要定義伺服資源，只需像往常一樣定義和初始化伺服馬達，然後使用以下聲明作為資源定義中的實例。
 
 ```cpp
 thing["servo"] << servo(myServoInstance);
 ```
 
-## Communication between devices
+```cpp
+thing["servo"] << servo(myServoInstance);
+```
 
-In Thinger.io, it is possible that devices can communicate between them. There are two possibilities here. One is the communication between devices from the same account, and the other is the communication between devices from different accounts. Here we describe the two different approaches:
+## 裝置間的通訊
 
-### Same account communication
+在Thinger.io中，裝置可以在彼此之間進行通訊。
 
-For this use case, in which both devices belongs to the same user account, there is an specific method that allows devices to communicate with other devices with low latency and simple codification. this communication can contain data or not \(it is possible to make an empty call\). lets Suppose that we have two devices: `deviceA` and `deviceB`, and we want to communicate both calling from `deviceB`to an specific `deviceA` input resource. We can use "thing.call\_device\(,\);" as shown in the example below:
+這裡有兩種狀況，一個是來自相同帳戶的裝置之間的通訊，另一個是來自不同帳戶的裝置之間的通訊。
 
-The `deviceA` defines a resource like in the following example.
+以下是我們對於兩種不同的方法的說明：
 
+### 同帳戶的裝置通訊
+
+對於此範例，裝置可以使用特定方法在相同帳戶下與其他裝置進行低延遲的簡單編碼通訊。且這個通訊中數據傳遞是可選的，意味著你也可以進行空調用。
+
+假設我們有兩個裝置：`deviceA`和`deviceB`。並且希望由`deviceB`建立兩者間的通訊可以傳遞到`deviceA`的特定輸入資源，我們可以如下方範例一樣使用`thing.call_device(,);`。
+
+在`deviceA`定義如下面的例子一樣的資源。
 ```cpp
 setup(){
     thing[“resource_On_A”] = [](){
@@ -304,34 +350,34 @@ setup(){
 }
 ```
 
-`deviceB` can easily call this resource and send data to it by running the following command.
+而 `deviceB` 可以通過執行以下指令輕鬆調用此方法。
 
 ```cpp
 loop(){
     thing.handle();
-    // be sure to call it at an appropiate rate
+    // 請務必以適當的頻率調用
     thing.call_device("deviceA", "resource_On_A");
 }
 ```
 
-On the other hand, if we want to send the message with a `pson` payload in order to share data between devices. In this case, the `deviceA` will need to define a resource with some expected input
+另一方面，如果我們希望在裝置之間共享帶有`pson payload`的訊息，則`deviceA`可以通過定義資源時加入一些預期的輸入。
 
 ```cpp
 setup(){
     thing[“resourceOnA”] << [](pson& in){
         int val1 = in["anyValue1"];
         float val2 = in["anyValue2"];
-        // Work with the updated parameters here
+        // 在此處即可使用更新完成的參數
     };
 }
 ```
 
-Then `deviceB` can call this method providing the appropriated input by defining a `pson` type that is filled with the same keys used on `resourceOnA`, as shown in the code below:
+`deviceB`也可以定義一個`pson`型別變數並填充相同`key`，再透過調用方法來提供`resourceOnA`適當的輸入。如同以下程式：
 
 ```cpp
 loop(){
     thing.handle();
-    // be sure to call it at an appropiate rate
+    // 請務必以適當的頻率調用
     pson data;
     data["anyValue1"] = 3;
     data["anyValue2"] = 43.1;
@@ -339,7 +385,7 @@ loop(){
 }
 ```
 
-`deviceB` can also call this method by providing the information from an defined resource that generates the information, in this case, the call is similar as the previous example, but using the resource as the data source.
+`deviceB`調用此方法時可以透過提供已定義資源產生輸入資訊。在此範例，調用方式與前面的範例類似，但使用資源作為數據源。
 
 ```cpp
 setup(){
@@ -351,53 +397,59 @@ setup(){
 
 loop(){
     thing.handle();
-    // be sure to call it at an appropiate rate
+    // 請務必以適當的頻率調用
     thing.call_device("deviceA", "resourceOnA", thing["resourceName"]);
 }
 ```
 
-### Communication between different accounts
+### 裝置位於不同帳戶
 
-If we want to communicate devices from different accounts, we can do that through calling an endpoint of type `Thinger.io Device Call`. Just register an endpoint of this type in the console, like in the following example.
+如果我們想要在不同帳戶的裝置間進行通訊，我們可以通過調用`Thinger.io Device Call`類型的端點來實現。只需在控制台中註冊此類型的端點，如下圖所示。
 
 ![](.gitbook/assets/device_call.png)
 
-In this case it is required to define different parameters in the endpoint:
+在這種情況下，需要在端點中定義幾個參數：
 
-* Endpoint Identifier: The endpoint id that the device will use for calling the device.
-* Device Owner: The device owner username.
-* Device Identifier: The device id of the other account.
-* Resource Name: The resource on the device to be called.
-* Device Access Token: A device token generated in the other account for granting external access to the device.
+* Endpoint Identifier: 給予裝置調用的端點ID。
+* Device Owner: 裝置擁有者
+* Device Identifier: 裝置在其所在帳戶下的ID
+* Resource Name: 該裝置上要被調用的資源名稱
+* Device Access Token: 在裝置所在帳戶下產生的裝置令牌，用於授予裝置的外部存取權。
 
-Once defined, the device will be able to call the endpoint, as explained in the following section. It basically consists on calling the `call_endpoint`method.
+定義後，裝置將如調用端點一樣，可以使用`call_endpoint`方法進行調用。
 
 ```cpp
 thing.call_endpoint("DeviceACall");
 ```
 
-## Using Endpoints
+## 使用端點
 
-In Thinger.io, an endpoint is defined as some kind of external resource that can be accessed by the device. With the endpoints feature, devices can easily send emails, SMS, push data to external Web Services, interact with IFTTT, and any general action that can be made by using WebHooks \(Calling HTTP/HTTPS URLs\).
+在Thinger.io中，端點被定義為可由裝置存取的某種外部資源。借助端點功能，裝置可以輕鬆地發送電子郵件、SMS、向外部Web服務推送數據、與IFTTT互動以及使用WebHooks（調用HTTP / HTTPS URL）可以執行的任何操作。
 
-Calling an endpoint is so easy from the Arduino sketch, as it is only required to call the `call_endpoint` method over the `thing` variable.
+從Arduino草稿碼上調用端點非常簡單，因為只需要在`thing`變數上調用`call_endpoint`方法。
 
 ```cpp
 thing.call_endpoint("endpoint_id");
 ```
 
-You can simply call an endpoint to make some action like sending a predefined email, or also call the endpoint with some data, which is specially useful when you are using third party services that consume your devices data.
+您可以很簡單地使用端點來進行如發送預定義的電子郵件，或者在調用端點時傳遞某些數據等操作，這在您使用需要裝置數據的第三方服務時特別有用。
 
-**You should take extra attention while calling resources, and call them at an appropriate rate. Otherwise you can consume easily your available data, receive hundred of emails, or consume your API calls in third-party services.**
+::: warning
+**在調用資源時應特別注意，並以適當的速率調用它們。否則，您將很容易消耗大量傳輸流量、寄出數百封電子郵件或在第三方服務中大量消耗API​​調用次數。**
+:::
 
-### Calling Endpoints
+### 調用端點
 
-In this case we will see a simple example to send an email alert based on a temperature value. For this example, we have configured an email endpoint called `high_temp_email` that contains some warning text about the temperature. For this case we do not want to check the temperature every millisecond, so we are introducing some variables to control the sensing and warning frequency. In this example, the temperature is checked every hour, and if it is above 30ºC, it will call the endpoint called `high_temp_email` which will send us an email with the predefined text. It is important here to **do not add delays** inside the loop method, as it will prevent the required execution of the `thing.handle()` method, so we are using here a non-blocking delay based on the `millis()` function.
+這個簡單的範例將向您示範如何根據溫度來傳送高溫警報的email，對於範例我們已經先配置了一個名為`high_temp_email`的電子郵件端點，其中包含有關溫度的警告文本。
+
+在此範例，我們不會希望每毫秒檢查溫度，因此引入一些參數來控制感測與發送警告的頻率。此範例中將每小時檢查一次溫度，如果溫度高於30ºC，它將調用`high_temp_email`端點，該端點將向我們發送包含預定義文本的電子郵件。
+
+請不要在`loop()`方法中加入延遲，因為它會阻止`thing.handle()`方法執行，因此基於`millis()`函數的非阻塞延遲是個好方法。
 
 ```cpp
 unsigned long lastCheck = 0;
 loop(){
-    thing.handle(); // required thing handle
+    thing.handle(); // thing handle是必須的
     unsigned long currentTs = millis();
     if(currentTs-lastCheck>=60*60*1000){
         lastCheck = currentTs;
@@ -408,25 +460,25 @@ loop(){
 }
 ```
 
-You can be so creative here and call your endpoints when the presence sensor makes a detection, when your humidity sensor reports that there is no water in your plants, when the location of a device is not as expected, and many other stuff. Other interesting way of using endpoints is by its integration with IFTTT, so you can interact with multiple third-party services!
+您可以在此處發揮創造力，建立在感測器感測時可調用的端點，例如：您的濕度傳感器報告您的植物中沒有水、裝置的位置不符合預期以及其他許多狀況時可以進行的調用。 使用端點的另一種有趣方式是將其與IFTTT集成，因此您可以與多個第三方服務進行互動！
 
-### Sending Data to Endpoints
+### 向端點推送數據
 
-Sending data to an endpoint \(in JSON format\) is also quite easy. We need to call also the `call_endpoint` method, but in this case adding some information based on the `pson` data format, which will be automatically converted to JSON. For example, if we want to report data to a third party service like Keen.io, we can create such kind of endpoints in the console. Once configured, we can call the endpoint with our readings, for example with humidity and temperature values from a DHT sensor.
+將數據採用JSON格式推送到端點也非常簡單。我們需要根據`pson`的格式加入一些資訊，然後調用`call_endpoint`方法，這些資訊將自動轉換為JSON。 例如，如果我們想要將數據報告給像 Keen.io 這樣的第三方服務，我們可以在控制台中建立這種端點。 設定完成後，我們可以在調用端點時傳遞數值，例如DHT傳感器的濕度和溫度。
 
 ```cpp
-// be careful of sending data at an appropriate rate!
+// 小心傳送資料的頻率
 pson data;
 data["temperature"] = dht.readTemperature();
 data["humidity"] = dht.readHumidity();
 thing.call_endpoint("keen_endpoint", data);
 ```
 
-You can also send data based on a defined resource, i.e., suppose you have a resource that already serves the temperature and humidity. It is possible to reuse this definition for sending this same data to the endpoint, without having to redefine the sensor reading, like in the following example.
+您還可以根據已定義的資源發送數據，即假設您有一個已經提供溫度和濕度的資源。可以重複使用此定義將相同的數據發送到端點，而無需重新定義傳感器讀數，如下例所示。
 
 ```cpp
 setup(){
-    // defined resource in the setup for reading a sensor value
+    // 在setup中定義用於讀取感測器數值的資源
     thing["data"] >> (pson& out){
         out["temperature"] = dht.readTemperature();
         out["humidity"] = dht.readHumidity();
@@ -434,14 +486,14 @@ setup(){
 }
 
 loop(){
-    // be careful of sending data at an appropriate rate!
+    // 小心傳送資料的頻率
     thing.call_endpoint("endpoint", thing["data"]);
 }
 ```
 
-### Email Type Endpoint Example
+### 電子郵件類型的端點範例
 
-This is a simple example, applied to email type endpoint, with custom body
+這是一個簡單的範例，應用於具有自定義內文的電子郵件類型端點：
 
 ```cpp
 setup()
@@ -458,88 +510,92 @@ loop()
 }
 ```
 
-Notice that there are a variable that limitates the run of this "if" just once, its important to define any condition or method to warrantee that this kind of enpoint call is executed just once \(or at appropiate rate\), because it can get a lot of emails generated by the microcontroller across thinger.io platform.
-
-At endpoint configuration, in the custom body email, must add double brackets "" to invoke the variable sent by the microcontroller, in our example, we used the following body
+請注意，有一個變數限制此"if"只會執行一次，定義任何條件或方法以保證這種enpoint調用只執行一次（或以適當的頻率）是非常重要的，因為它可以造成一個微控制器通過thinger.io平台產生大量電子郵件的情況。
+在端點配置中，在自定義內文電子郵件中，必須使用雙括號"{{}}"來調用微控制器發送的變數，在我們的範例中，我們使用了以下內文：
 
 `"The actual level is %"`
 
-And receiving an email with the text:
+並得到一封帶有文字的電子郵件：
 
 `The actual level is 80.34%`
 
-## Using Data Buckets
+## 使用資料儲存桶
 
-Thinger.io provides an easy to use and extremely scalable virtual storage system, that allows to store long term device data from device output resources. This information can be used to be plotted in dashboards, or can be exported in different formats for offline processing or third party Data Analysis process.
+Thinger.io提供一個易用且富有擴充性的虛擬儲存系統，該系統允許存儲來自裝置輸出資源的長期數據。這些資訊可於儀表板中將其可視化，也可以使用不同格式匯出數據進行其它處理或第三方資料分析。
 
-### From Device Resource
+### 自裝置讀取資源(From Device Resource)
 
-It is not necessary to implement specific codification in your device firmware to start storing data in a data bucket, because they will retrieve information from your output resources, just configure your Data Bucket to set the source and sampling interval as it is explained in our Console documentation at: [http://docs.thinger.io/console/\#data-buckets](http://docs.thinger.io/console/#data-buckets)
+此方式無須編寫特定方法即可使用，因為他們將透過雲端平台自動蒐集資料，僅須建立數據統並設定採樣間隔即可，如控制台文檔所述[http://docs.thinger.io/console/\#data-buckets](http://docs.thinger.io/console/#data-buckets)。
 
-### Streaming Resource Data
+### 串流寫入(Streaming Resource Data)
 
-It is also possible to let he device stream the information when required, i.e., by raising an event when detected. In this case, we can use the "Update by Device" option while configuring the bucket, and we will use the streaming resource instruction as described here:
+此方式可讓裝置在觸發特定條件時串流資訊。我們可以在資料儲存區設定時使用**"Update from device"**選項，並且使用串流資源傳送資料，如下所述：
 
-Using a previous defined Output Resource, that was called for example \["location"\], it could be done like in the following code snippet.
+此例使用事先定義的輸出資源，我們稱它為 \["location"\] ，它看起來像下面這樣：
 
 ```cpp
  void loop() {
   thing.handle();
-  // use your own logic here to determine when to stream/record the resource.
+  // 在這裡使用您自己的邏輯來確定何時進行串流/記錄資源。
   if(requires_recording){
       thing.stream("location");
   }
 }
 ```
 
-### From Write Call
 
-This option will allow setting the bucket in a state that it will not register any information by default, but it will just wait for writing calls, both from the Arduino library using the write\_bucket method, as shown here, or calling the REST API directly like done with Sigfox. This feature opens the option to register information in the same bucket from different devices, or store information from devices that are not connected permanently with the server, that are in sleep mode, or use a different technology like Sigfox.
+### 調用寫入(From Write Call)
 
-Here is an example of an ESP8266 device writing information to a bucket using the write\_bucket function:
+此選項將允許設定資料儲存桶為不讀取任何資訊而是等待調用寫入命令的狀態，Arduino可以使用`write_bucket`方法(如此例)，而 Sigfox 也可以直接調用 REST API 來完成。此功能可以將來自不同裝置的資訊寫入至同一個儲存區中，或是儲存來自與伺服器未建立永久連接、處於睡眠狀態或諸如 Sigfox 之類的裝置所提供的資訊。
+
+以下是ESP8266裝置使用`write_bucket`函數將資訊寫入的範例：
 
 ```cpp
 void setup() {
-  // define the resource with temperature and humidity
+  // 定義包含開關狀態的資源
   thing["door_status"] >> [](pson &out){ 
     out["OPEN"] = (bool)digitalRead(SENSOR_PIN);
   };
 }
 
 void loop() { 
-  // handle connection
+  // 處理連接
   thing.handle();
 
   if(digitalRead(SENSOR_PIN)!=previous_status){
-    // write to bucket BucketId when the door changes its status
+    // 當門更改狀態時寫入存儲桶BucketId中
     thing.write_bucket("BucketId", "door_status");
   }
   previous_status=digitalRead(SENSOR_PIN);
 }
 ```
 
-Note that this instruction will retrieve the \["door\_status"\] resource PSON, so it is also possible to call this function by attaching a custom PSON, as shown down below:
+請注意：此指令將搜尋PSON中的\["door\_status"\]資源，因此也可以附加自定義PSON來調用此函數，如下所示：
 
 ```cpp
 void loop(){
-  // handle connection
+  // 處理連接
   thing.handle();
 
   if(digitalRead(SENSOR_PIN)!=previous_status){
-    // write to bucket BucketId when the door changes its status
+    // 當門更改狀態時寫入存儲桶BucketId中
     thing.write_bucket("BucketId", "door_status");
   }
   previous_status=digitalRead(SENSOR_PIN);
 }
 ```
 
-## Streaming Resources
+## 串流資源
 
-In Thinger.io you can open WebSockets connections against your devices, so you can receive sensor values, events, or any other information in real-time. The WebSockets are mainly used in the Dashboard feature of the Console, and are normally used for streaming resources at a fixed configurable interval. This functionality is available right out of the box when you define an output resource. However, if you want to transmit the information right when it is required, like when your device detects a movement, presence, etc., you must program some code, that is quite similar to calling an endpoint.
+在Thinger.io中，您可以建立針對裝置的WebSockets連接，這樣您就可以即時接收傳感器值、事件或其他資訊。WebSockets主要用於控制台的儀表板功能，通常用於以可設定時間間隔傳輸資訊的資源。
+定義輸出資源時，此功能可立即使用。
+但是，如果您希望只在需要時才傳輸信息，例如當您的裝置檢測到移動、節能感測器偵測到目標等，您必須編寫一些程式，這與調用端點非常相似。
 
-In this case, you must detect when you want to stream the event, like the accelerometer value is over some threshold, your presence sensor is making a detection, or the compass heading is changing. This is up to you when it is necessary to stream new data. Streaming resources also requires that another endpoint is connected listening for them \(i.e., from a WebSocket connection\), so if there is no one listening for this data, the data is not sent. This is handled automatically by the client library and the server, therefore it is safe to stream data always, as the device will transmit the information only when there is a destination.
+在這種情況下，你必須偵測並判斷何時才進行串流，例如加速計值超過某個閾值、您的節能感測器偵測到目標或者羅盤方向正在發生變化等。
 
-The following example will report the compass heading in real-time if the heading value changes more than 1 degree.
+串流資源還需要一個端點供其連接並監聽它們（即WebSocket的連接對象），因此如果沒有人監聽此數據，則不會發送數據。這由客戶端程式庫和伺服器自動處理，串流傳輸數據始終是安全的，因為裝置僅在有目的地時才傳輸信息。
+
+以下範例將在航向值變化超過1度時即時回報羅盤航向：
 
 ![](.gitbook/assets/esp8266-real-time-websockets.gif)
 
@@ -561,52 +617,47 @@ void loop() {
 }
 ```
 
-## Enabling Debug Output
+## 開啟偵錯輸出
 
-Thinger.io library provides extensive logging of its activities, which is especially useful when one needs to troubleshoot authentication and Wi-Fi connectivity issues. Include the following definition in your sketch, but _make sure it comes first, before any other includes_ \(it was reported to cause crashes on some boards otherwise\).
+Thinger.io程式庫提供了對其活動的廣泛記錄，這在需要解決身份驗證和Wi-Fi連接問題時尤其有用。
+在草稿碼最前端（所有`#include`出現之前）定義以下內容。
 
-```text
+在某些開發板上似乎會造成崩潰，尤其是對於程式儲存區使用接近上限的開發板。
+
+```cpp
 #define _DEBUG_
 
 // the rest of your sketch goes here
 ```
 
-It is also necessary to enable `Serial` communication, as all the debugging information is displayed over Serial. So enable it in your sketch in the setup method.
+由於所有除錯訊息都通過`Serial`顯示，因此還需要啟用`Serial`。請在`setup()`中啟用它。
 
-```text
+```cpp
 void setup() {
   Serial.begin(115200);
 }
 ```
 
-## ESP8266 Deep Sleep and SmartConfig
+## ESP8266 深度睡眠與 SmartConfig
 
-`SmartConfig` allows one to configure board's WiFi credentials via an external device on the same network \(e.g. smartphone or another wifi client\). This means no sensitive information goes into a sketch nor in a config file on a device.
+`SmartConfig`允許使用者通過同一網路（例如智慧型手機或其他wifi客戶端）上的外部裝置設定主板的WiFi憑證。這意味著沒有敏感訊息寫入韌體或裝置上的設定文件。
 
-`Deep Sleep` is a special mode of ESP8266 which allows it to shut down most of the circuits and wake up after some configurable time. For deep sleep \(and wake up\) to work properly, one has to connect `GPIO16` \(usually a `D0` on dev boards\) and `RST` pins.
+`Deep Sleep`是ESP8266的一種特殊模式，它允許它關閉大部分電路並在一些可配置的時間後喚醒。 要使深度睡眠（和喚醒）正常工作，必須連接`GPIO16`（通常是開發板的`D0`）和`RST`引腳。
 
-However, some boards chose to wire a built-in LED to the same `D0` pin, and will go into a crash loop when using `ThingerSmartConfig` class, which uses the LED as a debugging aid at runtime. The solution is to use an overloaded constructor and disable its use of the LED.
+但是，有些電路板選擇將內建LED連接到`D0`引腳，由於該類別在執行時使用LED作為除錯輔助工具，因此使用`ThingerSmartConfig`類別時將進入崩潰循環。
 
-```text
+解決方案是使用重構函數並禁止其使用LED。
+
+```
 ThingerSmartConfig thing(USERNAME,
                          DEVICE_ID,
                          DEVICE_CREDENTIAL,
-                         false); // required for deep sleep
+                         false); // 當使用深度睡眠時是必須的
 ```
 
-## Connection Troubleshooting Guideline
+## 連接故障排除指南
 
-There are few situations that can produce the malfunction of the software client, hampering the connection with the IoT platform or making it unstable. But Thinger.io software client has been provided of some tools to detect and avoid these kind of problems. 
+在極少數的情況下，可能會導致軟體客戶端故障，妨礙與IoT平台的連接或使其變得不穩定。但是Thinger.io客戶端已經提供了一些工具來檢測和避免此類問題。
+如果最近編寫程式的裝置在Thinger.io伺服器上顯示為 "online" 甚至被鎖定，`_DEBUG_` 指令可以幫助您識別問題。 參照[DEBUG](./#開啟偵錯輸出)。
 
-If a recently programmed device is showing problems to be "online" on Thinger.io Server or even is being locked, the "\_DEBUG\_" command can help identify the problem. This command must be included at the top of the program, along with the required instructions for printing in the system console or serial port, for example, in Arduino framework: 
-
-```text
-
-```
-
-When this command is included, the program will print all the communication traze, allowing to identify any mistake that can be the cause of the problem. 
-
-next list shows the main problems and fix for each one
-
-
-
+下一個列表顯示了主要問題並提供針對每個問題的解決方案
