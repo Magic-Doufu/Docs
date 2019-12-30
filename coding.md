@@ -644,7 +644,7 @@ void setup() {
 
 解決方案是使用重構函數並禁止其使用LED。
 
-```
+```cpp
 ThingerSmartConfig thing(USERNAME,
                          DEVICE_ID,
                          DEVICE_CREDENTIAL,
@@ -654,6 +654,6 @@ ThingerSmartConfig thing(USERNAME,
 ## 連接故障排除指南
 
 在極少數的情況下，可能會導致軟體客戶端故障，妨礙與IoT平台的連接或使其變得不穩定。但是Thinger.io客戶端已經提供了一些工具來檢測和避免此類問題。
-如果最近編寫程式的裝置在Thinger.io伺服器上顯示為 "online" 甚至被鎖定，`_DEBUG_` 指令可以幫助您識別問題。 參照[DEBUG](./#開啟偵錯輸出)。
+如果最近編寫程式的裝置在Thinger.io伺服器上顯示為 "online" 甚至被鎖定，`_DEBUG_` 指令可以幫助您識別問題。 參照DEBUG。
 
 下一個列表顯示了主要問題並提供針對每個問題的解決方案
