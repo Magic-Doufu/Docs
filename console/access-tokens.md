@@ -1,92 +1,90 @@
-# ACCESS TOKENS
+# 存取令牌
 
-All Thinger.io Platform features can be accessed using REST API Calls in order to integrate our service as back-end server for any project. In fact, the console is just an Angular REST client interacting with the API to manage devices, buckets, endpoints, dashboards, and so on. Every REST API request must be authenticated in order to take effect, so, any client needs to provide an authorization code in every call. This way, access tokens is the way to provide authorization to third party services or applications to make API Requests, without having to share the username and password. Moreover, with access tokens it is possible to grant access to specific resources and actions of your account, like read a specific device, or write to a custom bucket \(like in [this example](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-an-access-token)\).
+可以通過REST API存取所有Thinger.io平台功能，以便將我們的服務作為結合其他項目的後端伺服器。實際上，控制台只是一個與API互動以管理裝置，數據儲存桶，端點，儀表板等的Angular REST客戶端。每個REST API請求必須經過身份驗證才能生效，因此，任何客戶端都需要在每次調用時提供授權。存取令牌是向第三方服務或應用程式提供授權以進行API請求的方式，而無需與其共享使用者名和密碼。此外，通過存取令牌，可以授予對帳戶的特定資源和操作的存取權限，例如讀取特定裝置或寫入自定義數據儲存桶（如[本範例](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-an-access-token)中所示）。
 
 {% hint style="info" %}
-**Note:** Using an access token via API is covered in more detail [here](http://docs.thinger.io/api/#authentication-api-rest-api-authentication).
+**筆記：**[此處](http://docs.thinger.io/api/#authentication-api-rest-api-authentication)更詳細地介紹了如何通過API使用存取令牌。
 {% endhint %}
 
-All Tokens can be easily managed by going to the "Access Tokens" section of the main menu
+點擊選單中的`Access Tokens`部分，即可輕鬆管理所有令牌。
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LpXslUdklMPEtHLTfE2%2F-LpXt-pMGye554_v86_v%2FAccessTokenTab.png?generation=1569322229570086&alt=media)
 
-## Create Token Profile
+## 建立令牌設定檔(Access Token Profile)
 
-Clicking the green `Add Token` button will open the "Token details context", that allows to create a new token profile and manage the associated permissions, as shown in the image below:
+點擊綠色`Add Token`按鈕將打開新界面以輸入端點詳細資訊，如以下畫面截圖所示：
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LpXslUdklMPEtHLTfE2%2F-LpXt-pOmRZWS6ZpoAnd%2FAddToken.png?generation=1569322228674061&alt=media)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
-* **Token ID**: Unique Token ID within the user account.
-* **Token Name**: Token name to easily recognize the token scope.
-* **Enabled**: Controls whether the token is enabled or disabled.
-* **Token Permissions**: In this section it is possible to define the scope, or the level access of the token. Depending on the given permissions, the token will have access to different parts of your account. Adding a new permission will normally require selecting the permission type \(access a device, bucket, dashboard, etc.\), the level access \(some specific resource or all of their type\), and the allowed actions \(all or some of them\). This configuration is handled by the "Add Token Permission" interface: 
-
-
+* **Token ID**: 使用者帳戶中的唯一令牌ID。
+* **Token Name**: 令牌名稱，以便輕鬆識別令牌用途與範圍。
+* **Enabled**: 控制是啟用還是禁用令牌。
+* **Token Permissions**: 在本處可以定義令牌的存取範圍或權限級別。根據給定的權限，令牌可以存取您帳戶的不同部分。新增新權限通常需要選擇權限類型（存取裝置，數據儲存桶，儀表板等），權限級別（某些特定資源或所有類型）以及允許的操作（全部或部分）。此設定由`Add Token Permission`處理：
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LpXslUdklMPEtHLTfE2%2F-LpXt-pQw-QEU_fS99F8%2FAddUserTokenPermission.png?generation=1569322228344276&alt=media)
 
-When all the parameters are filled, a new Access Token Profile will be added by pressing again the green "New Access Token" button, then, the authorization stream will be displayed in a blue text-box at the bottom of the interface as shown in the image below.
+填寫完所有參數後，再次按下綠色的`New Access Token`以新增一個存取令牌設定檔。接著授權訊息會出現在如下圖所示的藍色文本框中。
 
 ![](../.gitbook/assets/image%20%28118%29.png)
 
-This authorization can be added as bearer auth. to allow a third party system to work with Thinger.io Platform features. 
+授權訊息可以透過將`bearer`加入`authorization`中進行身分驗證，這將允許第三方系統使用Thinger.io平台的功能。
 
-### Adding Permissions to an Access Token
+### 向存取令牌加入授權
 
-Each Access Token profile can contain authorization to many different features. The next list shows all the available permission types and the actions that can be defined for each one:
+每個存取令牌設定檔都可以包含對許多不同功能的授權，以下列表顯示了所有可用的授權類型以及每個權限類型對應的操作：
 
-* **Admin Access**: Provides access to the whole account.
-* **Device**: Provides access to a single device or all devices. It is possible to define the action between:
-  * `AccessDeviceResources`: Grants access to executing device resources, like reading a sensor variable.
-  * `ListDeviceResources`: Grants access to list the device resources names.
-  * `GetDeviceStats`: Grants access to read device statistics like public ip, connected time, bandwidth, etc.
-  * `CreateDeviceToken`: Grants access to create device tokens.
-  * `ListDeviceTokens`: Grants access to read device tokens.
-  * `DeleteDeviceToken`: Grants access to delete device tokens.
-  * `ListDevices`: Grants access to list the account devices.
-  * `DeleteDevice`: Grants access to delete devices.
-  * `CreateDevice`: Grants access to create a new device.
-  * `UpdateDevice`: Grants access to modify a device, like its description or credential.
-  * `ListDeviceLocations`: Grants access to fetch the connected devices locations.
-* **Bucket**: Provides access to a single bucket or all buckets. It is possible to define the action between:
-  * `ReadBucket`: Grants access to read information stored in a bucket.
-  * `WriteBucket`: Grants access to write information to a bucket.
-  * `ExportBucket`: Grants access to export the information stored in a bucket.
-  * `ClearBucket`: Grants access to clear the information stored in a bucket.
-  * `ListBuckets`: Grants access to list the account buckets.
-  * `DeleteBucket`: Grants access to delete buckets.
-  * `CreateBucket`: Grants access to create a new bucket.
-  * `UpdateBucket`: Grants access to modify the bucket configuration, like data sources, description, etc.
-  * `ReadBucketConfig`: Grants access to read the current bucket config.
-* **Endpoint**: Provides access to a single endpoint or all endpoints. It is possible to define the action between:
-  * `ListEndpoints`: Grants access to list the account endpoints.
-  * `CreateEndpoint`: Grants access to create a new endpoint.
-  * `ReadEndpointConfig`: Grants access to read the current endpoint config.
-  * `UpdateEndpoint`: Grants access to modify the endpoint configuration.
-  * `DeleteEndpoint`: Grants access to delete endpoints.
-  * `CallEndpoint`: Grants access to execute an endpoint.
-* **Dashboard**: Provides access to a single dashboard or all dashboards. It is possible to define the action between:
-  * `ListDashboards`: Grants access to list the account dashboards.
-  * `CreateDashboard`: Grants access to create a new dashboard.
-  * `ReadDashboardConfig`: Grants access to read the current dashboard config.
-  * `UpdateDashboard`: Grants access to modify the dashboard configuration.
-  * `DeleteDashboard`: Grants access to delete dashboards.
-* **Token**: Provides access to a single token or all tokens. It is possible to define the action between:
-  * `ListTokens`: Grants access to list the account tokens.
-  * `CreateToken`: Grants access to create a new token.
-  * `ReadTokenConfig`: Grants access to read the current token config.
-  * `UpdateToken`: Grants access to modify the token configuration.
-  * `DeleteToken`: Grants access to delete tokens.
+* **Admin Access**: 提供對整個帳戶的存取權限。
+* **Device**: 提供對單個裝置或所有裝置的存取。可以定義以下範圍的操作：
+  * `AccessDeviceResources`: 授予對存取裝置資源的權限，例如讀取傳感器變數。
+  * `ListDeviceResources`: 授予列出裝置資源名稱的權限。
+  * `GetDeviceStats`: 授予讀取裝置統計資訊的權限，如IP，連接時間，頻寬等。
+  * `CreateDeviceToken`: 授予建立裝置令牌的權限。
+  * `ListDeviceTokens`: 授予列出裝置令牌的權限。
+  * `DeleteDeviceToken`: 授予刪除裝置令牌的權限。
+  * `ListDevices`: 授予列出帳戶中裝置的權限。
+  * `DeleteDevice`: 授予刪除裝置的權限。
+  * `CreateDevice`: 授予建立新裝置的權限。
+  * `UpdateDevice`: 授予修改裝置，例如其描述或憑證的權限。
+  * `ListDeviceLocations`: 授予取得連接的裝置位置的權限。
+* **Bucket**: 提供對單個數據儲存桶或所有數據儲存桶的存取。可以定義以下範圍的操作：
+  * `ReadBucket`：授予讀取數據儲存桶中資訊的權限。
+  * `WriteBucket`：授予寫入資訊到數據儲存桶的權限。
+  * `ExportBucket`：授予匯出數據儲存桶中資訊的權限。
+  * `ClearBucket`：授予清除數據儲存桶中資訊的權限。
+  * `ListBuckets`：授予列出帳戶數據儲存桶的權限。
+  * `DeleteBucket`：授予刪除數據儲存桶的權限。
+  * `CreateBucket`：授予建立新數據儲存桶的權限。
+  * `UpdateBucket`：授予修改數據儲存桶設定的權限，如數據源，描述等。
+  * `ReadBucketConfig`：授予讀取數據儲存桶設定的權限。
+* **Endpoint**: 提供對單個端點或所有端點的存取。可以定義以下範圍的操作：
+  * `ListEndpoints`：授予列出帳戶端點的權限。
+  * `CreateEndpoint`：授予建立新端點的權限。
+  * `ReadEndpointConfig`：授予讀取目前端點設定的權限。
+  * `UpdateEndpoint`：授予以修改端點設定的權限。
+  * `DeleteEndpoint`：授予刪除端點的權限。
+  * `CallEndpoint`：授予調用端點的權限。
+* **Dashboard**: 提供對單個儀表板或所有儀表板的存取。可以定義以下範圍的操作：
+  * `ListDashboards`：授予列出帳戶資訊中心的權限。
+  * `CreateDashboard`：授予建立新儀表板的權限。
+  * `ReadDashboardConfig`：授予讀取目前儀表板設定的權限。
+  * `UpdateDashboard`：授予修改儀表板設定的權限。
+  * `DeleteDashboard`：授予刪除儀表板的權限。
+* **Token**:提供對單個令牌或所有令牌的存取。可以定義以下範圍的操作：
+  * `ListTokens`：授予列出帳戶令牌的權限。
+  * `CreateToken`：授予建立新令牌的權限。
+  * `ReadTokenConfig`：授予讀取目前令牌設定的權限。
+  * `UpdateToken`：授予修改令牌設定的權限。
+  * `DeleteToken`：授予刪除令牌的權限。
 
-## Modifying Permissions
+## 修改權限
 
-The Access Token profile permissions can be modified anytime from the "Edit Token" interface, by clicking the profile identificator in the token list and pressing the green  "+Add" button of the Token Permissions section. This will open "Add Token Permission" interface again so additional permissions can be added in the same way as in the initial configuration.  
+通過點擊令牌列表中的設定檔ID並點擊"Edit Token"部分的綠色"+Add"按鈕，可以隨時從"Edit Token"界面中修改存取令牌設定檔權限。 這將再次打開"Add Token Permission"界面，因此可以按照與首次設定相同的方式加入其他權限。
 
-## Remove Access Token
+## 刪除存取令牌
 
-One or more a Access Token profiles can be deleted from the Access Token list by selecting it in the left-side checkbox and pressing into the red "delete" button.
+可以從存取令牌列表中刪除一個或多個存取令牌設定檔，方法是在左側的複選框中選中它，然後按紅色的"delete"按鈕。
 
 ![](../.gitbook/assets/image%20%28158%29.png)
 

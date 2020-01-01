@@ -1,155 +1,154 @@
-# SERVER ADMINISTRATION
+# 伺服器管理
 
-When a new Thigner.io Private Instance is created, it is provided with an standard web domain \(similar to "https://mycompany.do.thinger.io"\) and uses a web console with standar Thinger.io brand aspect, however, it is possible to create multiple rebrands over this consoles and modify the web domain in order to custom the aspect of the platform to multiple customers branding. this feature provides support for deploying multi-tenant solutions. It is also possible to create multiple user accounts that will make use of the same private server, creating an isolated network of users for specific projects. 
+建立新的Thigner.io私有實例後，將為其提供一個標準的Web網域 \(similar to "https://mycompany.do.thinger.io"\) ，並使用具有標準Thinger.io品牌外觀的Web控制台。但也可以在此控制台上建立多個品牌重構(rebrand)與修改網域，以便為多個客戶品牌客製化平台的外觀。此功能為部署多租戶(multi-tenant)環境提供解決方案，也可以建立使用同一私有伺服器的多個使用者帳戶，從而為特定項目建立一個隔離的使用者網路。 
 
-In this section it is explained how to use the Server Administration tools to configure the server for using this features in a simple way. 
+在本節中，說明了如何使用伺服器管理工具以簡單的方式設定伺服器以使用此功能。 
 
-## Web Console Rebranding
+## Web控制台更名
 
-Thinger.io instances support multi-tenant web console customizations. By means of a management tool that is available at the main menu "Rebranding" section, it is possible to create and manage multiple web customizations, in order to custom the aspect of the web console to different customers or projects by changing some elements such as:
+Thinger.io實例支援自定義多租戶(multi-tenant)Web控制台。通過主選單"Rebranding"部分中提供的管理工具，可以建立和管理多個客制Web，以便通過更改某些元素將Web控制台的外觀客制給不同的客戶或項目。 例如：
 
-* [x] Branding Colors
-* [x] Web, Favicon and Main Menu logotypes
-* [x] Links, Email accounts, copyright
+* [x] 品牌色彩
+* [x] Web,Favicon和主選單Logo
+* [x] 鏈接、電子郵件帳戶、版權
 
 {% hint style="info" %}
-Note that each web console reband needs to be supported by an individual web domain, which can be managed in the "Domain" section of the main menu.
+請注意，每個Web控制台品牌重構都需要一個獨立的Web網域來支援，可以在主選單的"網域"部分中對其進行管理。
 {% endhint %}
 
-### Create a new Web Console Rebranding Profile
+### 建立新的Web控制台品牌重構設定檔
 
-Clicking into "Add Brand" button of the "Rebranding" section, allows creating a new branding profile. The process starts by introducing a web domain name, that will be the identificator for the brand profile:
+點擊"Rebranding"部分的"Add Brand"按鈕，可以建立新的品牌設定檔。該過程首先引入一個Web網域名，該網域名將作為品牌設定檔的ID：
 
 ![](.gitbook/assets/image%20%28134%29.png)
 
-### Adding Branding Details
+### 新增品牌詳細資料
 
-If the Domain Name is valid, the form context will expands allowing to complete the branding details sections by editing the standard thinger.io values:
+如果網域名有效，則表單內容將擴展，允許編輯來自thinger.io的標準內容來完成品牌詳細資訊：
 
 ![](.gitbook/assets/image%20%2816%29.png)
 
-All the next elements are non-mandatory, so can be left empty and the system will remove their buttons from the main menu:
+接下來的所有元素都是非強制性的，因此可以將其保留為空，系統即從主選單中移除該按鈕：
 
-* **Domain Name:** Is the URL of the new rebranded web console. This Web Domain needs to be introduced in the system as is explained in the "Custom Web Domain" section. 
-* **Description:** Place here some additional information about the rebranding profile in order to identify it from the others.
-* **Page title:** Identificator for the web browser tabs
-* **Page URL:** To introduce link to the company, customer or project website
-* **Company Name:** Name of the project, customer or company this rebranding belongs to. 
-* **Contact Email:** address for the main menu"Email" button ****that the users are going to contact for support.
-* **Twitter Account:**  Social media profile can be added by placing here the complete URL of the twitter profile.
-* **Copyright:** The bottom of the website includes a copyright declaration that can be customized here to protect the rebranding rights.  
+* **Domain Name:** 是已更名Web控制台的URL。此Web網域需要如"自定義Web網域"部分中所述的那樣，在系統中引入。
+* **Description:** 在此處加入一些有關品牌重構設定檔的其他資訊，以便與其他品牌進行識別。
+* **Page title:** 網頁瀏覽器標籤的ID。
+* **Page URL:** 引入到公司，客戶或項目網站的鏈接。
+* **Company Name:** 此更名所屬的項目、客戶或公司的名稱。 
+* **Contact Email:** 使用者用於聯繫以取得支援的主選單"電子郵件"按鈕的電子郵件地址。
+* **Twitter Account:** 可以通過在此處新增Twitter社交媒體個人資料的完整URL。
+* **Copyright:** 網站底部包含版權聲明，可以在此處自定義版權聲明以保護品牌權利。 
 
-### Custom Logotypes
+### 自定義Logo
 
-What really makes the difference when creating a rebranding is the use of custom logotypes. The second section of the branding editor allows changing each web console logotype separately. To obtain nice results, it is important to take care about the background color of each logotype in order to obtain enough contrast.
+建立品牌時想與眾不同，首選是使用自定義Logo。品牌編輯器的第二部分允許分別更改每個Web控制台Logo。為了獲得良好的結果，需要注意每個Logo的背景色，以獲得足夠的對比度。
 
 ![](.gitbook/assets/image%20%2878%29.png)
 
 {% hint style="info" %}
-Logotypes needs to be introduced in SVG or PNG file format with transparent background 
+需要以透明背景的SVG或PNG檔案格式引入Logo
 {% endhint %}
 
-### **Custom Top Bar**
+### **自定義頂部欄**
 
-The top bar has also a big impact into the website aspect. The branding menu allows changing it aspect in two ways: the Top Bar Color and the text color:
+頂部欄對網站方面也有很大的影響。品牌選單允許更改頂部欄外觀的兩個部分：頂部欄顏色和文字顏色：
 
 ![](.gitbook/assets/image%20%2859%29.png)
 
-It is important also to take care about selected colors in order to obtain good contrast between the texts and background. 
+同樣重要的是要注意選定的顏色，使文字和背景間具有良好的對比度。
 
-### **Modify a Console Rebranding**
+### **修改控制台品牌重構**
 
-When the Console Rebranding profile is finished, a new entry will appear into the rebranding administration list as shown in the image below:
+控制台品牌重命名設定檔完成後，新條目將顯示在品牌重構管理列表中，如下圖所示：
 
 ![](.gitbook/assets/image.png)
 
-It is possible to access the configuration form and edit all parameters by clicking into the brand profile identificator, which is the associated web domain.
+通過點擊Web網域相關的品牌設定檔標識，可以存取設定表並編輯所有參數。
 
-### Remove a Console Rebranding Profile
+### 刪除控制台品牌重構設定檔
 
-A rebranding profile can be easily deleted just selecting it in the Brand List and clicking into the red "Remove Brand" button.
+私有實例中，Web網域可以替換為不同的自定義網域，提供額外的空白標籤(white labeling)功能，並支援多租戶(multi-tenant)部署，其中每個客戶都可以使用其自己的URL存取雲控制台的不同重構品牌。可使用Thinger.io主選單上的"Domain Administration Manager"輕鬆管理此功能。
 
 ![](.gitbook/assets/image%20%2876%29.png)
 
-## Custom Web Domain 
+## 自定義Web網域
 
-Private Instances web-domain can be replaced with different custom web domains, providing an additional white labeling feature, and supporting for multi-tenant deployments in which each customer can use it's own URL to access a different rebrand of the cloud console. This feature can be easily managed using the Domain Administration Manager, available at Thinger.io main menu.
+私有實例中，Web網域可以替換為不同的自定義網域，提供額外的空白標籤(white labeling)功能，並支援多租戶(multi-tenant)部署，其中每個客戶都可以使用其自己的URL存取雲控制台的不同重構品牌。可使用Thinger.io主選單上的"Domain Administration Manager"輕鬆管理此功能。
 
-### Create a new Web Domain
+### 建立一個新的Web網域
 
-Pressing "Add Domain" button in the Domains List interface allows accessing to a domain creation form context, in which it is possible to introduce the new web domain for the instance and description as shown in the image below: 
+在"Domains List"界面中點擊"Add Domain"按鈕，可以存取建立網域的表單內容，在其中可以將實例和說明引入新的Web網域，如下圖所示： 
 
 ![](.gitbook/assets/image%20%28155%29.png)
 
-Before add the new web domain, it is necessary to verify the disponibility and create a secure certificate that will provide secure communications with the web console. To make this, press the "Verify Domain" button. 
+在新增新的Web網域之前，有必要驗證責任(verify the disponibility)並建立一個安全證書，該證書將提供與Web控制台的安全通訊。為此，請點擊"Verify Domain"按鈕。
 
 ![](.gitbook/assets/image%20%28170%29.png)
 
-#### Redirecting the CNAME Entry 
+#### 重定向CNAME條目
 
-An important part of this process is to resolve the redirection between the new web domain and the private server original web domain by going to the domain administration service. 
+此過程的重要部分是通過切換到網域管理服務來解決新的Web網域和私有伺服器的原始Web網域之間的重定向。 
 
 ![](.gitbook/assets/image%20%28157%29.png)
 
-Onces the redirection has been made and the DNS service has propagated the A register, it is possible to verify the domain using the Domain Details button. 
+一旦進行了重定向並且DNS服務傳播了A暫存器，就可以使用"Domain Details"按鈕來驗證網域。 
 
 ![](.gitbook/assets/image%20%2836%29.png)
 
-After this process the domain will be ready to be used in a rebranding profile, allowing users to access the private instance with the custom URL.
+完成此過程後，即可將網域用於品牌重構設定檔中，從而使使用者可以使用自定義URL存取私有實例。
 
-### Modify Web Domain
+### 修改Web網域
 
-In the Domain List, clicking over the domain name allows opening the web domain parameters. It is not possible to change the URL, if needs to be modified, it is necessary to remove the profile and create a new one. 
+在"Domain List"中，點擊網域名可以打開Web網域名參數。URL無法被更改，如果需要修改，則必須刪除設定檔並建立一個新的設定檔。
 
-### Remove Web Domain
+### 刪除Web網域
 
-Any Web Console profile can be easily deleted just selecting it in the Domain List and clicking into the red "Remove Domain" button.
+只要在網域列表中選擇任何Web控制台設定檔，然後點擊紅色的"Remove Domain"按鈕，就可以輕鬆刪除該設定檔。
 
 ![](.gitbook/assets/image%20%2880%29.png)
 
-Note that if a web domain is associated to a web console rebranding, removing it will prevent accessing to the console.  
+請注意，如果將Web網域與重新命名Web控制台相關聯，則將其刪除將阻止存取控制台。
 
-## User Accounts Management
+## 管理使用者帳戶
 
-Thinger.io Server Instances can support multiple user accounts that can be managed from the administration account. This feature allows creating a user network in which each user account has its own resources such as devices, dashboards, data buckets or even it own plugins.
+Thinger.io伺服器實例可以支援多個使用者帳戶，這些帳戶可以通過管理者帳戶進行管理。此功能允許建立一個使用者網路，其中每個使用者帳戶都有其自己的資源，例如裝置，儀表板，數據桶甚至是自己的插件。
 
 {% hint style="info" %}
-Note that each additional account increases the RAM occupation and CPU load, so it is important to supervise the remaining computational resources when creating new user accounts, specially when using Node-RED plugin.
+請注意，每增加一個帳戶都會增加記憶體佔用和CPU負載，因此在建立新使用者帳戶時，尤其是在使用Node-RED插件時，監督剩餘的計算資源非常重要。
 {% endhint %}
 
 ![](.gitbook/assets/image%20%28126%29.png)
 
-First step to manage users network is clicking on the "User Accounts" tab of the main menu. This interface allows showing user accounts list and manage each profile individually as explained in the next sections.
+管理使用者網路的第一步是點擊主選單上的"User Accounts"標籤。該界面允許顯示使用者帳戶列表並分別管理每個設定檔，如以下各節所述。
 
-### Create new User Account
+### 建立新的使用者帳戶
 
-Pressing "Add User" button of the user administration list opens a form context in which the new user parameters can be introduced:
+按下使用者管理列表中的"Add User"按鈕，將打開一個可在其中引入新使用者參數的表單：
 
 ![](.gitbook/assets/image%20%28154%29.png)
 
-* **Username**: Account username, this parameter also works as user identificator. 
-* **Email**: needs to be a valid email account. Only emails introduced on this list can create a user account in order to prevent intruders.
-* **Pasword**: Is the security key for login into this new user account.
-* **Enabled**: Each user account can be enabled/disabled just clicking this switch
-* **Email Verified**: Put this off will send a mail verification to the user when sign up in order to confirm the authenticity of the email.
+* **Username**: 帳戶使用者名，此參數用作使用者ID。
+* **Email**: 必須是一個有效的電子郵件帳戶。只有此列表中加入的電子郵件才能建立使用者帳戶，以防止入侵者。
+* **Pasword**: 是用於登錄到該新使用者帳戶的安全密鑰。
+* **Enabled**: 只需點擊此開關即可啟用/禁用每個使用者帳戶
+* **Email Verified**: 將此關閉將在註冊時向使用者發送郵件驗證，以確認電子郵件的真實性。
 
-When the form is completed, a new user profile will be added to the IoT server by pressing "add user" button.
+表單填寫完成後，點擊"add user"按鈕將新的使用者設定檔新增到IoT伺服器。
 
-#### User accounts limit
+#### 使用者帳戶限制
 
-The amount of user accounts that can be created in one instance is defined during the contracting and deployment of the server. If this value is reached \(or if no additional user account was contracted\) an error message will appear as shown in the image below:
+在伺服器的合同和部署過程中定義了可以在一個實例中建立的使用者帳戶數量。如果達到此值（或未與其他使用者帳戶簽訂合同），則會出現錯誤資訊，如下圖所示：
 
 ![](.gitbook/assets/image%20%2839%29.png)
 
-This threshold can be upgraded by going to the Subscriptions Management System, that can be accessed using the Admin Email Account at [**this link**](https://thinger.chargebeeportal.com). 
+此閾值可以前往Subscriptions Management System進行升級，請使用"Admin Email Account"存取[**此鏈接**](https://thinger.chargebeeportal.com)。
 
 ### Remove User Account
 
-User accounts can also be deleted from the Server Instance, just selecting the checkbox in the left side of the user account profile and clicking the "Remove User" button. 
+使用者帳戶也可以從伺服器實例中刪除，只需選中使用者帳戶設定檔左側的複選框，然後點擊"Remove User"按鈕即可。 
 
 ![](.gitbook/assets/image%20%2886%29.png)
 
 {% hint style="danger" %}
-Note that, when a user account is removed, all its IoT devices, buckets, configurations and personal information will be deleted and it won't be possible to restore them.
+請注意，刪除使用者帳戶後，其所有IoT裝置，存儲桶，設定和個人資訊都將被刪除，並且將無法還原它們。
 {% endhint %}
-

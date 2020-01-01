@@ -1,136 +1,140 @@
-# DASHBOARDS
+# 儀表板(DASHBOARD)
 
-A dashboard is a graphical user interface that allows displaying your information in different figures and charts. You can configure the dashboards with different widgets, configure its layout, dimension, color, and data sources to generate valuable information for your business or processes.
+儀表板是一個圖形使用者界面，能將您的資訊以不同的圖形和圖表顯示。您可以在儀表板中使用不同的小工具，設定其佈局，維度，顏色和數據源，以便為您的業務或流程產生有用的資訊。
 
-The dashboards can **display information in real-time** from your devices \(using websockets over the server for minimum latency\), or use historic information stored in data buckets that is polled periodically. It is possible to configure the data source for each dashboard widget independently. For devices connected to the platform, it is even possible to dynamically configure the sampling interval for each resource, i.e., in a resource defined from sensor readings, it will allow adjust its physical sampling interval and transmission over the wire. The dashboards are not just only for displaying data, but can also **actuate in real-time** over your connected devices, so you can use some control widgets like on/off values or sliders.
+儀表板可以從您的裝置**即時顯示資訊**（使用伺服器上的Websockets達到最小延遲），或使用定期輪詢的數據儲存桶中存儲的歷史資訊。您可以單獨為每個儀表板視窗小工具設定數據源。對於連接到平台的裝置，甚至可以動態地設定每個資源的採樣間隔，即在定義為回報傳感器數值的資源中，它將允許調整其物理採樣間隔和通過線路的傳輸。儀表板不僅僅用於顯示數據，還可以對連接的裝置**即時操作**，您可以使用一些控制小工具，如開/關值或滑桿。
 
-Here is a sample dashboard with some widgets defined, like time series charts, donut charts, maps, or single values, but you can use many other ones
+這是一個範例儀表板，其中定義了一些小工具，例如時序圖，甜甜圈圖，地圖或數值，您還可以使用其他許多的小工具。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/c05197985d9ee92a9e12aaa71ab7508682bc3fbc.gif)
 
 Ready to create your own dashboard?
 
-## Create Dashboard
+準備好建立您獨特的儀表板了嗎？
 
-To manage all your dashboards, it is necessary to access to the `Dashboards` section, by clicking in the following menu item:
+## 建立儀表板
+
+要管理儀表板，必須通過點擊`Dashboards`選單項來存取該部分：
 
 ![](../.gitbook/assets/dashboardtab.PNG)
 
-Then click on the `Add Dashboard` button that will open a new interface for entering the dashboard details, like in the following screenshot:
+然後點擊`Add Dashboard`按鈕將打開新界面，以輸入儀表板詳細資訊，如以下畫面截圖所示：
 
 ![](../.gitbook/assets/createdashboard.png)
 
-Here it is necessary to configure different parameters:
+這裡有一些必須設定的參數：
 
-* **Dashboard Id**: Unique identifier for your dashboard. 
-* **Dashboard name**: A representative name of your dashboard, in a more friendly way than its identifier.
-* **Dashboard description**: Fill here any description or detailed information you need to keep about the dashboard.
+* **Dashboard Id**: 儀表板的唯一ID。
+* **Dashboard name**: 儀表板的代稱，可以比其ID更友善的方式填寫。
+* **Dashboard description**: 在此填寫您需要為儀表板保留的任何說明或詳細資訊。
 
-After this process, it is possible to access to the new dashboard, that will appear empty by default.
+完成此過程後，即可存取新的儀表板，預設情況下該儀表板為空的。
 
-## Edit Dashboard
+## 編輯儀表板
 
-By default, the dashboard appears in viewing mode, where you cannot modify or configure he dashboard, however, there is an edit mode that can be easily enabled by clicking on the upper-right switch of the dashboard. So, enable the edit mode every time you need to add, move, or resize a widget. The edit mode also enables different options like sharing dashboards.
+預設情況下，儀表板以檢視模式顯示，您無法在其中修改或設定儀表板。通過點擊儀表板的右上方開關，可以輕鬆啟用編輯模式。每當需要新增，移動或調整視窗小工具時，都要先啟用編輯模式。編輯模式下可支援共享儀表板的設定。
 
 ![](../.gitbook/assets/emptydashboard.PNG)
 
-## Add a Display Widget
+## 新增顯示小工具
 
-When the edit mode is enabled in the dashboard, a new button called `Add Widget` will appear. Clicking on it will show a popup where it is possible to select the widget type to add in the dashboard. There are different widgets both for displaying information, or control connected devices, just like in the following picture:
+在儀表板中啟用編輯模式後，將出現一個名為`Add Widget`的新按鈕。點擊它將顯示一個彈出視窗，可以在儀表板中選擇要新增的顯示小工具類型。有不同的小工具用於顯示資訊或控制連接的裝置，如下圖所示：
 
 ![](../.gitbook/assets/widgettypes.PNG)
 
-The following subsections describes the different parameters for each widget type.
+以下小節介紹了每種視窗小工具類型的不同參數。
 
-### Time Series Chart
+### 時序圖表(Time Series Chart)
 
-A time series chart is a graph that can display values over time. In this sense, this is quite useful when it is required to display time series data, like temperature variable that changes over time. It is possible to plot a single variable or multiple values in the same chart. The initial configuration of this widget is like shown in the following figure:
+時序圖表是可以隨時間顯示值的圖表。也就是說，在需要顯示時序數據時，例如隨時間變化的溫度變數，這非常有用。可以在同一圖表中繪製單個或多個變數。此小工具的初始設定如下圖所示：
 
 ![](../.gitbook/assets/timeserieschart.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/timeserieschartwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Chart Input**: Configure how to feed the values to the time series chart. It is possible to feed the information from a connected **device** or from a **data bucket**
-  * **From Device**: With this option it is necessary to select a device \(that must be connected to provide information\) and specify the resources to plot. The following figure is an example that is selecting the device `deviceA`, and the resource `millis` from the device. Notice that when a time series widget is feed from a device, it will not keep the information if the dashboard is closed or refreshed, as it is just real-time data from your device to your dashboard. You can also select between different refresh modes, like sampling at different intervals \(that can be updated online\), or the chart is updated by the device.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Chart Input**: 設定將值提供何種值給時間序列圖表。有`From device`或`From data bucket`兩種選項。
+  * **From Device**: 使用此選項，必須選擇一個裝置（必須已連接才可提供資訊）並指定要繪製的目標資源。下圖是從裝置中選擇裝置`deviceA`和資源`millis`的範例。請注意，當從裝置提供時間序列視窗小工具時，如果關閉或刷新儀表板，它將不會保留資訊，因為它只是從您的裝置到儀表板的即時數據。您可以在兩種不同的刷新模式之間進行選擇，例如以不同的間隔採樣（這將會在線上完成刷新），或者由裝置發起圖表刷新。
 
-  * **From Data Bucket**: With this option, the widget will take the information from a given bucket to plot the historic information on it. So, it is necessary to just select the bucket identifier created in your account. If the bucket is composed by multiple variables, it will allow selecting the variables to plot, like in the following picture. When the information is selected from the data bucket, you will require to establish a data timeframe to be displayed, that can be relative to the current time, or an absolute period between two dates.
+  * **From Data Bucket**: 使用此選項，視窗小工具將從指定的數據儲存桶中取得歷史資訊以在其上進行繪製。因此，只需選擇在您的帳戶中建立的數據儲存桶ID即可。如果數據儲存桶包含了多個變數，則允許選擇要繪製的變數，如下圖所示。從數據儲存桶中選擇資訊時，您需要建立要顯示的數據時間範圍，可以相對於目前時間，或兩個日期之間的絕對時間段。
 
 ![](../.gitbook/assets/datasource.PNG)
 
-* **Options**: It is possible to configure some graph features like splines, legends, axis, etc.
-* **Chart Color**: Both on data selected from a device or from a data bucket, it is possible to configure series colors, depending on the information available in the resource, it will show only one configurable color, or a color for each series, like in the previous screenshot.
+* **Options**: 可以設定一些與圖形有關的功能，如填充、長條圖、軸等。
+* **Chart Color**: 對於從device或data bucket中選擇的數據，可以設定每個序列的顏色。根據資源中可用的資訊，它將僅顯示一個可設定的顏色，或每個序列的顏色，如下截圖。
 
 ![](../.gitbook/assets/multiplevariable.PNG)
 
-* **Data Aggregation**: 
+* **資料匯集(Data Aggregation)**: 
 
-Show raw data directly from a Bucket could be tricky when there is a lot of data-points, specially if the measures are very noisy or irregular. This feature allows aggregating data using different statistics such as medians, means, minimum and maximum values, a counter of data points per period and a data sumatory. The aggregation can be applied over different intervals that goes from five minutes to one week, by using the next configuration inputs in the widget form, and also using the upside right parameters on each time series chart widgets.
+當數據點很多時，直接從存儲桶中顯示原始數據可能會比較棘手，尤其是在測量值非常嘈雜或不規則的情況下。
+此功能允許使用不同的統計方法匯集數據，例如中位數、均值、最小值或最大值並提供每個週期的數據點計數及計算總結。
+通過使用小工具設定中的下一個表單頁面輸入，以及使用每個時序圖小工具上右上角的參數，可以聚合五分鐘到一周的時間間隔中的數據。
 
 ![](../.gitbook/assets/iot-data-aggregation.PNG)
 
-The next image shows four different representations of the same dataset and time interval, aggregated using different algorithms:  
+下圖展示了使用四種使用不同算法匯集出的同一採樣間隔的數據集：
 
 ![](../.gitbook/assets/image%20%28128%29.png)
 
 {% hint style="warning" %}
-Note that Data Aggregation system is only available in **private server** instances with **InfluxDB** 
+請注意，只有在具有**InfluxDB** 的"私有伺服器"中，才能使用**Data Aggregation**系統。 
 {% endhint %}
 
-### Tachometer Chart
+### 指針表(Tachometer Chart)
 
-It is a quite visual widget that allows showing device data in a traditional "dial gauge" representation, that can be customized with different value ranges and color marcs, making it more accurate or simplifying the simpection with just a glance.
+這是一個相當直觀的小工具，允許以傳統的"指針表"表示形式顯示裝置數據，可自定義不同的數值範圍以及搭配顏色標記，使其令人一目了然從而精確/簡化原有操作。
 
 ![](../.gitbook/assets/iot-tachometer.PNG)
 
-The configurable parameters are the following:
+可設定參數如下：
 
 ![](../.gitbook/assets/image%20%2857%29.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\). This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\)。該小工具具有與以下參數有關的特殊行為。 按下綠色的"+"按鈕，可以根據即時顯示的值顯示不同的背景顏色：
 
 ![](../.gitbook/assets/image%20%2865%29.png)
 
-This image is representing an example in which the measured variable is reaching dangerous pressure values. According to this situation, the background color is changing to red, so it will be easier to identify and manage the event if there is not any automatic system in the product.  
+圖片為一個當量測到的變數達到危險壓力值，背景將變為紅色的示範。因此，如果您的產品中沒有任何自動系統，此工具將協助您更容易識別和管理事件。
 
 ![](../.gitbook/assets/image%20%2850%29.png)
 
-* **Chart Input**: Configure how to feed the values to the tachometer chart. It is possible to feed the information from a connected **device** or from a **data bucket**
-  * **From Device Resource**: With this option it is necessary to select a device \(that must be connected to provide information\) and specify the resources to plot. The following figure is an example that is selecting the device `deviceA`, and the resource `millis` from the device. Notice that when a time series widget is feed from a device, it will not keep the information if the dashboard is closed or refreshed, as it is just real-time data from your device to your dashboard. You can also select between different refresh modes, like sampling at different intervals \(that can be updated online\), or the chart is updated by the device.
-  * **From Device Property:** This option allows retrieving data from device properties, which is really useful to show device configuration data, but also is the better way to show real time \(or last received\) data from HTTP devices. 
-  * **From Data Bucket**: With this option, the widget will take the information from a given bucket to plot the historic information on it. So, it is necessary to just select the bucket identifier created in your account. If the bucket is composed by multiple variables, it will allow selecting the variables to plot, like in the following picture. When the information is selected from the data bucket, you will require to establish a data timeframe to be displayed, that can be relative to the current time, or an absolute period between two dates.
-  * **Manual Data**: It is always possible to manually introduce values in order to create simulate the behavior of the widget.
+* **Chart Input**: 設定如何將值輸入指針表。可以從已連接的**裝置**或**數據桶**。
+  * **From Device Resource**: 使用此選項，必須選擇一個裝置（該裝置必須連接上系統提供資源），並指定要使用的資源。
+  * **From Device Property:** 此選項允許從裝置屬性中檢索數據，這對於顯示裝置設定數據非常有用，同時也是顯示來自HTTP裝置的即時（或最後收到的）數據的更好方法。
+  * **From Data Bucket**: 使用此選項，視窗小工具將從指定的數據儲存桶中取得歷史資訊以在其上進行繪製。因此，只需選擇在您的帳戶中建立的數據儲存桶ID即可。如果數據儲存桶包含了多個變數，則允許選擇要繪製的變數，如下圖所示。從數據儲存桶中選擇資訊時，您需要建立要顯示的數據時間範圍，可以相對於目前時間，或兩個日期之間的絕對時間段。
+  * **Manual Data**: 該選項允許您隨時手動設定輸入值對小工具行為進行測試。
 
-The last tab shows all the display options. This is probably the most customizable widget of Thinger.io Platform. It allows selecting a lot of different parameters as shown in the image below: 
+最後一個選項卡包含所有有關顯示的選項。這可能是Thinger.io平台中最可自定義的小工具，它允許選擇很多不同的參數，如下圖所示：
 
 ![](../.gitbook/assets/image%20%28159%29.png)
 
 * **Display options:**
-  * **Units**: Optional information that will display the variable unit, like ºC.
-  * **Value Ranges**: This parameter configures the total data range that will be shown at the chart, and also allows adding sub-ranges that can be configured with different colors in order to simplify the visual checking.
-  * **Plate Color**: Configure the background plate color.
-  * **Text Color**: Configure the text color.
-  * **Tick Color**: Configure the division ticks color. 
-  * **Major Ticks**: Allows to configure the range of each tick
-  * **Show Value**: To display or hide the numeric representation of the value in a digital textbox.
+  * **Units**: 用於顯示數據單位的可選資訊，例如ºC。
+  * **Value Ranges**: 此參數設定將在圖表上顯示的數據整體範圍，並且還允許加入可以用不同顏色設定的子範圍，以使其更直覺。
+  * **Plate Color**: 設定背景的顏色。
+  * **Text Color**: 設定文字顏色。
+  * **Tick Color**: 設定分區刻度的顏色。
+  * **Major Ticks**: 設定每個刻度的範圍。
+  * **Show Value**: 決定在數字顯示框中顯示或隱藏數值。
 
-### Virtual LED
+### 虛擬LED(Virtual LED)
 
-Using LED spots is a common way  to create simple graphical interfaces in electronic projects in order to represent system status, alerts, etc. This widget has been included in Thinger.io Platform with the same purpose, so it can be used to show binary status by changing its color, create alerts by setting blink behavior or show multiple data by including more than one color range in a kind of RGB simulation. 
+使用LED指示器是在電子項目中建立簡單圖形界面以表示系統狀態，警報等的常用方法。Thinger.io平台中包含此小工具的目的相同，因此可以用於通過更改其顏色來顯示二進制狀態，通過設定閃爍行為來建立警報或通過使用多個顏色在一個RGB模擬中來顯示多個數據。
 
 ![](../.gitbook/assets/image%20%28173%29.png)
 
-This widget can be configured in many different ways though the three steps form. first of all selecting "Led indicator" in the Widget menu tab, and then indicating:
+通過三個步驟，可以用許多不同的方式使用此小工具。首先，在"小工具"選單選項卡中選擇"LED指示器"，然後指出：
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\). This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\)。 This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
 
 Then, the Led indicator menu tab allows selecting the data source, that can be a connected device or a data bucket:
 
@@ -142,180 +146,184 @@ Then, the Led indicator menu tab allows selecting the data source, that can be a
 
 Finally, the "Display Options" tab allows to custom the led behavior in the next parameters:
 
-* **Led Size**: Configure the diameter of the led spot pixels
-* **Color**: configures the led default color, and also allows creating color ranges by pressing the green "+" button on the right side.
-  * **Color ranges**: Each time that the "+" button is pressed, a new color range is included, allowing to define a new range and the color that will be shown when the selected input value belongs to this range.  
-  * **Blinking led option:** The right side switches allows adding a blinking behavior to the led when this range profile begins active. It is also possible to disable the blinking by pressing over the led widget. 
+最後，"Display Options"選項卡允許在以下參數中自定義led行為：
+
+* **Led Size**: 設定led點像素的直徑。
+* **Color**: 設定led預設顏色，以及允許通過按下右側的綠色"+"按鈕來建立顏色範圍。
+  * **Color ranges**: 每次按下"+"按鈕時，都會包含一個新的顏色範圍，從而可以定義一個新的範圍以及當所選輸入值屬於該範圍時將顯示的顏色。 
+  * **Blinking led option:** 當輸入達到文件設定的範圍時，右側開關可為LED加入指示燈閃爍行為。也可以通過按下LED小工具來關閉閃爍。
 
 ![](../.gitbook/assets/image%20%286%29.png)
 
-### Donut Chart
+### 環形圖(Donut Chart)
 
-A donut chart is a graph that can display a value, normally in form of a rounded percentage. In this sense, this is quite useful when you have a know variable that oscillates between a maximum and minimum value. In this case, it is only possible to only represent a single variable, that can be both updated in real-time from a device, or from a data bucket.
+環形圖是可以顯示值的圖表，通常以圓整百分比的形式顯示。也就是說，當你知道變數只會在最大值和最小值之間變動時這非常有用。此小工具只能顯示單個變數，來源可以從裝置即時更新，也可以從數據儲存桶中更新。
 
 ![](../.gitbook/assets/donutchart.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/donutchartwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Donut Value**: Configure how to feed the donut char value. It is possible to feed the information from a connected **device** or from a **data bucket**, in a similar way as the time series chart.
-* **Units**: Optional information that will display the variable unit, like ºC.
-* **Min Value**: The expected minimum value of the variable.
-* **Max Value**: The expected maximum value of the variable.
-* **Donut Color**: The color to display inside the donut.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Donut Value**: 設定饋送給圖表的值。可以以與時序圖類似的方式從連接的`device`或`data bucket`提供資訊。
+* **Units**: 用於顯示數據單位的可選資訊，像是ºC.
+* **Min Value**: 變數預期的最小值。
+* **Max Value**: 變數預期的最大值。
+* **Donut Color**: 環形圖內顯示的顏色。
 
-### Progressbar
+### 進度條(Progressbar)
 
-A progressbar is a graph that can easily represent a progress on some action or process. In this sense, this is quite useful when you have any process that is being completed over time and needs to be monitored. In this case, it is only possible to only represent a single variable, that can be both updated in real-time from a device, or from a data bucket.
+進度條是一個圖表，可以輕鬆地表示某個操作或過程的進度。也就是說，當您有任何流程需要長時間完成並且需要進行監控時這非常有用。這種小工具只能表示單個變數，既可以從裝置即時更新，也可以從數據儲存桶中更新。
 
 ![](../.gitbook/assets/progressbar.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/progressbarwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Progressbar Value**: Configure how to feed the progressbar value. It is possible to feed the information from a connected **device** or from a **data bucket**, in a similar way as the time series chart.
-* **Units**: Optional information that will display the variable unit, like %.
-* **Min Value**: The expected minimum value of the variable.
-* **Max Value**: The expected maximum value of the variable.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Progressbar Value**: 設定如何提供進度條值。可以與時間序列圖類似的方式從連接的**device**或**data bucket**提供資訊。
+* **Units**: 用於顯示數據單位的可選資訊，像是%。
+* **Min Value**: 變數預期的最小值。
+* **Max Value**: 變數預期的最大值。
 
-### Google Maps
+### Google地圖(Google Maps)
 
-A map can be used to represent, at this moment, a single location in a map. It is quite convenient to track devices in real-time as the chart can be feed in real-time from a connected device, like over a GPRS connection. It is also possible to plot locations from a data bucket, so devices like Sigfox can be also be tracked.
+此時，地圖可用於表示地圖中的單個位置。即時跟蹤裝置非常方便，因為圖表可以通過GPRS連接從連接的裝置即時提供。也可以從數據儲存桶中繪製位置，因此也可以跟蹤像Sigfox這樣的裝置。
 
 ![](../.gitbook/assets/googlemap.png)
 
-Here is an example of this widget working in real-time with a connected device:
+以下是此小工具與連接裝置即時協作的範例：
 
  \[!\[Real-Time GPS location over GPRS using IoT Solution\]\(https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/googlemapwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Location**: Configure how to feed the location in the map. It is possible to feed the information from a connected **device** or from a **data bucket**. When feeding the plot from a data bucket or a device, it is required to match the required latitude and longitude \(in degrees\) with the variables present in the bucket, or in the device resource.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Location**: 設定如何在地圖中提供位置。可以從連接的**device**或**data bucket**中提供資訊。從數據儲存桶或裝置饋送繪圖(plot)時，所需的緯度和經度（以度為單位）應與數據儲存桶中或裝置資源中存在的變數進行匹配。
 
 ![](../.gitbook/assets/locationvalue.png)
 
-* **Center**: Force the map to automatically keep the location in the center.
+* **Center**: 強制地圖自動保持在中心位置。
 
 ### Image/MJPEG
 
-The image/MJPEG widget can be used to represent both a still image, like your business logo, or a live stream from a MJPEG source, like a surveillance camera. To feed this widget it is necessary the image/MJPEG url.
+image / MJPEG小工具可用於表示靜態圖片，如商業Logo，或來自MJPEG源的即時串流，如監控鏡頭。要供給此小工具，必須使用image / MJPEG網址。
 
 ![](../.gitbook/assets/cameramjpeg.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/imagewidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Image Source**: Configure if the image source is a still image, or a MJPEG stream. In both cases it is required to provide the source URL, like in the following screenshot:
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Image Source**: 設定圖源是靜態圖片還是MJPEG串流。在這兩種情況下，都需要提供源URL，如下面的畫面截圖所示：
 
 ![](../.gitbook/assets/mjpegcamera.png)
 
 ### Text/Value
 
-The text/value widget is an useful widget to display any arbitrary data, specially text values that cannot be represented with other widgets. As any other widget, can display data both from connected devices or data buckets.
+text/value 小工具是一個有用的小工具，用於顯示任意數據，特別是無法用其他小工具表示的文字值。與其他小工具一樣，可以顯示來自連接的**device**或**data bucket**的數據。
 
 ![](../.gitbook/assets/textvalue.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/textwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Text Value**: As any other widget, it is possible to select a resource from a connected device, or a value from a data bucket.
-* **Units**: Optional information to display the units of the displayed information.
-* **Text Color**: Configure the text color.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Text Value**: 與其他小工具一樣，可以從連接的**device**中選擇資源，也可以從**data bucket**中選擇值。
+* **Units**:用於顯示數據單位的可選資訊。
+* **Text Color**: 設定文字顏色。
 
-### Clock
+### 時鐘(Clock)
 
-This widget is just a clock widget that can display the current time both in the local time zone or in UTC, which can be useful when monitoring processes in real-time. Note that this widget takes the current time just from your computer.
+這是一個時鐘小工具，可以在本機時區或UTC時間中顯示目前時間，這在即時監視時非常有用。請注意，此視窗小工具僅從您的電腦取得目前時間。
 
 ![](../.gitbook/assets/clock.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/clockwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Color**: Color for the text.
-* **UTC**: Display the clock in UTC or in the local timezone.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Color**: 文字的顏色。
+* **UTC**: 時鐘顯示UTC時間或本機時區時間。
 
-## Add a Control Widget
+## 新增控制小工具
 
-In Thinger.io it is possible to not just display information in dashboard, but also control devices in real-time. In this section are described some available widgets that can be used control connected devices.
+在Thinger.io中，不僅可以在儀表板中顯示資訊，還可以即時控制裝置。在本節中描述了一些可用於控制連接裝置的可用小工具。
 
-### On/Off State
+### 開關(On/Off State)
 
-The On/Off widget allows controlling a boolean state of a connected device, like turning on/off a light, a motor, a relay, or any other element. The device should expose a boolean input, just like those examples for controlling a led. The resource is then mapped to this widget, that can change the device state in real-time. If the input resource is defined properly [implemented](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources), this widget is also able to show the current device state.
+On / Off小工具允許控制連接裝置的布爾狀態，例如打開/關閉燈，電機，繼電器或任何其他元件。裝置應該披露一個布爾輸入，就像控制led的那些例子一樣。然後將資源映射到此小工具即可即時更改裝置狀態。如果正確定義了[輸入資源屬性](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources)，這個小工具也能顯示目前裝置狀態。
 
- ![](../.gitbook/assets/switchbutton.png) 
+![](../.gitbook/assets/switchbutton.png) 
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/booleanwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Device Resource**: Determines the specific device and resource to control. Use a connected device for an easy config, as you can automatically select the device and resource.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Device Resource**: 指定要控制的特定裝置和資源。使用連接的裝置進行簡單的設定，您可以自動的選擇裝置和資源。
 
 ![](../.gitbook/assets/deviceresource.png)
 
-This widgect has te posibility to be shown in two different appearances, that can be specified in the **Switch Style** parameter: **Switch** is the standard configuration with a little non-configurable switch, and **Button** which is an improved face that can be configured with different colors and icons. When this option is selected, next paremeters will be shown:
+該小工具有兩種不同的外觀，可以在**Switch Style**參數中指定：
+* **Switch**是帶有少量不可設定開關的標準類型。
+* **Button**則是改進後的樣式，可以設定用不同的顏色和Logo。選擇此選項時，將顯示下一個參數：
 
 ![](../.gitbook/assets/image%20%28174%29.png)
 
-* **On Color**: The color that will be displayed when the boolean value of this resource is true.
-* **Off Color**: The color that will be displayed when the boolean value of this reource is false.
-* **Icon**: This button is able to show a customizable icon from favicon library or any other icon library URL.
-* **Icon Color**: Icon color is also configurable with an hexadecimal value. Note that there are different color options for both button status, so you can customize it as you want.
+* **On Color**: 當此裝置跟隨的資源值為true時顯示的顏色。
+* **Off Color**: 當此裝置跟隨的資源值為false時顯示的顏色。
+* **Icon**: 此按鈕能夠顯示favicon庫或任何其他圖標庫URL中的可自定義圖標。
+* **Icon Color**: 圖標顏色也可以使用十六進制值進行配置。請注意，兩個按鈕狀態都有不同的顏色選項，因此您可以根據需要自定義它。
 
   ![](../.gitbook/assets/image%20%28110%29.png)
 
-### Slider
+### 滑桿(slider)
 
-The slider widget allows controlling a numeric state of a connected device, like setting a threshold, a target temperature, or any other internal device state that is likely to be controlled remotely. The device should expose a numeric input. The resource is then mapped to this widget, that can change the target value in real-time. If the input resource is defined properly [implemented](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources), this widget is also able to show the current device state.
+slider小工具允許控制已連接裝置的數字狀態，例如設定閾值，目標溫度或可能遠端控制的任何其他內部裝置狀態。裝置應披露數字輸入，然後將資源映射到此小工具，可以即時更改目標值。如果正確定義了輸入[資源屬性](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources)，這個小工具也能顯示目前裝置狀態。
 
 ![](../.gitbook/assets/slider.png)
 
-The configurable parameters are the following:
+可設定的參數如下：
 
 ![](../.gitbook/assets/sliderwidget.png)
 
-* **Title**: Optional title for the widget. 
-* **Subtitle**: Optional subtitle for the widget.
-* **Background**: Optional color for the widget background \(defaults to white\).
-* **Device Resource**: Determines the specific device and resource to control. Use a connected device for an easy config, as you can automatically select the device and resource.
-* **Min Value**: Maximum value of the slider.
-* **Max Value**: Minimum value of the slider.
-* **Step Width**: Slider precision.
+* **Title**: 小工具的標題。
+* **Subtitle**: 小工具的副標題。
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
+* **Device Resource**: 確定要控制的特定設備和資源。使用連接的設備進行簡單設定，因為您可以自動選擇設備和資源。
+* **Min Value**: 滑桿的最小值。
+* **Max Value**: 滑桿的最大值。
+* **Step Width**: 滑桿的精確度。
 
-## Share Dashboard
+## 共享儀表板
 
-By default, any dashboard is private to the account owner. However, it is possible to share the dashboard so others can access your information. To share a dashboard, just enter in the dashboard config and enable the `Share` switch. After enabling the dashboard sharing, an URL will be generated, which can be publicly shared.
+預設情況下，任何儀表板對帳戶所有者都是私有的。但是可以共享儀表板給其他人，使其可以存取您的資訊。要共享儀表板，只需進入儀表板的設定並啟用`Share`開關即可。啟用儀表板共享後，將產生一個可以公開共享的URL。
 
-**Note:** The generated authorization \(appended to the end of the URL\) can be used to partially access your resources, like devices or buckets used to feed the charts. Review the generated access token for more details.
+**Note:** 產生的授權（附加在URL末尾）可用於部分存取您的資源，例如用於提供圖表的設備或數據存儲區。檢視產生的存取令牌以獲取更多詳細資訊
 
-**Note:** If you change your dashboards by adding new data sources \(devices or buckets\), it is necessary to disable an re-enable the dashboard sharing to update the authorization. It will not share new data sources automatically for security reasons.
+**Note:** 如果通過新增新數據源（設備或數據存儲區）來更改儀表板，則必須禁用並重新啟用儀表板共享以更新授權。出於安全原因，新數據源不會自動共享。
 
 ![](../.gitbook/assets/sharedashboard.png)
 

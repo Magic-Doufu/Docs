@@ -1,42 +1,42 @@
-# ENDPOINTS
+# 端點(Endpoints)
 
-An endpoint, is the entry point to a service, a process, or any other destination. So, in Thinger.io an endpoint can be defined like a target destination that can be called by devices to perform any action, like sending an email, send a SMS, call a REST API, interact with IFTTT, call a device from a different account, or call any other HTTP endpoint.
+>端點是服務，程序或其他目標的進入點。因此在Thinger.io中，端點可以定義為目標被裝置調用以執行任何操作，例如發送電子郵件，發送SMS，調用REST API，與IFTTT互動，從不同的帳戶調用裝置，或調用其他任何HTTP端點。
 
-Calling those endpoints directly by devices can be complex in small microcontrollers, and would require more bandwidth in devices. This way, Thinger.io can handle endpoints calls that can be requested directly by devices, activating them by using its identifier and passing any information required. It also adds some flexibility, as the endpoint request can be dinamically changed as necessary, while the deployed code in the device remains the same.
+在微控制器中，直接存取這些服務可能很複雜，並且在裝置中需要更多頻寬。通過端點，Thinger.io可以處理裝置請求的端點調用，通過使用ID啟動它們並傳遞所需的任何資訊。它還增加了一些彈性，因為端點請求可以根據需要進行動態更改，而不更動裝置中部署的程式。
 
-## Create Endpoint
+## 建立端點
 
-To manage all your endpoints, it is necessary to access to the Endpoints section, by clicking in the following menu item:
+要管理所有端點，您需要點擊選單中的`Endpoints`進行存取：
 
 ![](../.gitbook/assets/endpointtab.PNG)
 
-Then click on the Add Endpoint button that will open a new interface for entering the endpoint details, like in the following screenshot:
+然後點擊`Add Endpoint`按鈕，該按鈕將打開一個新界面以輸入端點詳細資訊，如以下畫面截圖所示：
 
 ![](../.gitbook/assets/addendpoint.png)
 
-Here it is necessary to configure different parameters:
+還有設定必要的參數：
 
-* **Endpoint Id**: Unique identifier for your endpoint \(_the device must use this identifier for activating the endpoint_\). 
-* **Endpoint Description**: Fill here any description or detailed information you need to keep about the dashboard.
-* **Endpoint Type**: Defines the endpoint type, depending on the selected type, the endpoint will present different fields. In the following sections are described some of these types.
+* **Endpoint Id**: 端點的唯一ID（裝置必須使用此ID來啟動端點）。
+* **Endpoint Description**: 在這裡填寫更多有關該端點的細節描述。
+* **Endpoint Type**: 定義端點類型，根據所選類型，端點將顯示不同的內容。在以下部分中描述了其中一些類型。
 
-## Endpoint types
+## 端點類型
 
-### Email Endpoint
+### 電子郵件端點
 
-An email endpoint allows sending emails from your devices. You can define your target email address, subject, and compose your email body.
+電子郵件端點允許從您的裝置發送電子郵件。您可以定義目標電子郵件地址，主旨和撰寫電子郵件內文。
 
-The configurable parameters are the following:
+可設定的參數如下：
 
-* **Email Address**: The target email address of your message.
-* **Email Subject**: The email subject.
-* **Email Body**: Allows defining the email body, that can be a plain JSON text with the data sent from your device, or a custom body that can contain also information gathered from your device.
+* **Email Address**: 郵件的目標電子郵件地址。
+* **Email Subject**: 電子郵件主旨。
+* **Email Body**: 可自定義電子郵件內文，內文可以是包含向您的裝置發送數據的普通JSON文件，也可以是包含從您的裝置收集的資訊。
 
-In the following screenshot, there is an example of an email endpoint that contains some text and variables that are filled when the device calls the endpoint, adding the current temperature and humidity reported by the device. Notice that `temperature` and `humidity` variables are closed inside double brackets `{{}}`, so the endpoint will be expecting this information to complete the body. In the following, there is some code examples calling this endpoint.
+在下面的畫面截圖中，有一個電子郵件端點範例，其中包含一些文字和變數，這些文字和變數在裝置調用端點時填充裝置回報的目前溫度和濕度。請注意，`temperature`和`humidity`變數在雙括號內`{{}}`，所以端點將預期會得到這些資訊來完成主體。在下文中，有一些程式範例調用此端點。
 
 ![](../.gitbook/assets/emailendpoint.png)
 
-Calling endpoints is well documented [here](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints), but it is basically required to call the endpoint by using the `call_endpoint` method, which requires the endpoint id, `ExampleEmail` in this example, and the optional data to be sent to the endpoint, which is a `pson` document \(quite similar to JSON\) with two keys named `temperature` and `humidity` holding the readings from a DHT sensor. In the following there is an example of such call.
+有關如何調用端點可參考[此文檔](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints)基本上需要使用`call_endpoint`方法調用端點，其需要端點ID，在此範例中為`ExampleEmail`，並且要將選擇的數據以`pson`文檔發送到端點，此處的`pson`文檔非常類似於JSON，有兩個鍵(key)分別命名為`temperature`與`humidity`分別儲存DHT傳感器的讀數。以下將示範調用端點。
 
 ```cpp
 pson data;
@@ -45,28 +45,29 @@ data["humidity"] = dht.readHumidity();
 thing.call_endpoint("ExampleEmail", data);
 ```
 
-**Note**: If you want to include a single value in the email body, you can use the double bracket `{{}}` without any key, and send a `pson` document from the device with a single value. So, the following body:
+**注意**: 如果要在電子郵件正文中包含單個值，則可以使用不帶任何鍵的雙括號`{{}}`，並在`pson`使用單個值從裝置發送文檔。如以下結構：
 
 ```text
 Temperature is: {{}} ºC
 ```
 
-Can be filled with this call in the device:
+可以在裝置中調用此程式進行填充：
 
 ```cpp
 pson data = dht.readTemperature();
 thing.call_endpoint("ExampleEmail", data);
 ```
 
-### HTTP Endpoint
+### HTTP 端點
 
-An HTTP endpoint is a generic type of endpoint that can be used to interact with any other web service or web application. So, this endpoint can be configured to make any HTTP request, by configuring the method, URL, headers, and body.
+HTTP 端點是一種通用類型的端點，可用於與其他 Web 服務或 Web 應用程式進行互動。因此，可以為此端點發出的任何 HTTP 請求設定方法(method)，URL，標頭和內文。
 
-The configurable parameters are the following:
+可設定的參數如下：
 
-* **Request URL**: Configure the method \(GET, POST, PUT, PATCH, or DELETE\), and the request URL.
-* **Request Headers**: It is possible to add headers to the request, that can be useful for adding authorizations, control caches, configure content type, etc.
-* **Request Body**: The body can be either a custom body with an specific content, or a JSON payload with the information sent by the device. In a custom body it is possible to add custom variables, like shown in the email example. This way, it is possible to create contents in different formats like XML, SOAP, etc \(remember to add the adequate content-type in this case\).
+* **Request URL**: 設定方法（GET，POST，PUT，PATCH或DELETE）和欲請求的URL。
+* **Request Headers**: 可以向請求新增標頭，這對於新增授權、暫存控制、設定內容類型等非常有用。
+* **Request Body**: 內文可以是具有特定內容的自定義內文，也可以是具有裝置發送的資訊的 JSON payload。
+在自定義正文中，可以新增自定義變數，如電子郵件範例中所示。這樣，就可以建立不同格式的內容，如XML，SOAP等（請記得在這種情況下新增適當的內容類型\(content-type\)）。
 
 ![](../.gitbook/assets/httpendpoint.png)
 

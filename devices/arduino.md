@@ -1,70 +1,77 @@
 # ARDUINO
 
-## Overview
+## 總覽
 
-This documentation is related with the Arduino client library version of the Thinger.io platform. With this library you will be able to connect almost any Arduino board using Ethernet, Wifi, GSM, or other supported boards like ESP8266, NodeMCU, and TI CC3200.
+本文件與Thinger.io平台的Arduino客戶端程式庫版本相關。使用此程式庫，您可以使用乙太網，Wifi，GSM連接任何Arduino開發板或其他相容的開發板（如ESP8266，NodeMCU和TI CC3200）。
 
-The client library allows connecting your IoT devices to the [Thinger.io](http://thinger.io) cloud platform. This is a library specifically designed for the Arduino IDE, so you can easily program your devices and connect them within minutes by creating `Input` and `Output` resources. Ones the data is online it is possible to show in customizable dashboards, store in data buckets or send to third parties via endpoint.
+客戶端程式庫允許將您的IoT裝置連接到[Thinger.io](http://thinger.io)雲端平台。這是專為Arduino IDE設計的程式庫，因此您可以在幾分鐘內輕易的對裝置程式設計建立出`Input`與`Output`資源以連接它們。
+
+當數據上線，即可顯示於儀表板上、儲存在數據儲存桶(data bucket)中或透過端點發送給第三方服務。
 
 ![](../.gitbook/assets/thingerio-architecture.png)
 
-This library supports multiple network interfaces and boards, like Ethernet Shield, Wifi Shield, and GSM. It also supports other boards like ESP8266 \(or NodeMCU\), Texas Instruments CC3200 Launchpad, and Adafruit CC3000 board. It requires a modern Arduino IDE version, starting at 1.6.3.
+此平台能夠支援多種網路接口，如Ethernet Shield，Wifi Shield和GSM它還支援其他開發板，如ESP8266（或NodeMCU），TI CC3200。其對Arduino IDE的版本要求為>=1.6.3。
 
-## Installation
+## 安裝
 
-The first step to start building thinger.io devices is to install the required libraries in the Arduino IDE to support exposing device resources like sensor values, lights, relays, and so on.
+開始建構Thinger.io裝置的第一步是在Arduino IDE中安裝程式庫，以支援揭露裝置資源。如：傳感器產生值、指示燈、繼電器狀態與操作等。
 
-If you do not have the Arduino IDE installed yet, then it is a good moment to start, here are also some advices to choose the right version.
+如果您尚未安裝Arduino IDE，這將是一個開始的好時機，這邊有一些建議可以幫助您選擇正確的版本。
 
 ### Arduino IDE
 
-It is required a modern version of Arduino supporting `Library Manager` and some other features. Please install a version starting form **1.6.3** from the official Arduino download page. This step is not required if you already have a modern version.
+此平台的Arduino IDE最低需求為版本1.6.3，且需要支援`程式庫管理器`，如您尚未安裝Arduino IDE可由官方網站下載最新版。
 
-[Download Arduino IDE &gt;](https://www.arduino.cc/en/Main/Software)
+[下載 Arduino IDE](https://www.arduino.cc/en/Main/Software)
 
-There are two ways of installing the library. The preferred way is by using the Arduino `Library Manager`, which simplifies searching and installing new libraries. It also supports updating libraries when new versions are released. So use this method when possible. The other way to install the library is by using the traditional method of download and import the `zip` library.
+這裡提供了兩種安裝程式庫的方案，首選方案為使用Arduino IDE提供的`程式庫管理器`，它簡化了搜尋與安裝新庫的過程。當新版本發布時也可透過管理器進行更新，因此建議盡可能使用此方法安裝。
 
-### Library Manager
+安裝函式庫的第二個方案是採用傳統的下載與匯入`zip`函式庫的方式。
 
-The most easy way to install new libraries is by using the `Library Manager` available in the Arduino IDE. For installing the thinger.io library please follow the following steps:
+### 程式庫管理器
 
-Open the **Library Manager**
+在Arduino IDE中安裝程式庫的最簡單方法是使用程式庫管理器。要安裝thinger.io程式庫，請按照以下步驟操作：
+
+打開 **管理程式庫**
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/30a5f56c8917f8a26b03efb2438bfa444d531b2f.png)
 
-> Open the **Library Manager** in the Arduino menu in `Sketch` &gt; `Include Library` &gt; `Manage Libraries`
+> 打開程式庫管理器：在Arduino的選單中打開程式庫管理器 `工具 > 管理程式庫`
 
-**Search** and install the thinger.io library
+**搜尋**並安裝 thinger.io 程式庫
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/0e8bc7c86b5aff26aea7649741b592c8157cae11.png)
 
-> Search the library with name **thinger.io** and then click `Install`. You can update the library also from this manager when it is updated.
+> 搜尋 `thinger.io` ，然後點擊 `Install` 進行安裝。官方發布更新後，您也可以從此管理器更新程式庫。
 
-Now the library should be be available with some default examples.
+現在，應該可以使用一些程式庫提供的範例。
 
-### Manual Import
+### 手動匯入
 
-If the preferred way using the Library Manager is not working or you prefer to manage the libraries yourself, you can also install the library by the traditional way.
+如果使用程式庫管理器的方式不起作用，或者您希望自己管理程式庫，則也可以通過傳統方式進行安裝。
 
-**Download** the latest version from the Github repository by clicking in the link below. This will download a file called `Arduino-Library-master.zip`.
+從下面的Github連接處 **下載** 最新版本的程式庫，這將下載一個名為`Arduino-Library-master.zip`的文件。
 
-[Download Library &gt;](https://github.com/thinger-io/Arduino-Library/archive/master.zip)
+[下載程式庫](https://github.com/thinger-io/Arduino-Library/archive/master.zip)
 
-Now **rename** the `Arduino-Library-master.zip` file to something more relevant like `thinger.zip`.
+現在，將`Arduino-Library-master.zip`**重命名**為更相關的名稱，如`thinger.zip`。
 
-The final step is to **import** the `zip` library using the Arduino IDE. This step will uncompress and copy the `zip` library in the Arduino libraries folder. Which is usually under your Documents folder.
+最後一步是使用Arduino IDE匯入這個`zip`程式庫。這個步驟將解壓縮並複製這個`zip`程式庫進Arduino程式庫資料夾。這通常位於您的`文件`資料夾下。
 
 ![](../.gitbook/assets/add-zip-library.png)
 
-> Sketch &gt; Include Library &gt; Add .ZIP libraries
+> 草稿碼 \> 匯入程式庫 \> 加入.ZIP程式庫..
 
-Now the library should be be available with some default examples.
+現在，應該可以使用一些程式庫提供的範例。
 
-## Supported Hardware
+## 支援的硬體
 
-The thinger.io platform is designed to support almost any microcontroller or device with communication capabilities. No matter if it has Ethernet, Wifi, GSM, or the chip is from some vendor or not. Almost any device can be integrated in the cloud. So you can choose the hardware you want to connect, as this platform does not force you to purchase some compatible vendor hardware. This is a crucial when designing your IoT projects. Here you are free to choose the hardware you want!
+Thinger.io平台幾乎支援所有具有通訊功能的微控制器或裝置，無論該裝置是否原生具有乙太網、WiFi、GSM或是核心是否來自特定供應商，皆可結合到雲端中。
+因此，硬體的選擇變得多樣，您可以自由選擇想要/合適的裝置，本平台並不會要求購買特定的相容裝置，這在設計物廉網專案時至關重要。
 
-In the following sections there are some of the devices that are compatible trough the Arduino IDE. For other device like Raspberry Pi, Intel Edison, BeagleBone Black, or any other device running a Linux distribution, please refer to the Linux Documentation.
+在以下各節中，有一些與Arduino IDE相容的裝置。 
+
+對於Raspberry Pi，Intel Edison，BeagleBone Black等其他裝置，或任何其他執行Linux發行版的裝置，請參考Linux文檔。
 
 ### Arduino + Ethernet
 

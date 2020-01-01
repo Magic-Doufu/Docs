@@ -2,159 +2,170 @@
 
 ![](../.gitbook/assets/linux-versions.png)
 
-This how-to will cover how to get the first steps while using the thinger.io platform in the Raspberry Pi. This includes how to download, compile and execute the main example available in the [GitHub Repository](https://github.com/thinger-io/Linux-Client).
+本操作方法將介紹如何在Raspberry Pi中使用Thinger.io平台。其中包括如何下載，編譯和執行[GitHub 儲存庫](https://github.com/thinger-io/Linux-Client)中可用的主要範例。
 
-## Requirements
+## 需求
 
-* A raspberry running with Raspbian, and a terminal or SSH access. Other OS like Ubuntu may work, but has not been tested yet.
-* Register a device in the thinger.io console and keep the credentials by hand. If you need help with this part, please check this other [how-to](https://community.thinger.io/t/register-a-device-in-the-console/23).
+* 執行Raspbian的Raspberry Pi，且需可透過終端或SSH存取。像Ubuntu這樣的其他操作系統可能也行，但尚未經過測試。
+* 在thinger.io控制台中註冊裝置並手動保存憑據(`credentials`)。如果您需要有關此部分的幫助，請檢視[此文件](https://community.thinger.io/t/register-a-device-in-the-console/23)。
 
 ## Installing a newer GCC Version
 
-**Note: Not required for Raspbian Jessie or newer versions.**
+**注意：Raspbian Jessie開始的更新版本不須執行，請跳過此部分。**
 
-It is necessary to use a modern compiler to build thinger.io examples. The latest Raspbian version already provides a modern compiler, starting with Jessie, but you may install a newer compiler if you are using older Raspbian versions. It is required **at least GCC 4.8.2**. Please type `gcc -`v in a terminal to check if you need to update your compiler.
+thinger.io的程式需使用現代編譯器來編譯。從Jessie開始的Raspbian版本已經提供了一個現代編譯器，但如果您使用較舊的Raspbian版本，則需要安裝更新的編譯器。
 
-It is necessary to keep all your system updated, so please start by upgrading all the installed packages by typing the following commands. It may take some time depending on your Internet connection
+至少需要使用**GCC 4.8.2以上**的編譯器。請在終端中鍵入`gcc -v`以檢查是否需要更新編譯器。
+
+另外，必須將系統更新至最新，因此請首先鍵入以下命令來進行升級。這可能需要一些時間，具體取決於您的網速。
 
 ```text
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Next, open `/etc/apt/sources.list` in a editor and replace the name `wheezy` with `jessie`.
+接下來，使用編輯器打開`/etc/apt/sources.list`，並將名稱`wheezy`替代為`jessie`。
 
 ```text
 sudo nano /etc/apt/sources.list
 ```
 
-Then we are going to update the package list again, so we can access to newer jessie packages:
+然後我們將再次更新列表，用以存取jessie的更新：
 
 ```text
 sudo apt-get update
 ```
 
-now we can finally install install GCC 4.9
+現在，我們終於可以安裝GCC4.9了。
 
 ```text
 sudo apt-get install gcc-4.9 g++-4.9
 ```
 
-Last step is to revert back from `Jessie` to `Wheezy`, open `/etc/apt/sources.list` again and replace `jessie` with `wheezy`, after that do an update of your package list:
+最後一步是將`Jessie`恢復為`Wheezy`，打開`/etc/apt/sources.list`將`jessie`取代為`wheezy`，然後更新列表：
 
 ```text
 sudo nano /etc/apt/sources.list
 sudo apt-get update
 ```
 
-If we type `gcc -v` at this moment, the default version is still 4.7. So we are going to change that to make the newer gcc 4.9 the default version. First remove all `gcc` alternatives.
+如果我們此時輸入gcc -v，預設版本仍為4.7。
+
+我們需要刪除所有gcc備用方案以將預設版本設為新的gcc 4.9。
 
 ```text
 sudo update-alternatives --remove-all gcc
 sudo update-alternatives --remove-all g++
 ```
 
-And now add both gcc alternatives with more priority to GCC 4.9 version.
+之後新增兩個gcc備用方案，並設`GCC 4.9`為優先。
 
 ```text
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 40 --slave /usr/bin/g++ g++ /usr/bin/g++-4.6
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
 ```
 
-At this stage, if you type `gcc-v` it should show version 4.9.2 or greater. You can always change the default compiler with the following command.
+在此階段，如果鍵入`gcc-v`，則應顯示版本4.9.2或更高版本。您始終可以使用以下指令更改預設編譯器。
 
 ```text
 sudo update-alternatives --config gcc
 ```
 
-## Install additional dependencies
+## 安裝額外的依賴項
 
-It is necessary use CMake for compiling the examples and install thinger as daemon if you want. It is also required to install Open SSL if we want to securely connect to the platform trhough TLS.
+如果您需要將thinger安裝為常駐程式，則必須使用`CMake`編譯範例。如果我們想要使用TLS安全地連接到平台，還需要安裝`Open SSL`。
 
-Update the apt repository first:
+首先更新apt列表
 
 ```text
 sudo apt-get update
 ```
 
-Install Dependencies \(CMake and OpenSSL\)
+安裝依賴項 \(CMake和OpenSSL\)
 
 ```text
 sudo apt-get install cmake libssl-dev
 ```
 
-## Starting with the platform
+## 連上雲端
 
-Download the latest Linux Client version from GitHub.
+從GitHub下載最新的Linux客戶端版本。
 
 ```text
 git clone https://github.com/thinger-io/Linux-Client.git
 ```
 
-Enter in the Linux-Client folder we just cloned.
+進入我們剛剛複製的Linux-Client文件夾。
 
 ```text
 cd Linux-Client
 ```
 
-And now it is time to enter the credentials in the main project file. So we are going to edit the `main.cpp` file from `src` folder. You can use any editor you want. We will use here `nano`.
+是時候輸入驗證資訊了，請修改`src`文件夾下的`main.cpp`文件。
+
+您可以使用任何你所希望的編輯器，此範例使用`nano`編輯文件。
 
 ```text
 nano src/main.cpp
 ```
 
-In this case you must edit the fields `USER_ID`, `DEVICE_ID`, and `DEVICE_CREDENTIAL` with the information you provided while registering your device in the platform. Here is an example screenshot of how the `main.cpp` file should look like before editing these fields.  When you are done editing the parameters, exit the nano editor pressing `Ctrl+X` and then type '`y`' to save the changes.
+在此畫面中，您必須將字段`USER_ID`，`DEVICE_ID`以及`DEVICE_CREDENTIAL`替換為您在平台中註冊裝置時提供的資訊。以下是編輯這些字段之前的`main.cpp`文件截圖。
+完成變更參數後，離開`nano`請鍵入`ctrl+x`並輸入`y`來儲存變更。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/2697e5c757b23eec7537fc9ac232544f5923d583.png)
 
-If you are executing the script on a Raspberry Pi, make sure the `run.sh` contains the `-DRASPBERRY=ON` commandline parameter as follows -
+如果您在Raspberry Pi上執行腳本，請確保run.sh包含`-DRASPBERRY=ON`參數，如下所示 -
 
 ```text
 cmake -DCMAKE_BUILD_TYPE=Release -DDAEMON=OFF -DRASPBERRY=ON
 ```
 
-Now you must add execute permissions to the `run.sh` script.
+現在，您必須向run.sh腳本加入執行權限。
 
 ```text
 chmod +x run.sh
 ```
 
-And now you can run it to test that everything is working.
+現在您可以執行它來測試是否所有功能都正常。
 
 ```text
 ./run.sh
 ```
 
-If everything is going fine you should see how the program is compiled and executed automatically. The program actually reports some debug text that can help us to check if we have configured the credentials well. The expected result you should see is something like the following picture.  Now you can go to your thinger.io console and check that the Raspberry appears as connected. You can even try to execute the `sum` resource defined in the `main.cpp` that simply performs a sum. For test the device resources, please go to the API Explorer that appears in the device dashboard.
+如果一切順利，你應該看看程式是如何自動編譯和執行的。該程式實際上回報了一些除錯訊息，幫助我們檢查我們是否正確配置了驗證資訊。您應該看到的預期結果如下圖所示。
+現在，您可以切換到thinger.io控制台並檢查Raspberry是否顯示為已連接。您甚至可以嘗試透過`API Explorer`執行`main.cpp`中定義的資源`sum`來測試加總。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/e321714a8b9fcac120cb1dafae8502cca65e9b39.png)
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/7b3bf8846f66eb57b422a803ac157560ea608e19.png)
 
-## Installing the client as daemon
+## 將客戶端作為常駐程式
 
-At this moment, the client you have running will be stopped if you close the terminal or end the SSH connection. You can however install the client as a daemon service, so it is started automatically even if your Raspberry reboot.
+如果關閉終端或結束SSH連接，客戶端將會停止運作。
 
-To install the client you have already run as a service, please go to the Raspberry install folder:
+您可以將客戶端作為常駐程式執行以避免關閉，即使您的Raspberry重新啟動它也會自動啟動。
+
+要將客戶端作為服務執行，請切換至Raspberry安裝資料夾：
 
 ```text
 cd install/raspberry/
 ```
 
-And then run the `install.sh` script, that will compile and install the client as a service. This step will copy a init script file to `/etc/init.d/thinger`, and also will copy the compiled binary file to `/usr/local/bin/thinger`. So if you want to remove the daemon client you can stop the service and remove those files.
+然後執行`install.sh`腳本，其將編譯並將客戶端作為服務安裝。
+
+此步驟將複製`init腳本`到`/etc/init.d/thinger`，並將已編譯的二進制文件複製到`/usr/local/bin/thinger`。因此，如果要刪除客戶端常駐程式，可以停止該服務並刪除這些文件。
 
 ```text
 chmod +x install.sh
 ./install.sh 
 ```
 
-Notice that this command will install and run the thinger.io client in background as a daemon, so if you call again the `run.sh` script, which run the standalone client, both clients will be connecting to the platform and disconnecting each other continuously. If you need to stop the background client, please use this command.
+請注意，此指令將安裝並在後台作為常駐程式執行thinger.io客戶端，因此如果再次調用`run.sh`執行獨立客戶端的腳本，則兩個客戶端將同時連接到平台並持續中斷彼此的連接。如果需要停止後台客戶端，請使用此指令。
 
 ```text
 sudo service thinger stop
 ```
 
-## What's next?
+## 然後呢？
 
-Now you have to integrate your desired resources in the main.cpp file, like the `sum` example is already present. You can try to define a resource for turning on and off a led, read a sensor value, execute a system command, and so on. Some tutorials will be available soon for covering this basic functionality.
-
+現在，您可以參考已經存在的範例`sum`，將您所需的資源結合到main.cpp文件中，您可以嘗試定義用於打開和關閉LED、讀取傳感器值、執行系統命令等的資源。此處將很快提供一些基本教學。

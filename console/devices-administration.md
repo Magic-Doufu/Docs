@@ -1,60 +1,63 @@
-# DEVICES ADMINISTRATION
+# 裝置管理
 
-## Create Device
+## 建立裝置
 
-The first step to start an IoT project in Thinger.io \(except for not connected devices like Sigfox\) is by creating devices, which will grant access to connect your devices to your account. Any device in Thinger.io must be registered to get access to the cloud. Each one has its own identifier and credentials and is related to the user account. This section describes the required steps to register a new device in your account.
+在Thinger.io中啟動IoT項目的第一步（除了像Sigfox這樣非TCP Socket連接導向的裝置）是通過新增裝置來授予存取權限，以便將裝置連接到您的帳戶。任何裝置皆必須於Thinger.io中註冊才能存取平台。每個裝置都有自己的`ID`和`憑證(Credential)`，並且屬於某個使用者帳戶。本節介紹在您的帳戶中註冊新裝置所需的步驟。
 
-To register a new device, once you have been logged in your console dashboard, please go to the **Devices** section that appears in the left menu.
+要註冊新裝置，請在登錄後，切換到左側選單中的**Devices**部分。
 
 ![](../.gitbook/assets/image%20%28149%29.png)
 
-This section will list your registered devices and will show some information about its connection. Something similar to the following picture.
+此部分將列出您註冊的裝置，並顯示有關連接狀態的一些資訊。類似於下圖的畫面。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/58e06f4e8771738d9a1fa7f26a53fdb2864b5937.png)
 
-If it's your first time on thinger.io this list will be empty. Next we'll show you how to create your first device. First of all, click on **Add Device** that will open a form in which you can introduce your device indentification credentials and select a **Device Type** from the drop down list, selecting one of these types: 
+如果這是您第一次造訪Thinger.io，此列表應為空。我們接下來將向您展示如何創建您的第一個裝置。
 
-* **Generic device**: For devies with Thinger.io software client on it. Such as Raspberry Pi, Linux or Arduino devices. 
-* **HTTP device**: This option allows you retrieving data from third party platforms and comercial devices in order to work their information despite not having a full integration. 
-* **Thinger Core 32 device**: This is only for ESP32 modules with Thinger.io Core on it.
+首先，點擊**Add Device**，這將打開一個表單，您可以在其中輸入`裝置ID`與`憑證`。並從下拉列表中選擇**Device Type**，選擇以下之一類型：
 
-After selecting your the device type you can fill the input text form as explained below:
+* Generic device: 適用於裝有Thinger.io客戶端的裝置。例如Raspberry Pi，Linux或Arduino裝置。
+* HTTP device: 此選項允許您在沒有完全集成的情況下從第三方平台和商業裝置中取得數據以進行資訊處理。 
+* Thinger Core 32 device: 僅適用於上面裝有Thinger.io Core的ESP32模組。
+
+選擇裝置類型後，應該填寫如下表單：
 
 ![](../.gitbook/assets/adddevice.PNG)
 
-Add the **device identifier** \(unique within your devices\), a **device description** that may help you to identify your device, and the **device credentials**. Each device has its own identifier/credential, so a compromised device will not affect other devices. All your passwords in the server are stored securely using `PBKDF2 SHA256` with a 32 bytes salt generated with `PRNG` and a non-depreciable amount of iterations. Keep your **device identifier** and **device credential**, as you will need them for connecting your device \(the password cannot be recovered later\).
+在此處輸入給予裝置唯一的`Device Id`、可以幫助您識別裝置的`Device description`以及憑證`device credentials`。每個裝置都有自己的`ID`/`憑證`，因此帳戶中的裝置間不會互相影響。伺服器中的所有密碼都加入透過`PRNG`與非折舊性迭代(non-despreciable amount of iterations)產生出的32字節的鹽，並使用`PBKDF2 SHA256`進行安全存儲。
+保存好您的`device Id`和`device credentials`，因為您需要它們來連接您的裝置（密碼設定後將無法再次檢視）。
 
-If all goes fine, you should see some success message
+如果一切順利，你應該看到一些成功的訊息
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/68e13f2c4df7ecb9f0261d84ba36e12b3d8498ce.png)
 
-Now, you can o back to your devices list, and your device should appear as disconnected.
+現在，您可以返回到裝置列表，裝置應顯示為已中斷連接。
 
 ![](../.gitbook/assets/device_list.png)
 
-Now you can use your new device id and the device credentials to connect the new device. Depending on your device, you will need to install the required libraries or development environment, so checkout the following sections according to your device:
+現在，您可以使用新裝置ID和裝置憑據來連接新裝置。根據您的裝置，您將需要安裝所需的程式庫或開發環境，因此請根據您的裝置簽出以下部分：
 
 {% page-ref page="../devices/arduino.md" %}
 
 {% page-ref page="../devices/linux.md" %}
 
-Remember that Sigfox devices, does not share the concept of connected device, as they are by default offline devices that send information periodically. If you want to store information from these devices, please, checkout the following documentation.
+請記住，Sigfox裝置不共享已連接裝置的概念，因為它們預設情況下是定期發送資訊的離線裝置。如果您想存取來自這些裝置的資訊，請檢視以下文件。
 
 {% page-ref page="../devices/sigfox.md" %}
 
-For the following example, we will be using the Arduino IDE along with an ESP8266 device, like the NodeMCU. In this case, you can open the example code for the ESP8266, and fill the device details: your username, the device ID, and the device credentials established while creating the device. The following picture represents the relation between the code and the device created in your account.
+對於以下範例，我們將使用Arduino IDE和ESP8266裝置，如NodeMCU，在這種情況下，您可以打開ESP8266的範例程式，並填寫裝置詳細資訊：您的使用者名，裝置ID以及建立裝置時建立的裝置憑證。下圖顯示了程式與帳戶中建立的裝置之間的關係。
 
 ![](../.gitbook/assets/adddevice2.PNG)
 
-Once we have established in the code our account identifier, device identifier, and device credentials, we can compile and flash the program. Meanwhile, we can open our device in the cloud console, just by clicking its identifier in the devices list. In the device screen, you will be able to see some information about your device, like its IP address, connection status, or sent/received information in real time. By default, our device will appear as disconnected, like in the following picture.
+一旦我們在程式中建立了我們的帳戶ID，裝置ID和裝置憑證，我們就可以編譯並上傳程式。同時，我們只需在裝置列表中點擊其ID即可在雲控制台中打開我們的裝置。在裝置畫面中，您將能夠即時檢視有關裝置的一些資訊，例如IP位址，連接狀態或發送/接收的資訊。預設情況下，我們的裝置將顯示為已中斷連接，如下圖所示。
 
 ![](../.gitbook/assets/devicedashboard.png)
 
-Once the device gets connected to the account, the interface will change its status, showing that it is connected, and it is transmitting information, like in the following picture:
+裝置連接到帳戶後，界面將更改其狀態，顯示已連接，並且正在傳輸資訊，如下圖所示：
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/f61eadbe92939d1c7a6bc066df698e6b88ecb74e.png)
 
-Note that the connected device dashboard is able to show an estimated location of the device, that can be modified following the instructions of the "properties" chapter of this documentation. So, now we have our device connected to our account, and we are ready to start interacting with the device over the Internet.
+請注意，已連接的裝置儀表板能夠顯示裝置的大略位置，可以根據本文件"properties"部分的說明進行修改。現在我們已將裝置連接到帳戶中，已經準備好開始通過網際網路與裝置進行互動。
 
 ## Device Explorer
 
@@ -62,32 +65,35 @@ Each device counts with an explorer and administration interface, that allows sh
 
 In the next sections, it is explained each different feature of the device explorer:
 
-### Device API
+### 裝置 API
 
-One cool feature of the Thinger.io platform, is that it allows to discover the resources defined in your device. A resource can be a sensor reading, like temperature, humidity, or pressure. A resource can be also any actionable element, like a light, a relay, or a motor. But in general, any device resource is like a callback function that can be called \(on demand\) through a Rest API. In this way, this section explains how to interact with your device resources over the cloud console, but also you will find how you can issue your own REST API calls to query your device.
+Thinger.io平台的一個很酷的功能是，它可以探索裝置中定義的資源。資源可以是傳感器讀數，如溫度，濕度或壓力。也可以是任何可操作的元素，如燈，繼電器或電動機。一般來說，任何裝置資源都像一個可以通過Rest API依照需求調用的回調函數。通過這種方式，本節將介紹如何通過雲控制台與裝置資源進行互動，同時您亦將了解如何調用自己的REST API來存取資源。
 
-Once you have your device connected to your account, as described in the previous section, you can access to its resources and explore the API Rest endpoints using the `API EXPLORER`. You can access to this screen over the Device Dashboard, by clicking on the small blue button called `Device API`.
+將裝置連接到帳戶後，如上一節所述，您可以存取其資源並使用`API EXPLORER`探索`API Rest`端點。您可以通過點擊名為`Device API`的藍色小按鈕，在`DEVICE`頁中存取此畫面。
 
-In the API explorer interface you will see one different box for each resource defined in your code. Each resource has an identifier, that is related with the resource name defined in your code. In the Thinger.io platform, you can define 4 different types of resources, one for input \(sending data to the device\), one for output \(the device will send information\), one for input/output \(you can send and receive information in one call\), and just a callback resource, which you can just execute without sending or receiving information. The input and output data, from the API perspective, can be any JSON document. Take a look to your library documentation in order to see how to define these different resources.
+在API資源管理器界面中，您將看到許多不同的框列出程式中定義的每個資源。每個資源都有一個ID，該ID與程式中定義的資源名稱相關。
 
-For example, the default ESP8266 example in the Arduino libraries, defines two different resources. One input resource, called `led`, for controlling the `BUILTIN_LED`, and one output resource, called `millis` to extract the current millis of the device, as defined in the following code. Notice that a resource name can be any arbitrary text to identify the underlying resource, as they are not tied to any constant defined in the platform.
+在Thinger.io平台中，您可以定義4種不同類型的資源，分別為：輸入（向裝置發送數據），輸出（裝置將發送資訊），輸入/輸出（您可以在一個調用中發送和接收資訊）以及回調資源(僅用於執行函數而不傳遞任何數據)。從API的角度來看，輸入和輸出數據可以是任何JSON文件。您可以檢視程式庫文件了解如何定義這些不同的資源。
 
-So, these are our sample resource:
+例如，Arduino程式庫中的預設ESP8266範例定義了兩種不同的資源。一個稱為`led`的輸入資源，用於控制`BUILTIN_LED`和一個調用`millis`以提取裝置直行至目前毫秒數的輸出資源，如以下程式中所定義。請注意，資源名稱可以是用於標識基礎資源的任意文字，它們與平台中定義的任何常數無關。
+
+以下是我們的範例資源：
 
 ```cpp
 thing["led"] << digitalPin(BUILTIN_LED);
 thing["millis"] >> outputValue(millis());
 ```
 
-If our device is connected to the platform, we can open our device API explorer and see the defined resources in the platform, like in the following picture.
+如果我們的裝置連接到平台，我們可以打開我們的裝置API資源管理器並檢視平台中定義的資源，如下圖所示。
 
 ![](../.gitbook/assets/deviceapi.PNG)
 
-You can see how our defined resources in the device are now available in the platform, as the device is able to report the available resources and their format \(or current state\). The idea is that you can test here your resources, that is, interacting with them in real-time. In this case, you will be able to switch the led state, or read the current milliseconds from the Arduino device. Every click in the `Run` button will execute your resource, i.e., forcing a read from a sensor, calling the `millis()` function, or sending a new state for the actuator, depending on the resource type \(input or output\).
+現在您可以看到如何於平台中使用裝置中所定義的資源，因為裝置能夠回報可用資源及其格式（或目前狀態）。您可以在這裡測試您的資源，與它們進行即時互動。您將能夠切換LED狀態，或讀取Arduino裝置運作至目前的毫秒數。
+每次點擊`Run`按鈕都將立即執行您的資源，即根據資源類型，向裝置要求傳感器數值、調用`millis()`或為動作機構發送新狀態，具體行為取決於資源類型（輸入或輸出）。
 
-The nice idea about that, is that every device resource, can be translated to a REST API endpoint, so you can consume or interact with your devices using standard REST queries, i.e., using a `POST` method to send values to the device, or using a `GET` method to read information from the device. So, you can easily test these API endpoints before integrating them in other platforms or applications.
+關於這一點的好處是每個裝置資源都可以轉換為REST API端點，因此您可以使用標準REST請求如`POST`方法將值發送到裝置，或使用`GET`從裝置讀取資訊等方法來使用或與裝置互動。因此，在這些API端點被結合到其他平台或應用程式之前即可輕鬆對這些端點進行測試。
 
-You can even test more complex inputs and outputs from the platform. In example, suppose that you have defined a resource that basically returns the sum and multiplication between two integer numbers, something like:
+您甚至可以從平台測試更複雜的輸入和輸出。在以下範例中，假設您已經定義了一個回傳兩個整數和與乘積的資源，例如：
 
 ```cpp
 thing["in_out"] = [](pson& in, pson& out){
@@ -96,101 +102,87 @@ thing["in_out"] = [](pson& in, pson& out){
 };
 ```
 
-This resource definition will be translated to the following resource in the platform, where it is possible to both test input values, and view the output result. So, you can try entering some values, click on `Run`, and see the output reported by the device. This example also emphasizes how the resources work, as they are not just static values, but callbacks you can call with any input or output value.
+此資源定義將轉換為平台中的以下資源，其既可以測試輸入值，也可以檢視輸出結果。因此，您可以嘗試輸入一些值，點擊`Run`，然後檢視裝置回報的輸出。此範例還強調資源如何工作，因為它們不僅僅是靜態值，而是可以使用任何輸入或輸出值調用的回調。
 
 ![](../.gitbook/assets/inoutresource.PNG)
 
-In addition to this useful device API explorer where you can interact with your devices, you can also obtain specific information about the REST API endpoint by clicking on the `Show Query` button. This provides information about the method type, URL, content type, request body, and response body. You can also click on `Curl`, so you can copy the command to interact with your device directly from your console. The above example is translated to the following REST API call:
+除了可以與裝置互動的有用裝置API資源管理器之外，您還可以通過點擊`Show Query`按鈕取得有關REST API端點的特定資訊。它提供方法(method)、URL、內容類型(ContentType)、請求內容(Request Body)和響應內容(Response Body)等資訊。您也可以點擊`Curl`直接複製產生的指令與裝置進行互動。
+
+上面的範例轉換為以下REST API調用：
 
 ![](../.gitbook/assets/showquery.PNG)
 
-There is more information available about the API for interacting with your devices [here](http://docs.thinger.io/api/#devices-api-access-device-resources).
+[此處](http://docs.thinger.io/api/#devices-api-access-device-resources).提供了有關與裝置進行交互的API的更多信息。
 
-### Device Tokens
+### HTTP 裝置回調 (Callback)
 
-All the interactions with your connected devices, i.e., by using the REST API endpoints commented above, or a mobile phone, needs to be authenticated against the platform. By default, when you interact with your devices over the Thinger.io console, you are implicitly signing all your requests to the platform with an access token you obtained from your username and password. This kind of authorization grants access to all your account resources, so you can configure devices, buckets, etc. However, this authorization expires quite frequently \(but renewed automatically by your browser\), and cannot be used to grant access to our devices to other users or platforms, as you will be providing access to all your account.
+由於這些裝置的性質，[thinger.io](http://thinger.io/)在使用回調進行結合的基礎上應用了特殊處理。回調是伺服器的一項功能，通過帶有數據的HTTP查詢來請求處理裝置數據，例如將其存儲在存儲桶中，調用端點設定檔或登錄至應發送的JSON中。
 
-In this case, it is possible to create specific access tokens for granting access to your devices, and even grant access to specific resources on your devices. Moreover, it is possible to define the token validity in time, by enabling an expiration date. This way, if you need to provide access to some of your device resources to a third party tool like IFTTT, a external web page, a mobile phone, or any other service, it is highly recommended to create a device token.
-
-To create a device token, open the device Dashboard and take a look to the subsection called "Device Tokens". Then, click on the green button `Add` on the right of the box. Then, a modal window will appear, were you can configure different parameters:
-
-* Token name: Use a representative name to remember why the token was issued, i.e., IFTTT Access, Mobile phone, etc.
-* Token access: Configure the token to allow accessing all device resources, or limit the access to a set of resources.
-* Token expiration: Configure the token to expire at some given date, or available indefinitely.
-
-The following figure shows a sample screenshot while configuring a device token.
-
-![](../.gitbook/assets/addtockenform.PNG)
-
-Once the token is saved, the interface will show the access token to be used in the REST API Calls, like in the following figure. If you need help to integrate this access token in the REST API calls, checkout [this](http://docs.thinger.io/api/#authentication-api-rest-api-authentication) documentation.
-
-![](../.gitbook/assets/devicetokenvalue.png)
-
-### HTTP devices Callback <a id="http-devices-callback"></a>
-
-Because of the nature of these devices, [thinger.io](http://thinger.io/) applies a special treatment, based on the use of callbacks to make the integration. A callback is a functionality of the server that can be used to request a process with device data by means of a HTTP query, such as store it in a bucket, calling an endpoint profile or registering the information contained in a JSON that should be sended with the query.
-
-To create a callback, open the device Dashboard and take a look to the subsection called "callback", that will show different options in the context `callback details` as shown in the image below:
+要建立回調，請打開裝置儀表板，然後檢視名為`callback`的部分，`callback details`區塊將顯示一些選項，如下圖所示：
 
 ![](../.gitbook/assets/callbackdetails.PNG)
 
-This context shows the different functionalities that can be requested from the server using a callback, by just clicking in the checkbox and selecting the resource that will receive the data, such as:
+此內容顯示了可以通過使用回調從伺服器請求的不同功能，只需點擊複選框並選擇將接收數據的資源，例如：
 
-* Data storage in scalable [Data Buckets](http://docs.thinger.io/console/#data-buckets)
-* Calling [Endpoint Profiles](http://docs.thinger.io/console/#endpoints) to integrate with third parties
-* Retrieving or modifying [Device Properties](http://docs.thinger.io/api/#Device-properties) using `Set device property` or `response data` features.
+* 將數據存儲至可縮放的[數據桶]中(http://docs.thinger.io/console/#data-buckets)
+* 調用[端點設定檔](http://docs.thinger.io/console/#endpoints)與第三方結合
+* 使用`Set device property`或`response data`功能檢視或修改[Device Properties](http://docs.thinger.io/api/#Device-properties)。
 
-Note that it is not possible to create properties, data buckets or endpoints though callback request, so it is necessary to initialize then first using the web console or via REST API.
+請注意，無法通過回調新增屬性，數據儲存桶或端點，因此必須先於Web控制台或REST API進行建立
 
-Ones you have configured the callback details, the system will be ready to receive a request. In a similar way to the "show query" feature included in the Connected device's dashboard, you can find a precise specification of the HTTP request structure and a complete cURL example by clicking in the "overview" or "cURL Example" tabs in the upper side of `Callback Details` context as shown in the image below:
+您已設定了回調詳細資訊，系統將準備接收請求。
+與已連接裝置的儀表板中包含的"show query"功能類似，您可以通過點擊`Callback Details`內的"overview"或"cURL Example"選項來找到HTTP請求結構的精確規範和完整的cURL範例。
+
+內容如下圖所示：
 
 ![](../.gitbook/assets/callbackoverview.PNG)
 
-Finally, to create a Callback HTTP request, take in count that the `Authorization Header` must be included 9in your HTTP request as shown in the example below:
+最後，要進行一個具回調功能的HTTP請求，必須將`Authorization Header`加入至請求中。如以下範例所示：
 
 ```text
 https://<Thinger_Server>/v3/users/<Username>/devices/<Device_ID>/callback?authorization=<Authorization_Header>
 ```
 
-### Device Tokens <a id="device-tokens"></a>
+### 裝置令牌\(Device Tokens\)
 
-All the interactions with your connected devices, i.e., by using the REST API endpoints commented above, or a mobile phone, needs to be authenticated against the platform. By default, when you interact with your devices over the [Thinger.io](http://thinger.io/) console, you are implicitly signing all your requests to the platform with an access token you obtained from your username and password. This kind of authorization grants access to all your account resources, so you can configure devices, buckets, etc. However, this authorization expires quite frequently \(but renewed automatically by your browser\), and cannot be used to grant access to our devices to other users or platforms, as you will be providing access to all your account.
+所有與您連接的裝置的互動，即使用上面評論的REST API端點或智慧手機，都需要針對平台進行身份驗證。預設情況下，當您通過[Thinger.io](http://thinger.io/)控制台與裝置進行互動時，您將使用從使用者名和密碼獲取的存取令牌隱式地將所有請求簽核到平台。這種授權允許您存取所有的帳戶資源，因此您可以設定裝置，數據儲存桶等。但此授權經常過期（將由瀏覽器自動續約），並且不能用於其他我們授予裝置存取權限的使用者或平台，因為您將提供對所有帳戶的存取權限。
 
-In this case, it is possible to create specific access tokens for granting access to your devices, and even grant access to specific resources on your devices. Moreover, it is possible to define the token validity in time, by enabling an expiration date. This way, if you need to provide access to some of your device resources to a third party tool like IFTTT, a external web page, a mobile phone, or any other service, it is highly recommended to create a device token.
+在這種情況下，可以建立特定的存取令牌以授予對裝置的存取權限，甚至可以授予對裝置上特定資源的存取權限。此外，通過設定有效日期，可以即時定義令牌有效性。這樣，如果您需要為第三方工具（如IFTTT，外部網頁，手機或其他任何服務）提供對某些裝置資源的存取權限，強烈建議您建立裝置令牌。
 
-To create a device token, open the device Dashboard and take a look to the subsection called "Device Tokens".
+要建立裝置令牌，請打開裝置儀表板，然後檢視名為 "Device Tokens"的子頁面。
 
 ![](../.gitbook/assets/adddevicetoken.PNG)
 
-![](vscode-resource:/c%3A/Users/Jorge/Desktop/Docs-gh-pages_OLD/console/assets/AddDeviceToken.PNG)Then, click on the green button \`Add\` on the right of the box. Then, a modal window will appear, were you can configure different parameters:
+![](vscode-resource:/c%3A/Users/Jorge/Desktop/Docs-gh-pages_OLD/console/assets/AddDeviceToken.PNG)
+接著點擊右側綠色的`Add`按鈕，會出現一個視窗，您可以設定不同的參數：
 
-* Token name: Use a representative name to remember why the token was issued, i.e., IFTTT Access, Mobile phone, etc.
-* Token access: Configure the token to allow accessing all device resources, or limit the access to a set of resources.
-* Token expiration: Configure the token to expire at some given date, or available indefinitely.
+* Token name: 使用代表名稱來記住令牌的發布原因，即IFTTT Access，手機等。
+* Token access: 設定令牌以允許存取或限制對裝置資源的存取。
+* Token expiration: 將令牌設定為在某個給定日期到期，或者永不過期。
 
-The following figure shows a sample screenshot while configuring a device token.
+下圖顯示了設定裝置令牌時的範例畫面截圖。
 
 ![](../.gitbook/assets/addtockenform%20%281%29.PNG)
 
-Once the token is saved, the interface will show the access token to be used in the REST API Calls, like in the following figure. If you need help to integrate this access token in the REST API calls, checkout [this](http://docs.thinger.io/api/#authentication-api-rest-api-authentication) documentation.
+令牌此時已經保存，界面將顯示要在REST API調用中使用的存取令牌，如下圖所示。如果您需要幫助以在REST API調用中集成此存取令牌，請檢視[此文件](http://docs.thinger.io/api/#authentication-api-rest-api-authentication)。
 
 ![](../.gitbook/assets/device_token_value.png)
 
-### Device Properties <a id="device-properties"></a>
+### 裝置屬性 <a id="device-properties"></a>
 
-[Thinger.io](http://thinger.io/) provides a simple way to store additional information related to an specific device, such as location, identificators or even configuration parameters that may be retrieved by devies using comon Json files. On this way, the platform can be used as devices persistent memory. To create a device property, open the device Dashboard and take a look to the subsection called "Properties".
+[Thinger.io](http://thinger.io/)提供了一種簡單的方法來存儲與裝置有關的特定資訊，例如位置，ID或是裝置可能使用通用Json文件查詢到的配置參數。這樣，平台可以用作裝置的持久性內存。要創建裝置屬性，請打開裝置儀表板，然後檢視名為“屬性”的小節。
 
 ![](../.gitbook/assets/deviceproperties.PNG)
 
-This menu provides an easy way to create, manage or delete devices properties. Note that the property created in this example is specifying the device location. [Thinger.io](http://thinger.io/) system has been designed to detect this configuration and automatically represent it on the device dasboard map.
+此選單提供了一種建立，管理或刪除裝置屬性的簡便方法。請注意，在此範例中建立的屬性指定了裝置位置。[Thinger.io](http://thinger.io/)系統被設計為會自動偵測此設定，並將其表示在裝置儀表板地圖上。
 
 ![](../.gitbook/assets/adddeviceproperty.PNG)
 
-Properties declarations and modifications are made by means of a special context, provided with a json validator that enhances the text and check morfologic mistakes.
+屬性聲明和修改是通過特殊的內容進行的，該內容提供了json驗證器，可以增強模式檢查文本中的型別錯誤。
 
-#### Coding with properties <a id="coding-with-properties"></a>
+#### 在程式碼中使用屬性 <a id="coding-with-properties"></a>
 
-It is also possible to create, retrieve and modify data properties from devices, however, at this point we must differentiate between HTTP devices or [thinger.io](http://thinger.io/) software client devices, which will use `set_property()` or `get_propery()` comands as shown in the example below:
+可以在裝置上使用`set_property()`或`get_propery()`進行產生、檢視和修改屬性，如下例所示：
 
 ```text
 /*set property value*/
@@ -211,19 +203,23 @@ thing.set_property("My_Property", data, true);
  
 ```
 
-\(You can learn more details about this functions in the "codification" section of this documentation\).
+\(您可以在本文件的"編纂"部分中了解有關此功能的更多詳細資訊\)
 
-using HTTP devices it's also the possible to interact with properties through callback configuration submenu tools.
+但是我們必須區分該裝置是HTTP裝置還是[thinger.io](http://thinger.io/)客戶端裝置。
+
+如使用HTTP裝置，還可以通過設定回調的子選單工具與屬性進行互動。
 
 ![](../.gitbook/assets/httpgetsetproperty.PNG)
 
-Acording to this configuration, when [Thigner.io](http://thigner.io/) server receives any transmission from "SigfoxDevice1" the payload data will be stored into "data" property, creating a JSON with all variables. In the oposite situation, thanks to the "Response Data" feature, the values stored in the parameter with was called "downlink\_data" will be sent to the device thought Sigfox infrastructure.
+根據此設定，當[Thigner.io](http://thigner.io/)伺服器從`SigfoxDevice1`接收到任何傳輸時，payload 數據將存儲到`data`屬性中，並建立一個包含所有變數的JSON。在另一個的情況下，由於使用了"響應數據\(Response Data\)"功能，因此會將存儲在"downlink \_data"參數中的值發送到Sigfox基礎架構裝置。
 
-### Device Settings <a id="device-settings"></a>
+### 裝置設定 <a id="device-settings"></a>
 
-It is possible to adjust some device details like its description or credentials going to the "Settings" subsection of the device dashboard. This way, you can change the device credentials by a new one of your choice in case you forgot it \(the password cannot be recovered from database as it is encrypted\). Notice that changing the device password, will not disconnect the device, but will prevent its reconnection once disconnected.
+您可以通過選擇裝置後，在裝置儀表板的"Settings"項目中調整一些裝置詳細資訊，如描述或憑證。
+
+忘記憑證時可以在此直接更新憑證（憑證設定後無法從資料庫中恢復，因為它已加密）。請注意，更改裝置憑證不會中斷裝置，但會在中斷連接後阻止其重新連接。
 
 ![](../.gitbook/assets/deviceedit%20%281%29.png)
 
-If you need to change the device identifier it is necessary to delete the device and register a new one with the desired one.
+如果您需要更改裝置ID，則必須刪除該裝置，然後用所需的裝置資訊註冊一個新的裝置。
 

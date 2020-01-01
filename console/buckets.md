@@ -1,33 +1,29 @@
-# BUCKETS
+# 資料儲存桶(Data buckets)
 
-A data bucket is some kind of virtual storage where you can keep time series information, like temperature or humidity over time. But it is possible to use them to store any other event, like motion detections, garage door opens, temperature warnings, and so on.
+>數據存儲桶是一種虛擬儲存機制，您可以在其中保留時序資訊，例如隨時間變化的溫度或濕度。也可以使用它們存儲其他事件，例如移動偵測、車庫門打開、溫度警告等。儲存的資訊可在儀表板中進行繪製，或者以不同的格式匯出以進行離線處理。
 
-This information can be used to plot information in dashboards, or can be exported in different formats for offline processing.
+## 建立儲存桶
 
-## Create Bucket
-
-To create a data bucket, you need to access the `Data Buckets` feature, by clicking on this section:
+要建立數據儲存桶，您需要點擊選單中的`Data Buckets`進行存取：
 
 ![](../.gitbook/assets/bucketstab.PNG)
 
-To create the bucket, just press in the **Add Bucket** button, which will show the following screen:
+要建立數據儲存桶，只需按下**Add Bucket**按鈕，它將顯示以下畫面：
 
 ![](../.gitbook/assets/addbucket.PNG)
 
-Here it is necessary to configure different parameters:
+接著設定必要的參數：
 
-* **Bucket Id**: Unique identifier for your bucket. 
-* **Bucket name**: Use a representative name to remember the bucket scope, like `WeatherData`.
-* **Bucket description**: Fill here any description with more details, like Temperature and humidity in house.
-* **Enabled**: Data bucket recording can be enabled or disabled. Just switch it on to enable it.
+* **Bucket Id**: 您的數據儲存桶的ID。
+* **Bucket name**: 使用代稱來協助記憶數據儲存桶用途，例如`WeatherData`。
+* **Bucket description**: 在這裡填寫更多細節描述，如室內溫度和濕度。
+* **Enabled**: 可以啟用或禁用數據儲存桶寫入。將其打開即可啟用寫入。
 * **Data source**:
-  * **From Device Resource**: It means that it will take information from a specific device resource \(like temperature, motion, and so on\). In this option, the device should keep a permanent connection with the server. This add some benefits as we can change the sampling rate on demand, without having to change our device code, by using the `Sampling Interval` option.
+  * **From Device Resource**: 這意味著它將從特定裝置資源（如溫度，運動等）獲取資訊。在此選項中，裝置應與伺服器保持連接。這個功能所提供的好處是：我們可以根據需要更改`Sampling Interval`選項設定採樣率，而無需更動裝置程式。
 
+    **請記住** [此處](http://docs.thinger.io/arduino/#coding-adding-resources)更詳細地描述了如何在裝置中定義資源的過程，不過由DHT傳感器回報溫度和濕度的資源可以這樣寫：
 
-
-    **Remember** that defining a resource in the device is described in more detail [here](http://docs.thinger.io/arduino/#coding-adding-resources), but a single resource reporting temperature and humidity from a DHT sensor could be coded like this:
-
-    ```text
+    ```cpp
     // define the resource just once in the setup
     thing["TempHum"] >> [](pson &out){ 
       out["temperature"] = dht.readTemperature();
@@ -35,9 +31,9 @@ Here it is necessary to configure different parameters:
     };
     ```
 
-    It is also possible to let he device stream the information when required, i.e., by raising an event when detected. In this case, we can use the `Update by Device` option while configuring the bucket, and use the streaming resources as described [here](http://docs.thinger.io/arduino/#coding-streaming-resources).
-
-    Using the previous `TempHum` sample resource, it could be done like in the following code snippet.
+    也可以讓裝置在滿足特定條件時發起事件來串流傳輸資訊。在這種情況下，我們可以在設定數據儲存桶時使用`Update by Device`選項，並按照[此處](http://docs.thinger.io/arduino/#coding-streaming-resources)所述的傳輸串流資源。
+    
+    使用前面的`TempHum`範例資源，完成後會如下面的程式片段那樣。
 
     ```cpp
     void loop() {
@@ -49,11 +45,11 @@ Here it is necessary to configure different parameters:
     }
     ```
 
-    This way, the data bucket is subscribed to a device resource, and its information is registered in every stream call.
+    這樣，數據儲存桶就訂閱了裝置資源，並且在每次串流調用中都登錄了它的資訊。
 
-  * **From Write Call**: This option will allow setting the bucket in a state that it will not register any information by default, but it will just wait for writing calls, both from the Arduino library using the `write_bucket` method, as shown [here](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep), or calling the REST API directly like done with [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket). This feature opens the option to register information in the same bucket from different devices, or store information from devices that are not connected permanently with the server, that are in sleep mode, or use a different technology like Sigfox.
+  * **From Write Call**: 此選項將設定數據儲存桶為在預設情況不會記錄任何資訊的狀態。它會等待調用寫入函數，如像[這樣](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep)從Arduino程式庫調用`write_bucket`方法或與 [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket) 一樣直接調用REST API。此功能允許從不同裝置寫入資料到同一數據儲存桶中，或者紀錄來自未與伺服器永久連接裝置的資訊(處於睡眠模式的裝置或使用Sigfox等其他技術的資訊)。
 
-    Here is an example of an ESP8266 device writing information to a bucket using the `write_bucket` function:
+    以下是ESP8266裝置使用`write_bucket`功能將資訊寫入數據儲存桶的範例：
 
     ```cpp
     void setup() {
@@ -76,21 +72,21 @@ Here it is necessary to configure different parameters:
 
 ![](../.gitbook/assets/buckettimesample.PNG)
 
-## Review Bucket Data
+## 檢視儲存桶數據
 
-Once the data bucket has been configured, and it started to record data from a device or from write calls, it will display the information inside a table. Every record contains the server timestamp in UTC \(but shown in local time zone in the console\), and the record value. The value stored in the data bucket can be a single value, or any other JSON document. If the JSON document is composed by key-value pairs, like in the previous examples, they will be displayed in tabular format, just like in the following screenshot.
+當設定了數據儲存桶並且開始記錄來自裝置或調用寫入的數據，它即在表中顯示資訊。每條記錄都包含伺服器中的UTC時間戳（但以雲端平台中設定的時區時間顯示）和記錄值。存儲在數據數據儲存桶中的值可以是單個值，也可以是任何其他JSON文檔。如果是JSON文檔，則由鍵值對組成，如前面的範例所示，它們將以表格格式顯示，就像在下面的畫面截圖中一樣。
 
 ![](../.gitbook/assets/iotbucketdata.png)
 
-## Clear Bucket Data
+## 清除儲存桶數據
 
-Sometimes it can be useful to clear the bucket information without deleting the whole bucket, creating and configuring it again. Therefore, you can clear the bucket, or a part of them easily from the bucket page. In the clear process, the bucket can still record information from your devices.
+這個功能對於清除數據儲存桶資訊，而非刪除整個數據儲存桶並再次建立和設定它可能很有用。因此，您可以從數據儲存桶頁面輕鬆清除數據儲存桶或其中的一部分。在清除過程中，數據儲存桶仍然可以記錄裝置中的資訊。
 
 ![](../.gitbook/assets/data-bucket-clear.png)
 
-## Export Bucket Data
+## 匯出儲存桶數據
 
-It is possible to export all your stored information in different file formats, so you can process the data offline, like applying Artificial Intelligence, Business Analytics, Big Data, etc. In this way, you can access your bucket and configure the export process, like selecting the file type, or the export range. After a few minutes, you will receive an email with a download to your file \(valid for 3 months in the default cloud console\).
+可以不同的文件格式導出所有儲存的資訊，因此您可以離線處理數據，例如應用人工智慧、業務分析、大數據等。您可以存取數據儲存桶並設定匯出細節，比如選擇文件類型或匯出範圍。幾分鐘後，您將收到一封附檔包含您所需資料的電子郵件（預設情況下，雲端平台中的資料有效期為3個月）。
 
 ![](../.gitbook/assets/dowloadbucket.PNG)
 

@@ -1,58 +1,58 @@
-# FILE SYSTEM
+# 檔案系統
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LumHxzLSZNmgecmD-2Z%2F-LumI6PDjONXhjoNuiZA%2Fimage.png?alt=media&token=5fd94745-c86a-493e-9f38-32f61eedf345)
 
-Thinger.io provides a flexible cloud storage system that allows uploading files to the IoT server in order to provide support to other platform features such as the HTML Widget or the OTA System. The information will be stored in a non-volatile memory of the server host, so it is important to take care about the size of the files, specially when the instance is shared with other user accounts, to prevent server local storage from becoming saturated.
+Thinger.io提供了一個靈活的雲端存儲系統，該系統允許將檔案上傳到IoT伺服器供其他平台功能（如HTML小工具或OTA系統）使用。該資料將存儲在伺服器的非揮發性記憶體中，因此，請務必注意檔案的大小，尤其是與其他使用者共用時，以防止伺服器的儲存空間用罄。
 
-## Create an Storage Profile
+## 建立儲存區設定檔
 
-Each storage profile will create an isolated directory with different access permissions. To create a new storage profile, press the "Add Storage" button and complete the form as shown in the image below:
+每個存儲設定檔將建立一個具有不同存取權限的隔離目錄。要建立一個新的存儲設定檔，請按下**"Add Storage"**按鈕，並如下圖所示填寫表單：
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LucqRxhetQ1epw8c0rM%2F-LugYjBTWsAuRiVdLaAK%2Fimage.png?alt=media&token=395f802e-c8f2-467d-8db7-73628d1b34ca)
 
-* **Storage ID:** Enter here a unique ID for the Storage profile
-* **Storage name:** Each Storage can have also a mnemonic name
-* **Storage Description:** Additional information for an easy identification of the storage profile proposals.
-* **Public Read:** This switch provides public read only permissions to third parties using an HTTP path that will be created automatically using the Storage ID.
+* **Storage ID:** 在此處輸入存儲設定檔的唯一ID
+* **Storage name:** 每個存儲可以有一個幫助您記憶的名稱
+* **Storage Description:** 用於輕鬆識別存儲設定檔建議的其他資訊。
+* **Public Read:** 此開關用於向第三方服務提供唯讀權限，該HTTP路徑將使用`Storage ID`自動建立。
 
-Onces the form is completed, pressing the "Add Storage" button will create a new Storage Profile.
+表單填寫完成後，按**"Add Storage"**按鈕即建立一個新的存儲設定檔。
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LucqRxhetQ1epw8c0rM%2F-LugaRt3C0OAQRYEPjUu%2Fimage.png?alt=media&token=c01e5a95-6d26-4a58-bdee-79edd01be338)
 
-* **Index File:** Is the file from the storage system that will be opened when accessing the public HTTP path. By default is "index.html" but can be changed with any other file stored in the system.
-* **HTTP Path:** Is the URL that allows reading the index file from a third party program if the public access permission is switched on.
-* **Storage Explorer Button:** This element opens the experimental File Explorer that allows managing the file system.
+* **Index File:** 是透過HTTP路徑存取存儲系統時將打開的檔案。預設情況下為"index.html"，也可以更改為存儲系統中的任何檔案。
+* **HTTP Path:** 當"Public Read"選項被打開時，允許第三方程式存取"Index File"的URL。
+* **Storage Explorer Button:** 此元件將打開實驗性的Storage Explorer，該檔案瀏覽器允許管理檔案系統。
 
-## Storage Explorer \(Experimental\)
+## Storage Explorer \(實驗性質功能\)
 
-The storage explorer is a complete file management tool ready to upload, modify and remove documents from the file system. Its graphical interface is constituted by three sections:
+Storage Explorer是一個完整的檔案管理工具，可以隨時從檔案系統上傳，修改和刪除文件。它的圖形界面由三部分組成：
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LuhR1o724KmtLC5k65J%2F-LumBFh1TC55YoEbfyKQ%2Fimage.png?alt=media&token=ab290ea5-b7fc-47f9-8b76-074b9cd1606b)
 
-* Top bar contains logotypes with different controls
-  * **Refresh**: If any changes have been made to the file system from a source other than this terminal, the refresh button allows you to update the status of the documents.
-  * **Delete files**: The "-" button allows removing all selected files.
-  * **Upload files**: This button opens the file upload context, which is explained in the next section.
-  * **Constraint**: Collapses/deploy the files navigator.
-  * **Store**: Save the current status of all the edited documents
-* Left sidebar is a files navigator in which the database elements can be shown and selected to be edited or deleted.
-* In the bottom section of the interface, the explorer shows a terminal console in which some information can be displayed when working with extensions.
+* 頂部欄包含帶有不同功能的logo
+  * **刷新**：如果從此終端以外的其他來源對檔案系統進行了任何更改，則使用"Refresh"按鈕可以更新文件的狀態。
+  * **刪除檔案**："-"按鈕可刪除所有選定的檔案。
+  * **上傳檔案**：此按鈕將打開檔案上傳介面，這將在下一部分中進行說明。
+  * **約束**：折疊/打開檔案導航列(左側)。
+  * **存儲**：儲存所有已編輯文件的當前狀態
+* 左側欄是一個檔案導航列，可在其中顯示和選擇要編輯或刪除的內容。
+* 在界面的底部，資源管理器顯示一個終端控制台，使用擴充指令時可以在其中顯示一些訊息。
 
-### Uploading files
+### 上傳檔案
 
-Thinger.io's file explorer has a upload manager that can be accessed by pressing the "Upload files" icon. this manager supports the massive files uploading from any computer, just dragging the files or directories to the central box surface and pressing the green "upload all" button.
+Thinger.io的文件瀏覽器具有一個上傳管理器，可以通過"Upload files"圖標存取。該管理器支援從任何電腦使用拖放方式上傳大量文件，只需將文件或目錄拖動到上傳框中央，然後按綠色的"upload all"按鈕即可。
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LugngoLxkMv8Jes9uZR%2F-Lugnrpvsu9Nqv1oYOhi%2Fimage.png?alt=media&token=5aede838-6fd8-4fb2-9548-53d5d76c359e)
 
-### Edit Files
+### 編輯檔案
 
-The storage explorer contains a navigator in which the data hierarchy is displayed. Each file is represented under it's hierarchy context. an enhanced text editor is also included, allowing yo show and modify files in the cloud.
+Storage Explorer包含一個導航列，其中顯示了檔案的層次結構。每個文件都將顯示在層次結構中。還包括一個具有增強功能的文本編輯器，可以在雲端檢視和修改檔案。
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LugngoLxkMv8Jes9uZR%2F-LugopLGYysSswo2P4VS%2Fimage.png?alt=media&token=ace67590-ec66-4f73-b28e-2284e37cf75e)
 
 ### Deleting Files
 
-when the files are no longer required in the file system, we can delete them using the file explorer. It is possible to select more than one file by pressing the "cmd" button on the keyboard and clicking on the files you want to delete. Finally, pressing the "-" icon of the top bar. 
+在檔案系統中，若您不再需要某些檔案時，可以使用Storage Explorer將其刪除。通過按下鍵盤上的command或ctrl按鈕並點擊選擇要刪除的檔案。完成後按頂部欄的"-"圖標。
 
 ![](../.gitbook/assets/image%20%287%29.png)
 
