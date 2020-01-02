@@ -1,63 +1,62 @@
 ---
-description: This section explains how to deploy and to use the platform Plugins System
+description: This section explains how to deploy and to use the platform 擴充元件 System
 ---
 
-# PLUGINS
+# 擴充元件
 
-## Introduction
+## 介紹
 
-Plugins are extensions that allows complementing Thinger.io Platform with specific features or functionalities. 
+擴充元件可以讓Thinger.io擴展出一些特性或功能。
 
-The core of Thinger.io IoT Platform is designed to be lean and lightweight, to maximize flexibility and minimize learning and common configuration of IoT networks.  Plugins offer custom functions that can be deployed on-demand,  allowing each user to complement their IoT server as it specific needs.
+Thinger.io IoT平台的核心設計精簡輕巧，以最大程度提高靈活性，並極致簡化IoT網路的學習和常見設定。擴充元件提供了可以按需部署的自定義功能，從而允許每個使用者根據其特定需求擴充其IoT伺服器。
 
-For instructions and information about installing, upgrading, troubleshooting, and managing Thinger.io plugins, see "[Managing Plugins](https://app.gitbook.com/@thinger-io/s/docs/~/drafts/-LrOtZT2lM_x5eeYS6ra/primary/plugins#managing-plugins)" section. For learning how to use any existent plugin, just find below a list of each one.
+有關安裝，升級，故障排除和管理Thinger.io管理擴充的說明和資訊，請參閱 "[管理擴充元件](https://app.gitbook.com/@thinger-io/s/docs/~/drafts/-LrOtZT2lM_x5eeYS6ra/primary/plugins#managing-plugins)" 部分。要了解如何使用現有的擴充元件，可以自下面的列表中尋找並檢視相關內容。
 
-{% hint style="info" %}
-[Note: Plugins are only available for premium Thinger.io servers. Check **this link** to create your own instance within minutes](https://pricing.thinger.io)
-{% endhint %}
+::: tip
+注意: 擴充元件僅適用於進階Thinger.io服務器。 選中[**此鏈接** ](https://pricing.thinger.io)以在幾分鐘之內建立您自己的實例
+:::
 
-## Default Plugins
+## 預設擴充元件
 
-| [![](../.gitbook/assets/imagen1sas.png)](node-red.md) |                 | [![](../.gitbook/assets/imagen12.png)](sigfox.md) |
+| <!--[![](../.gitbook/assets/imagen1sas.png)](node-red.md)--> |                 | <!--[![](../.gitbook/assets/imagen12.png)](sigfox.md)--> |
 | :--- | :--- | :--- |
-| [![](../.gitbook/assets/imagen123.png)](the-things-network.md) |  |   |
+| <!--[![](../.gitbook/assets/imagen123.png)](the-things-network.md)--> |  |   |
 
-## Managing Plugins
+## 管理擴充元件
 
-Plugins Marketplace can be founded by clicking into "Plugins" main menu tab.  
+Marketplace可以由主選單中點擊"plugins"進入。
 
-![](../.gitbook/assets/image%20%28139%29.png)
+<!--![](../.gitbook/assets/image%20%28139%29.png)-->
 
-This interface contains a list of the existent plugins that can be installed to extend Thinger.io IoT Platform and will include some categories to filter and easily manage the collection of plugins, that at this moment is really small but it is planned to grow a lot in the next years. 
+此介面包含可安裝用以擴展Thinger.io IoT 平台的現有擴充元件列表，並將包括一些類別以進行過濾和可以輕鬆管理擴充元件的集合，雖然目前確實很少，但預計會在未來幾年內大幅增長。
 
-### Install and Deploy an Existent Plugin
+### 安裝和部署現有的擴充元件
 
-Each plugin has a description page, that contains useful information to learn how to use its features and a "plugin management" context that allows managing its installation and status.
+現有的每個擴充元件都有一個說明頁面，其中包含有用的資訊，像是了解如何使用其功能以及"管理擴充元件"功能如何安裝和管理其狀態。
 
-![](../.gitbook/assets/image%20%28148%29.png)
+<!--![](../.gitbook/assets/image%20%28148%29.png)-->
 
-That provides a graphical interface to make the next operations:
+此處的圖形界面來進行以下操作：
 
-* **Install:** Install the image of the plugin, giving access to its service and features and creating a new tab in the main menu.
-* **Start:** Deploy the execution of the plugin process. It is necessary to press this button after the installation and after pressing kill or stop buttons to re-launch the execution.
-* **Stop:** Ends the execution of the plugin process in a common way.
-* **Kill:** Kill the plugin process in a forced way.
-* **Restart:** Applies an Stop + Start cycle over the plugin process.
-* **Pause:** Halt the execution of the plugin without end the process, so all run-time variables will be preserved.
-* **Resume:** Launch the execution of the plugin after pause.
-* **Remove:** Uninstall the plugin
+* **Install:** 安裝擴充元件的映像，以存取它的服務和功能，並在主選單中產生一個新標籤。
+* **Start:** 執行部署擴充元件的過程。在安裝之後以及按下Kill或Stop按鈕之後，必須按下該按鈕才能重新啟動。
+* **Stop:** 以通用方式結束擴充元件執行的過程。
+* **Kill:** 強制關閉擴充元件進程。
+* **Restart:** 重新啟動該擴充元件。
+* **Pause:** 暫停擴充元件的執行而不結束進程，因此將保留所有執行時的變量。
+* **Resume:** 啟動暫停後擴充元件。
+* **Remove:** 移除擴充元件。
 
-## Plugin Development 
+## 擴充元件開發
 
-This section will provide deeply information about the infrastructure that is supporting plugins system and how to build new plugins.
+此節將提供有關支援擴充元件系統基礎設施與如何建構新擴充元件的深入資訊。
 
-{% hint style="danger" %}
-Sorry! this is work in progress 
-{% endhint %}
+::: danger
+抱歉！這正在進行中
+:::
 
-### Plugins System Infrastructure
+### 擴充元件系統基礎設施
 
-### Plugins Repository
+### 擴充元件 Repository
 
-### Writing a Plugin
-
+### 寫一個 Plugin
