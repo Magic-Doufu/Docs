@@ -75,7 +75,7 @@ This section covers how to setup your computer to start working with the ClimaSt
 
 ### Uploading firmware
 
-The ClimaStick board can be programmed directly by pressing the Upload button of the Arduino IDE as it has been designed with an automatic synchronization circuitry.  However, if the synchronization fails or the program is not able to connect with the PCB, please follow the next check-list in order to identify the problem: 
+The ClimaStick board can be programmed directly by pressing the Upload button of the Arduino IDE as it has been designed with an automatic synchronization circuitry. However, if the synchronization fails or the program is not able to connect with the PCB, please follow the next check-list in order to identify the problem:
 
 #### Firmware upload Troubleshooting
 
@@ -85,11 +85,11 @@ The ClimaStick board can be programmed directly by pressing the Upload button of
 * ⚠ **Flash boot mode:** If you are sure that everything is configured properly, and the problem still persists, you can force a flash boot up by keeping pressed the USR button of the board, then press the RST button once, and finally release the USR button. After doing this, the PCB should be ready to receive the program. 
 
 {% hint style="info" %}
-ClimaStick's processor status can be checked be opening the Serial Port inspector of ArduinoIDE and selecting 74.880 baudrate. When booting up, the PCB will print the bootstatus between two possibilities:   
+ClimaStick's processor status can be checked be opening the Serial Port inspector of ArduinoIDE and selecting 74.880 baudrate. When booting up, the PCB will print the bootstatus between two possibilities:
 
-1\) If the processor is in normal execution mode, a message ended with the command "mode\(3,6\)" will be printed. 
+1\) If the processor is in normal execution mode, a message ended with the command "mode\(3,6\)" will be printed.
 
-2\) If Flash mode, a message ended in  "mode\(1,6\)" means that the processor is ready to receive a new sketch. 
+2\) If Flash mode, a message ended in "mode\(1,6\)" means that the processor is ready to receive a new sketch.
 {% endhint %}
 
 ## QuickStart Examples
@@ -269,7 +269,7 @@ This section covers different considerations while using the board.
 * This device is developed for prototyping and support software development, so it is not protected to support hard weather conditions without the proper cover case.
 * Try to avoid touching the components surfaces while using the device, it can produce an electrostatic shock on the device, producing shortcuts and malfunction. It is recommended to take the board from the edges like in the following illustration.
 
-![](../.gitbook/assets/i2.PNG) 
+![](../.gitbook/assets/i2.PNG)
 
 * If necessary, clean the circuit using a non-damaging contact cleaner like Isopropyl alcohol and soft brush. 
 * Store in a cool, dry place. Protected from dust.
@@ -278,7 +278,7 @@ This section covers different considerations while using the board.
 
 * If you use the VIN power header, be careful to connect it in the correct position, as it is shown in the following image. Not following this directive could damage the protection diode.
 
-![](../.gitbook/assets/i1.PNG) 
+![](../.gitbook/assets/i1.PNG)
 
 * ⚠ Do not use VIN power supply and USB power supply at the same time! It can damage your hardware.
 
@@ -286,7 +286,7 @@ This section covers different considerations while using the board.
 
 * You can power and charge a battery directly from the board. Use the BAT power header, and take care to of the polarity, as it is shown in the following picture:
 
-![](../.gitbook/assets/i3.PNG) 
+![](../.gitbook/assets/i3.PNG)
 
 * BAT header is connected to a lithium battery charger that can manage 3.7Vdc, 500mah Li-Po / li-ion batteries charge and discharge process.
 * To charge a battery, connect it on BAT header and power on the ClimaStick through USB / VIN connectors. The battery charger will manage the charging voltage to increase life battery and stops charging cycle when voltage ups to 4.2Vdc.

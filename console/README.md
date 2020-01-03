@@ -8,7 +8,7 @@ Once you log in to your Thinger.io account, you will access by default to the `S
 
 On the left side of the `Statistics` screen you will find the main menu, which contains all the platform features that you will need when building IoT projects. These features are described in more detail in the following sections.
 
-![](../.gitbook/assets/image%20%2853%29.png)
+![](../.gitbook/assets/image-53.png)
 
 ## Devices Administration
 
@@ -18,13 +18,13 @@ The first step to start an IoT project in Thinger.io \(except for not connected 
 
 To register a new device, once you have been logged in your console dashboard, please go to the **Devices** section that appears in the left menu.
 
-![](../.gitbook/assets/image%20%28149%29.png)
+![](../.gitbook/assets/image-149%20%281%29.png)
 
 This section will list your registered devices and will show some information about its connection. Something similar to the following picture.
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/58e06f4e8771738d9a1fa7f26a53fdb2864b5937.png)
 
-If it's your first time on thinger.io this list will be empty. Next we'll show you how to create your first device. First of all, click on **Add Device** that will open a form in which you can introduce your device indentification credentials and select a **Device Type** from the drop down list, selecting one of these types: 
+If it's your first time on thinger.io this list will be empty. Next we'll show you how to create your first device. First of all, click on **Add Device** that will open a form in which you can introduce your device indentification credentials and select a **Device Type** from the drop down list, selecting one of these types:
 
 * Generic device: For devies with Thinger.io software client on it. Such as Raspberry Pi, Linux or Arduino devices. 
 * HTTP device: This option allows you retrieving data from third party platforms and comercial devices in order to work their information despite not having a full integration. 
@@ -56,11 +56,11 @@ Remember that Sigfox devices, does not share the concept of connected device, as
 
 For the following example, we will be using the Arduino IDE along with an ESP8266 device, like the NodeMCU. In this case, you can open the example code for the ESP8266, and fill the device details: your username, the device ID, and the device credentials established while creating the device. The following picture represents the relation between the code and the device created in your account.
 
-![](../.gitbook/assets/adddevice2.PNG)
+![](../.gitbook/assets/adddevice2%20%281%29.PNG)
 
 Once we have established in the code our account identifier, device identifier, and device credentials, we can compile and flash the program. Meanwhile, we can open our device in the cloud console, just by clicking its identifier in the devices list. In the device screen, you will be able to see some information about your device, like its IP address, connection status, or sent/received information in real time. By default, our device will appear as disconnected, like in the following picture.
 
-![](../.gitbook/assets/devicedashboard.png)
+![](../.gitbook/assets/devicedashboard%20%281%29.png)
 
 Once the device gets connected to the account, the interface will change its status, showing that it is connected, and it is transmitting information, like in the following picture:
 
@@ -87,7 +87,7 @@ thing["millis"] >> outputValue(millis());
 
 If our device is connected to the platform, we can open our device API explorer and see the defined resources in the platform, like in the following picture.
 
-![](../.gitbook/assets/deviceapi.PNG)
+![](../.gitbook/assets/deviceapi%20%281%29.PNG)
 
 You can see how our defined resources in the device are now available in the platform, as the device is able to report the available resources and their format \(or current state\). The idea is that you can test here your resources, that is, interacting with them in real-time. In this case, you will be able to switch the led state, or read the current milliseconds from the Arduino device. Every click in the `Run` button will execute your resource, i.e., forcing a read from a sensor, calling the `millis()` function, or sending a new state for the actuator, depending on the resource type \(input or output\).
 
@@ -104,11 +104,11 @@ thing["in_out"] = [](pson& in, pson& out){
 
 This resource definition will be translated to the following resource in the platform, where it is possible to both test input values, and view the output result. So, you can try entering some values, click on `Run`, and see the output reported by the device. This example also emphasizes how the resources work, as they are not just static values, but callbacks you can call with any input or output value.
 
-![](../.gitbook/assets/inoutresource.PNG)
+![](../.gitbook/assets/inoutresource%20%281%29.PNG)
 
 In addition to this useful device API explorer where you can interact with your devices, you can also obtain specific information about the REST API endpoint by clicking on the `Show Query` button. This provides information about the method type, URL, content type, request body, and response body. You can also click on `Curl`, so you can copy the command to interact with your device directly from your console. The above example is translated to the following REST API call:
 
-![](../.gitbook/assets/showquery.PNG)
+![](../.gitbook/assets/showquery%20%281%29.PNG)
 
 There is more information available about the API for interacting with your devices [here](http://docs.thinger.io/api/#devices-api-access-device-resources).
 
@@ -138,7 +138,7 @@ Because of the nature of these devices, [thinger.io](http://thinger.io/) applies
 
 To create a callback, open the device Dashboard and take a look to the subsection called "callback", that will show different options in the context `callback details` as shown in the image below:
 
-![](../.gitbook/assets/callbackdetails.PNG)
+![](../.gitbook/assets/callbackdetails%20%281%29.PNG)
 
 This context shows the different functionalities that can be requested from the server using a callback, by just clicking in the checkbox and selecting the resource that will receive the data, such as:
 
@@ -150,7 +150,7 @@ Note that it is not possible to create properties, data buckets or endpoints tho
 
 Ones you have configured the callback details, the system will be ready to receive a request. In a similar way to the "show query" feature included in the Connected device's dashboard, you can find a precise specification of the HTTP request structure and a complete cURL example by clicking in the "overview" or "cURL Example" tabs in the upper side of `Callback Details` context as shown in the image below:
 
-![](../.gitbook/assets/callbackoverview.PNG)
+![](../.gitbook/assets/callbackoverview%20%281%29.PNG)
 
 Finally, to create a Callback HTTP request, take in count that the `Authorization Header` must be included 9in your HTTP request as shown in the example below:
 
@@ -166,7 +166,7 @@ In this case, it is possible to create specific access tokens for granting acces
 
 To create a device token, open the device Dashboard and take a look to the subsection called "Device Tokens".
 
-![](../.gitbook/assets/adddevicetoken.PNG)
+![](../.gitbook/assets/adddevicetoken%20%281%29.PNG)
 
 ![](vscode-resource:/c%3A/Users/Jorge/Desktop/Docs-gh-pages_OLD/console/assets/AddDeviceToken.PNG)Then, click on the green button \`Add\` on the right of the box. Then, a modal window will appear, were you can configure different parameters:
 
@@ -176,21 +176,21 @@ To create a device token, open the device Dashboard and take a look to the subse
 
 The following figure shows a sample screenshot while configuring a device token.
 
-![](../.gitbook/assets/addtockenform%20%281%29.PNG)
+![](../.gitbook/assets/addtockenform-1%20%281%29.PNG)
 
 Once the token is saved, the interface will show the access token to be used in the REST API Calls, like in the following figure. If you need help to integrate this access token in the REST API calls, checkout [this](http://docs.thinger.io/api/#authentication-api-rest-api-authentication) documentation.
 
-![](../.gitbook/assets/device_token_value.png)
+![](../.gitbook/assets/device_token_value%20%281%29.png)
 
 ### Device Properties <a id="device-properties"></a>
 
 [Thinger.io](http://thinger.io/) provides a simple way to store additional information related to an specific device, such as location, identificators or even configuration parameters that may be retrieved by devies using comon Json files. On this way, the platform can be used as devices persistent memory. To create a device property, open the device Dashboard and take a look to the subsection called "Properties".
 
-![](../.gitbook/assets/deviceproperties.PNG)
+![](../.gitbook/assets/deviceproperties%20%281%29.PNG)
 
 This menu provides an easy way to create, manage or delete devices properties. Note that the property created in this example is specifying the device location. [Thinger.io](http://thinger.io/) system has been designed to detect this configuration and automatically represent it on the device dasboard map.
 
-![](../.gitbook/assets/adddeviceproperty.PNG)
+![](../.gitbook/assets/adddeviceproperty%20%281%29.PNG)
 
 Properties declarations and modifications are made by means of a special context, provided with a json validator that enhances the text and check morfologic mistakes.
 
@@ -214,14 +214,13 @@ thing.set_property("location", data, true);
 pson data;
 //retrieving data from the platform
 thing.set_property("My_Property", data, true);
- 
 ```
 
 \(You can learn more details about this functions in the "codification" section of this documentation\).
 
 using HTTP devices it's also the possible to interact with properties through callback configuration submenu tools.
 
-![](../.gitbook/assets/httpgetsetproperty.PNG)
+![](../.gitbook/assets/httpgetsetproperty%20%281%29.PNG)
 
 Acording to this configuration, when [Thigner.io](http://thigner.io/) server receives any transmission from "SigfoxDevice1" the payload data will be stored into "data" property, creating a JSON with all variables. In the oposite situation, thanks to the "Response Data" feature, the values stored in the parameter with was called "downlink\_data" will be sent to the device thought Sigfox infrastructure.
 
@@ -229,7 +228,7 @@ Acording to this configuration, when [Thigner.io](http://thigner.io/) server rec
 
 It is possible to adjust some device details like its description or credentials going to the "Settings" subsection of the device dashboard. This way, you can change the device credentials by a new one of your choice in case you forgot it \(the password cannot be recovered from database as it is encrypted\). Notice that changing the device password, will not disconnect the device, but will prevent its reconnection once disconnected.
 
-![](../.gitbook/assets/deviceedit%20%281%29.png)
+![](../.gitbook/assets/deviceedit-1.png)
 
 If you need to change the device identifier it is necessary to delete the device and register a new one with the desired one.
 
@@ -258,56 +257,56 @@ Here it is necessary to configure different parameters:
 * **Data source**:
   * **From Device Resource**: It means that it will take information from a specific device resource \(like temperature, motion, and so on\). In this option, the device should keep a permanent connection with the server. This add some benefits as we can change the sampling rate on demand, without having to change our device code, by using the `Sampling Interval` option.
 
+```text
+**Remember** that defining a resource in the device is described in more detail [here](http://docs.thinger.io/arduino/#coding-adding-resources), but a single resource reporting temperature and humidity from a DHT sensor could be coded like this:
 
+```text
+// define the resource just once in the setup
+thing["TempHum"] >> [](pson &out){ 
+  out["temperature"] = dht.readTemperature();
+  out["humidity"] = dht.readHumidity();
+};
+```
 
-    **Remember** that defining a resource in the device is described in more detail [here](http://docs.thinger.io/arduino/#coding-adding-resources), but a single resource reporting temperature and humidity from a DHT sensor could be coded like this:
+It is also possible to let he device stream the information when required, i.e., by raising an event when detected. In this case, we can use the `Update by Device` option while configuring the bucket, and use the streaming resources as described [here](http://docs.thinger.io/arduino/#coding-streaming-resources).
 
-    ```text
-    // define the resource just once in the setup
+Using the previous `TempHum` sample resource, it could be done like in the following code snippet.
+
+```cpp
+void loop() {
+  thing.handle();
+  // use your own logic here to determine when to stream/record the resource.
+  if(requires_recording){
+      thing.stream("TempHum");
+  }
+}
+```
+
+This way, the data bucket is subscribed to a device resource, and its information is registered in every stream call.
+```
+
+* **From Write Call**: This option will allow setting the bucket in a state that it will not register any information by default, but it will just wait for writing calls, both from the Arduino library using the `write_bucket` method, as shown [here](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep), or calling the REST API directly like done with [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket). This feature opens the option to register information in the same bucket from different devices, or store information from devices that are not connected permanently with the server, that are in sleep mode, or use a different technology like Sigfox.
+
+  Here is an example of an ESP8266 device writing information to a bucket using the `write_bucket` function:
+
+  ```cpp
+  void setup() {
+    // define the resource with temperature and humidity
     thing["TempHum"] >> [](pson &out){ 
       out["temperature"] = dht.readTemperature();
       out["humidity"] = dht.readHumidity();
     };
-    ```
+  }
 
-    It is also possible to let he device stream the information when required, i.e., by raising an event when detected. In this case, we can use the `Update by Device` option while configuring the bucket, and use the streaming resources as described [here](http://docs.thinger.io/arduino/#coding-streaming-resources).
-
-    Using the previous `TempHum` sample resource, it could be done like in the following code snippet.
-
-    ```cpp
-    void loop() {
-      thing.handle();
-      // use your own logic here to determine when to stream/record the resource.
-      if(requires_recording){
-          thing.stream("TempHum");
-      }
-    }
-    ```
-
-    This way, the data bucket is subscribed to a device resource, and its information is registered in every stream call.
-
-  * **From Write Call**: This option will allow setting the bucket in a state that it will not register any information by default, but it will just wait for writing calls, both from the Arduino library using the `write_bucket` method, as shown [here](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep), or calling the REST API directly like done with [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket). This feature opens the option to register information in the same bucket from different devices, or store information from devices that are not connected permanently with the server, that are in sleep mode, or use a different technology like Sigfox.
-
-    Here is an example of an ESP8266 device writing information to a bucket using the `write_bucket` function:
-
-    ```cpp
-    void setup() {
-      // define the resource with temperature and humidity
-      thing["TempHum"] >> [](pson &out){ 
-        out["temperature"] = dht.readTemperature();
-        out["humidity"] = dht.readHumidity();
-      };
-    }
-
-    void loop() { 
-      // handle connection
-      thing.handle();
-      // write to bucket BucketId the TempHum resource
-      thing.write_bucket("BucketId", "TempHum");
-      // sleep the device SLEEP_MS milliseconds
-      ESP.deepSleep(SLEEP_MS*1000, WAKE_RF_DEFAULT); 
-    }
-    ```
+  void loop() { 
+    // handle connection
+    thing.handle();
+    // write to bucket BucketId the TempHum resource
+    thing.write_bucket("BucketId", "TempHum");
+    // sleep the device SLEEP_MS milliseconds
+    ESP.deepSleep(SLEEP_MS*1000, WAKE_RF_DEFAULT); 
+  }
+  ```
 
 ![](../.gitbook/assets/buckettimesample.PNG)
 
@@ -388,7 +387,6 @@ The configurable parameters are the following:
 * **Background**: Optional color for the widget background \(defaults to white\).
 * **Chart Input**: Configure how to feed the values to the time series chart. It is possible to feed the information from a connected **device** or from a **data bucket**
   * **From Device**: With this option it is necessary to select a device \(that must be connected to provide information\) and specify the resources to plot. The following figure is an example that is selecting the device `deviceA`, and the resource `millis` from the device. Notice that when a time series widget is feed from a device, it will not keep the information if the dashboard is closed or refreshed, as it is just real-time data from your device to your dashboard. You can also select between different refresh modes, like sampling at different intervals \(that can be updated online\), or the chart is updated by the device.
-
   * **From Data Bucket**: With this option, the widget will take the information from a given bucket to plot the historic information on it. So, it is necessary to just select the bucket identifier created in your account. If the bucket is composed by multiple variables, it will allow selecting the variables to plot, like in the following picture. When the information is selected from the data bucket, you will require to establish a data timeframe to be displayed, that can be relative to the current time, or an absolute period between two dates.
 
 ![](../.gitbook/assets/datasource.PNG)
@@ -404,12 +402,12 @@ Show raw data directly from a Bucket could be tricky when there is a lot of data
 
 ![](../.gitbook/assets/iot-data-aggregation.PNG)
 
-The next image shows four different representations of the same dataset and time interval, aggregated using different algorithms:  
+The next image shows four different representations of the same dataset and time interval, aggregated using different algorithms:
 
-![](../.gitbook/assets/image%20%28128%29.png)
+![](../.gitbook/assets/image-128.png)
 
 {% hint style="warning" %}
-Note that Data Aggregation system is only available in **private server** instances with **InfluxDB** 
+Note that Data Aggregation system is only available in **private server** instances with **InfluxDB**
 {% endhint %}
 
 #### Tachometer Chart
@@ -420,17 +418,17 @@ It is a quite visual widget that allows showing device data in a traditional "di
 
 The configurable parameters are the following:
 
-![](../.gitbook/assets/image%20%2857%29.png)
+![](../.gitbook/assets/image-57.png)
 
 * **Title**: Optional title for the widget. 
 * **Subtitle**: Optional subtitle for the widget.
 * **Background**: Optional color for the widget background \(defaults to white\). This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
 
-![](../.gitbook/assets/image%20%2865%29.png)
+![](../.gitbook/assets/image-65.png)
 
-This image is representing an example in which the measured variable is reaching dangerous pressure values. According to this situation, the background color is changing to red, so it will be easier to identify and manage the event if there is not any automatic system in the product.  
+This image is representing an example in which the measured variable is reaching dangerous pressure values. According to this situation, the background color is changing to red, so it will be easier to identify and manage the event if there is not any automatic system in the product.
 
-![](../.gitbook/assets/image%20%2850%29.png)
+![](../.gitbook/assets/image-50.png)
 
 * **Chart Input**: Configure how to feed the values to the tachometer chart. It is possible to feed the information from a connected **device** or from a **data bucket**
   * **From Device Resource**: With this option it is necessary to select a device \(that must be connected to provide information\) and specify the resources to plot. The following figure is an example that is selecting the device `deviceA`, and the resource `millis` from the device. Notice that when a time series widget is feed from a device, it will not keep the information if the dashboard is closed or refreshed, as it is just real-time data from your device to your dashboard. You can also select between different refresh modes, like sampling at different intervals \(that can be updated online\), or the chart is updated by the device.
@@ -438,9 +436,9 @@ This image is representing an example in which the measured variable is reaching
   * **From Data Bucket**: With this option, the widget will take the information from a given bucket to plot the historic information on it. So, it is necessary to just select the bucket identifier created in your account. If the bucket is composed by multiple variables, it will allow selecting the variables to plot, like in the following picture. When the information is selected from the data bucket, you will require to establish a data timeframe to be displayed, that can be relative to the current time, or an absolute period between two dates.
   * **Manual Data**: It is always possible to manually introduce values in order to create simulate the behavior of the widget.
 
-The last tab shows all the display options. This is probably the most customizable widget of Thinger.io Platform. It allows selecting a lot of different parameters as shown in the image below: 
+The last tab shows all the display options. This is probably the most customizable widget of Thinger.io Platform. It allows selecting a lot of different parameters as shown in the image below:
 
-![](../.gitbook/assets/image%20%28159%29.png)
+![](../.gitbook/assets/image-159.png)
 
 * **Display options:**
   * **Units**: Optional information that will display the variable unit, like ºC.
@@ -453,9 +451,9 @@ The last tab shows all the display options. This is probably the most customizab
 
 #### Virtual LED
 
-Using LED spots is a common way  to create simple graphical interfaces in electronic projects in order to represent system status, alerts, etc. This widget has been included in Thinger.io Platform with the same purpose, so it can be used to show binary status by changing its color, create alerts by setting blink behavior or show multiple data by including more than one color range in a kind of RGB simulation. 
+Using LED spots is a common way to create simple graphical interfaces in electronic projects in order to represent system status, alerts, etc. This widget has been included in Thinger.io Platform with the same purpose, so it can be used to show binary status by changing its color, create alerts by setting blink behavior or show multiple data by including more than one color range in a kind of RGB simulation.
 
-![](../.gitbook/assets/image%20%28173%29.png)
+![](../.gitbook/assets/image-173.png)
 
 This widget can be configured in many different ways though the three steps form. first of all selecting "Led indicator" in the Widget menu tab, and then indicating:
 
@@ -478,7 +476,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
   * **Color ranges**: Each time that the "+" button is pressed, a new color range is included, allowing to define a new range and the color that will be shown when the selected input value belongs to this range.  
   * **Blinking led option:** The right side switches allows adding a blinking behavior to the led when this range profile begins active. It is also possible to disable the blinking by pressing over the led widget. 
 
-![](../.gitbook/assets/image%20%286%29.png)
+![](../.gitbook/assets/image-6.png)
 
 #### Donut Chart
 
@@ -525,7 +523,7 @@ A map can be used to represent, at this moment, a single location in a map. It i
 
 Here is an example of this widget working in real-time with a connected device:
 
- \[!\[Real-Time GPS location over GPRS using IoT Solution\]\(https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\)
+\[!\[Real-Time GPS location over GPRS using IoT Solution\]\([https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\](https://img.youtube.com/vi/3QDDOPMg22g/0.jpg%29]%28https://www.youtube.com/watch?v=3QDDOPMg22g\)\)
 
 The configurable parameters are the following:
 
@@ -598,7 +596,7 @@ In Thinger.io it is possible to not just display information in dashboard, but a
 
 The On/Off widget allows controlling a boolean state of a connected device, like turning on/off a light, a motor, a relay, or any other element. The device should expose a boolean input, just like those examples for controlling a led. The resource is then mapped to this widget, that can change the device state in real-time. If the input resource is defined properly [implemented](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources), this widget is also able to show the current device state.
 
- ![](../.gitbook/assets/switchbutton.png) 
+![](../.gitbook/assets/switchbutton.png)
 
 The configurable parameters are the following:
 
@@ -613,14 +611,14 @@ The configurable parameters are the following:
 
 This widgect has te posibility to be shown in two different appearances, that can be specified in the **Switch Style** parameter: **Switch** is the standard configuration with a little non-configurable switch, and **Button** which is an improved face that can be configured with different colors and icons. When this option is selected, next paremeters will be shown:
 
-![](../.gitbook/assets/image%20%28174%29.png)
+![](../.gitbook/assets/image-174.png)
 
 * **On Color**: The color that will be displayed when the boolean value of this resource is true.
 * **Off Color**: The color that will be displayed when the boolean value of this reource is false.
 * **Icon**: This button is able to show a customizable icon from favicon library or any other icon library URL.
 * **Icon Color**: Icon color is also configurable with an hexadecimal value. Note that there are different color options for both button status, so you can customize it as you want.
 
-  ![](../.gitbook/assets/image%20%28110%29.png)
+  ![](../.gitbook/assets/image-110.png)
 
 #### Slider
 
@@ -664,7 +662,7 @@ To manage all your endpoints, it is necessary to access to the Endpoints section
 
 Then click on the Add Endpoint button that will open a new interface for entering the endpoint details, like in the following screenshot:
 
-![](../.gitbook/assets/addendpoint.png)
+![](../.gitbook/assets/addendpoint%20%281%29.png)
 
 Here it is necessary to configure different parameters:
 
@@ -684,7 +682,7 @@ The configurable parameters are the following:
 
 In the following screenshot, there is an example of an email endpoint that contains some text and variables that are filled when the device calls the endpoint, adding the current temperature and humidity reported by the device. Notice that `temperature` and `humidity` variables are closed inside double brackets `{{}}`, so the endpoint will be expecting this information to complete the body. In the following, there is some code examples calling this endpoint.
 
-![](../.gitbook/assets/emailendpoint.png)
+![](../.gitbook/assets/emailendpoint%20%281%29.png)
 
 Calling endpoints is well documented [here](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints), but it is basically required to call the endpoint by using the `call_endpoint` method, which requires the endpoint id, `ExampleEmail` in this example, and the optional data to be sent to the endpoint, which is a `pson` document \(quite similar to JSON\) with two keys named `temperature` and `humidity` holding the readings from a DHT sensor. In the following there is an example of such call.
 
@@ -722,24 +720,24 @@ The configurable parameters are the following:
 
 ## File Storage System
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](../.gitbook/assets/image-18.png)
 
-Thinger.io provides a flexible cloud storage system that allows uploading files to the IoT server in order to provide support to other platform features such as the HTML Widget or the OTA System. The information will be stored in a non-volatile memory of the server host, so it is important to take care about the size of the files, specially when the instance is shared with other user accounts, to prevent server local storage from becoming saturated. 
+Thinger.io provides a flexible cloud storage system that allows uploading files to the IoT server in order to provide support to other platform features such as the HTML Widget or the OTA System. The information will be stored in a non-volatile memory of the server host, so it is important to take care about the size of the files, specially when the instance is shared with other user accounts, to prevent server local storage from becoming saturated.
 
 ### Create an Storage Profile
 
 Each storage profile will create an isolated directory with different access permissions. To create a new storage profile, press the "Add Storage" button and complete the form as shown in the image below:
 
-![](../.gitbook/assets/image%20%2844%29.png)
+![](../.gitbook/assets/image-44.png)
 
 * **Storage ID:** Enter here a unique ID for the Storage profile 
 * **Storage name:** Each Storage can have also a mnemonic name 
 * **Storage Description:** Additional information for an easy identification of the storage profile proposals. 
 * **Public Read:** This switch provides public read only permissions to third parties using an HTTP path that will be created automatically using the Storage ID. 
 
-Onces the form is completed, pressing the "Add Storage" button will create a new Storage Profile.  
+Onces the form is completed, pressing the "Add Storage" button will create a new Storage Profile.
 
-![](../.gitbook/assets/image%20%2837%29.png)
+![](../.gitbook/assets/image-37.png)
 
 * **Index File:** Is the file from the storage system that will be opened when accessing the public HTTP path. By default is "index.html" but can be changed with any other file stored in the system.
 * **HTTP Path:** Is the URL that allows reading the index file from a third party program if the public access permission is switched on.
@@ -747,9 +745,9 @@ Onces the form is completed, pressing the "Add Storage" button will create a new
 
 ### Storage Explorer \(Experimental\)
 
-The storage explorer is a complete file management tool ready to upload, modify and remove documents from the file system. Its graphical interface is constituted by three sections: 
+The storage explorer is a complete file management tool ready to upload, modify and remove documents from the file system. Its graphical interface is constituted by three sections:
 
-![](../.gitbook/assets/image%20%28180%29.png)
+![](../.gitbook/assets/image-180.png)
 
 * Top bar contains logotypes with different controls
   * **Refresh**: If any changes have been made to the file system from a source other than this terminal, the refresh button allows you to update the status of the documents.
@@ -762,21 +760,21 @@ The storage explorer is a complete file management tool ready to upload, modify 
 
 #### Uploading files
 
-Thinger.io's file explorer has a upload manager that can be accessed by pressing the "Upload files" icon. this manager supports the massive files uploading from any computer,  just dragging the files or directories to the central box surface and pressing the green "upload all" button.
+Thinger.io's file explorer has a upload manager that can be accessed by pressing the "Upload files" icon. this manager supports the massive files uploading from any computer, just dragging the files or directories to the central box surface and pressing the green "upload all" button.
 
-![](../.gitbook/assets/image%20%2873%29.png)
+![](../.gitbook/assets/image-73.png)
 
 #### Edit Files
 
-The storage explorer contains a navigator in which the data hierarchy is displayed. Each file is represented under it's hierarchy context. an enhanced text editor is also included, allowing yo show and modify files in the cloud.  
+The storage explorer contains a navigator in which the data hierarchy is displayed. Each file is represented under it's hierarchy context. an enhanced text editor is also included, allowing yo show and modify files in the cloud.
 
-![](../.gitbook/assets/image%20%28124%29.png)
+![](../.gitbook/assets/image-124.png)
 
 ## Access Tokens
 
 All the Thinger.io back-end can be accessed over REST API Calls. In fact, the console is just an Angular REST client interacting with the API to manage devices, buckets, endpoints, dashboards, and so on. Every REST API request must be authenticated in order to take effect, so, any client needs to provide an authorization code in every call. This way, access tokens is the way to provide authorization to third party services or applications to make API Requests, without having to share the username and password. Moreover, with access tokens it is possible to grant access to specific resources and actions of your account, like read a specific device, or write to a custom bucket \(like in [this example](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-an-access-token)\).
 
-**Note:**  Using an access token via API is covered in more detail [here](http://docs.thinger.io/api/#authentication-api-rest-api-authentication).
+**Note:** Using an access token via API is covered in more detail [here](http://docs.thinger.io/api/#authentication-api-rest-api-authentication).
 
 ### Create Token
 
@@ -795,54 +793,54 @@ The configurable parameters are the following:
 * **Enabled**: Controls whether the token is enabled or disabled. 
 * **Token Permissions**: In this section it is possible to define the scope, or the level access of the token. Depending on the given permissions, the token will have access to different parts of your account. Adding a new permission will normally require selecting the permission type \(access a device, bucket, dashboard, etc.\), the level access \(some specific resource or all of their type\), and the allowed actions \(all or some of them\). This configuration is handled by the following screenshot:
 
-  
+```text
+&lt;/p&gt; 
 
-    &lt;/p&gt; 
+The available permission types and their actions are defined as follows:
+```
 
-    The available permission types and their actions are defined as follows:
-
-  * **Admin Access**: Provides access to the whole account.
-  * **Device**: Provides access to a single device or all devices. It is possible to define the action between:
-    * `AccessDeviceResources`: Grants access to executing device resources, like reading a sensor variable.
-    * `ListDeviceResources`: Grants access to list the device resources names.
-    * `GetDeviceStats`: Grants access to read device statistics like public ip, connected time, bandwidth, etc.
-    * `CreateDeviceToken`: Grants access to create device tokens.
-    * `ListDeviceTokens`: Grants access to read device tokens.
-    * `DeleteDeviceToken`: Grants access to delete device tokens.
-    * `ListDevices`: Grants access to list the account devices.
-    * `DeleteDevice`: Grants access to delete devices. 
-    * `CreateDevice`: Grants access to create a new device.
-    * `UpdateDevice`: Grants access to modify a device, like its description or credential.
-    * `ListDeviceLocations`: Grants access to fetch the connected devices locations.
-  * **Bucket**: Provides access to a single bucket or all buckets. It is possible to define the action between:
-    * `ReadBucket`: Grants access to read information stored in a bucket.
-    * `WriteBucket`: Grants access to write information to a bucket.
-    * `ExportBucket`: Grants access to export the information stored in a bucket.
-    * `ClearBucket`: Grants access to clear the information stored in a bucket.
-    * `ListBuckets`: Grants access to list the account buckets.
-    * `DeleteBucket`: Grants access to delete buckets. 
-    * `CreateBucket`: Grants access to create a new bucket.
-    * `UpdateBucket`: Grants access to modify the bucket configuration, like data sources, description, etc.
-    * `ReadBucketConfig`: Grants access to read the current bucket config.
-  * **Endpoint**: Provides access to a single endpoint or all endpoints. It is possible to define the action between:
-    * `ListEndpoints`: Grants access to list the account endpoints.
-    * `CreateEndpoint`: Grants access to create a new endpoint.
-    * `ReadEndpointConfig`: Grants access to read the current endpoint config.
-    * `UpdateEndpoint`: Grants access to modify the endpoint configuration.
-    * `DeleteEndpoint`: Grants access to delete endpoints. 
-    * `CallEndpoint`: Grants access to execute an endpoint.     
-  * **Dashboard**: Provides access to a single dashboard or all dashboards. It is possible to define the action between:
-    * `ListDashboards`: Grants access to list the account dashboards.
-    * `CreateDashboard`: Grants access to create a new dashboard.
-    * `ReadDashboardConfig`: Grants access to read the current dashboard config.
-    * `UpdateDashboard`: Grants access to modify the dashboard configuration.
-    * `DeleteDashboard`: Grants access to delete dashboards. 
-  * **Token**: Provides access to a single token or all tokens. It is possible to define the action between:
-    * `ListTokens`: Grants access to list the account tokens.
-    * `CreateToken`: Grants access to create a new token.
-    * `ReadTokenConfig`: Grants access to read the current token config.
-    * `UpdateToken`: Grants access to modify the token configuration.
-    * `DeleteToken`: Grants access to delete tokens. 
+* **Admin Access**: Provides access to the whole account.
+* **Device**: Provides access to a single device or all devices. It is possible to define the action between:
+  * `AccessDeviceResources`: Grants access to executing device resources, like reading a sensor variable.
+  * `ListDeviceResources`: Grants access to list the device resources names.
+  * `GetDeviceStats`: Grants access to read device statistics like public ip, connected time, bandwidth, etc.
+  * `CreateDeviceToken`: Grants access to create device tokens.
+  * `ListDeviceTokens`: Grants access to read device tokens.
+  * `DeleteDeviceToken`: Grants access to delete device tokens.
+  * `ListDevices`: Grants access to list the account devices.
+  * `DeleteDevice`: Grants access to delete devices. 
+  * `CreateDevice`: Grants access to create a new device.
+  * `UpdateDevice`: Grants access to modify a device, like its description or credential.
+  * `ListDeviceLocations`: Grants access to fetch the connected devices locations.
+* **Bucket**: Provides access to a single bucket or all buckets. It is possible to define the action between:
+  * `ReadBucket`: Grants access to read information stored in a bucket.
+  * `WriteBucket`: Grants access to write information to a bucket.
+  * `ExportBucket`: Grants access to export the information stored in a bucket.
+  * `ClearBucket`: Grants access to clear the information stored in a bucket.
+  * `ListBuckets`: Grants access to list the account buckets.
+  * `DeleteBucket`: Grants access to delete buckets. 
+  * `CreateBucket`: Grants access to create a new bucket.
+  * `UpdateBucket`: Grants access to modify the bucket configuration, like data sources, description, etc.
+  * `ReadBucketConfig`: Grants access to read the current bucket config.
+* **Endpoint**: Provides access to a single endpoint or all endpoints. It is possible to define the action between:
+  * `ListEndpoints`: Grants access to list the account endpoints.
+  * `CreateEndpoint`: Grants access to create a new endpoint.
+  * `ReadEndpointConfig`: Grants access to read the current endpoint config.
+  * `UpdateEndpoint`: Grants access to modify the endpoint configuration.
+  * `DeleteEndpoint`: Grants access to delete endpoints. 
+  * `CallEndpoint`: Grants access to execute an endpoint.     
+* **Dashboard**: Provides access to a single dashboard or all dashboards. It is possible to define the action between:
+  * `ListDashboards`: Grants access to list the account dashboards.
+  * `CreateDashboard`: Grants access to create a new dashboard.
+  * `ReadDashboardConfig`: Grants access to read the current dashboard config.
+  * `UpdateDashboard`: Grants access to modify the dashboard configuration.
+  * `DeleteDashboard`: Grants access to delete dashboards. 
+* **Token**: Provides access to a single token or all tokens. It is possible to define the action between:
+  * `ListTokens`: Grants access to list the account tokens.
+  * `CreateToken`: Grants access to create a new token.
+  * `ReadTokenConfig`: Grants access to read the current token config.
+  * `UpdateToken`: Grants access to modify the token configuration.
+  * `DeleteToken`: Grants access to delete tokens. 
 
 ![](../.gitbook/assets/addusertokenpermission.png)
 

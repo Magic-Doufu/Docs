@@ -1,7 +1,7 @@
 # Table of contents
 
-* [OVERVIEW](README.md)
-* [DEVICES](devices/README.md)
+* [概覽](README.md)
+* [裝置](devices/README.md)
   * [ARDUINO](devices/arduino.md)
   * [LINUX / RASPBERRY PI](devices/linux.md)
   * [SIGFOX](devices/sigfox.md)

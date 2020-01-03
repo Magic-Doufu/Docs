@@ -7,7 +7,7 @@
 ## 需求
 
 * 執行Raspbian的Raspberry Pi，且需可透過終端或SSH存取。像Ubuntu這樣的其他操作系統可能也行，但尚未經過測試。
-* 在thinger.io控制台中註冊裝置並手動保存憑據(`credentials`)。如果您需要有關此部分的幫助，請檢視[此文件](https://community.thinger.io/t/register-a-device-in-the-console/23)。
+* 在thinger.io控制台中註冊裝置並手動保存憑據\(`credentials`\)。如果您需要有關此部分的幫助，請檢視[此文件](https://community.thinger.io/t/register-a-device-in-the-console/23)。
 
 ## Installing a newer GCC Version
 
@@ -109,8 +109,7 @@ cd Linux-Client
 nano src/main.cpp
 ```
 
-在此畫面中，您必須將字段`USER_ID`，`DEVICE_ID`以及`DEVICE_CREDENTIAL`替換為您在平台中註冊裝置時提供的資訊。以下是編輯這些字段之前的`main.cpp`文件截圖。
-完成變更參數後，離開`nano`請鍵入`ctrl+x`並輸入`y`來儲存變更。
+在此畫面中，您必須將字段`USER_ID`，`DEVICE_ID`以及`DEVICE_CREDENTIAL`替換為您在平台中註冊裝置時提供的資訊。以下是編輯這些字段之前的`main.cpp`文件截圖。 完成變更參數後，離開`nano`請鍵入`ctrl+x`並輸入`y`來儲存變更。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/2697e5c757b23eec7537fc9ac232544f5923d583.png)
 
@@ -132,8 +131,7 @@ chmod +x run.sh
 ./run.sh
 ```
 
-如果一切順利，你應該看看程式是如何自動編譯和執行的。該程式實際上回報了一些除錯訊息，幫助我們檢查我們是否正確配置了驗證資訊。您應該看到的預期結果如下圖所示。
-現在，您可以切換到thinger.io控制台並檢查Raspberry是否顯示為已連接。您甚至可以嘗試透過`API Explorer`執行`main.cpp`中定義的資源`sum`來測試加總。
+如果一切順利，你應該看看程式是如何自動編譯和執行的。該程式實際上回報了一些除錯訊息，幫助我們檢查我們是否正確配置了驗證資訊。您應該看到的預期結果如下圖所示。 現在，您可以切換到thinger.io控制台並檢查Raspberry是否顯示為已連接。您甚至可以嘗試透過`API Explorer`執行`main.cpp`中定義的資源`sum`來測試加總。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/e321714a8b9fcac120cb1dafae8502cca65e9b39.png)
 
@@ -157,7 +155,7 @@ cd install/raspberry/
 
 ```text
 chmod +x install.sh
-./install.sh 
+./install.sh
 ```
 
 請注意，此指令將安裝並在後台作為常駐程式執行thinger.io客戶端，因此如果再次調用`run.sh`執行獨立客戶端的腳本，則兩個客戶端將同時連接到平台並持續中斷彼此的連接。如果需要停止後台客戶端，請使用此指令。
@@ -169,3 +167,4 @@ sudo service thinger stop
 ## 然後呢？
 
 現在，您可以參考已經存在的範例`sum`，將您所需的資源結合到main.cpp文件中，您可以嘗試定義用於打開和關閉LED、讀取傳感器值、執行系統命令等的資源。此處將很快提供一些基本教學。
+

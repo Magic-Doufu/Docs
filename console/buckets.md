@@ -1,6 +1,6 @@
-# 資料儲存桶(Data buckets)
+# BUCKETS
 
->數據存儲桶是一種虛擬儲存機制，您可以在其中保留時序資訊，例如隨時間變化的溫度或濕度。也可以使用它們存儲其他事件，例如移動偵測、車庫門打開、溫度警告等。儲存的資訊可在儀表板中進行繪製，或者以不同的格式匯出以進行離線處理。
+> 數據存儲桶是一種虛擬儲存機制，您可以在其中保留時序資訊，例如隨時間變化的溫度或濕度。也可以使用它們存儲其他事件，例如移動偵測、車庫門打開、溫度警告等。儲存的資訊可在儀表板中進行繪製，或者以不同的格式匯出以進行離線處理。
 
 ## 建立儲存桶
 
@@ -32,7 +32,7 @@
     ```
 
     也可以讓裝置在滿足特定條件時發起事件來串流傳輸資訊。在這種情況下，我們可以在設定數據儲存桶時使用`Update by Device`選項，並按照[此處](http://docs.thinger.io/arduino/#coding-streaming-resources)所述的傳輸串流資源。
-    
+
     使用前面的`TempHum`範例資源，完成後會如下面的程式片段那樣。
 
     ```cpp
@@ -47,7 +47,7 @@
 
     這樣，數據儲存桶就訂閱了裝置資源，並且在每次串流調用中都登錄了它的資訊。
 
-  * **From Write Call**: 此選項將設定數據儲存桶為在預設情況不會記錄任何資訊的狀態。它會等待調用寫入函數，如像[這樣](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep)從Arduino程式庫調用`write_bucket`方法或與 [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket) 一樣直接調用REST API。此功能允許從不同裝置寫入資料到同一數據儲存桶中，或者紀錄來自未與伺服器永久連接裝置的資訊(處於睡眠模式的裝置或使用Sigfox等其他技術的資訊)。
+  * **From Write Call**: 此選項將設定數據儲存桶為在預設情況不會記錄任何資訊的狀態。它會等待調用寫入函數，如像[這樣](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep)從Arduino程式庫調用`write_bucket`方法或與 [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket) 一樣直接調用REST API。此功能允許從不同裝置寫入資料到同一數據儲存桶中，或者紀錄來自未與伺服器永久連接裝置的資訊\(處於睡眠模式的裝置或使用Sigfox等其他技術的資訊\)。
 
     以下是ESP8266裝置使用`write_bucket`功能將資訊寫入數據儲存桶的範例：
 
@@ -89,6 +89,4 @@
 可以不同的文件格式導出所有儲存的資訊，因此您可以離線處理數據，例如應用人工智慧、業務分析、大數據等。您可以存取數據儲存桶並設定匯出細節，比如選擇文件類型或匯出範圍。幾分鐘後，您將收到一封附檔包含您所需資料的電子郵件（預設情況下，雲端平台中的資料有效期為3個月）。
 
 ![](../.gitbook/assets/dowloadbucket.PNG)
-
-## 
 

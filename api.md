@@ -1,11 +1,10 @@
 ---
-description: >-
-  本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
+description: 本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
 ---
 
-# 伺服器 API
+# SERVER API
 
->本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
+> 本文件將介紹如何使用RESTful API與Thinger.io伺服器後端進行互動。
 
 本文件中描述的所有示範都基於相對路徑定義URL，假設主機未被設定為您自行建立的伺服器IP、網域，則預設伺服器如下：
 
@@ -25,54 +24,51 @@ https://api.thinger.io
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODYwNDkxNTcsImlhdCI6MTQ4NjA0MTk1NywidXNyIjoianQifQ.pkyG43xiEhDtUHLxuycYv156FGuvNh6nDKQ07kGcaGk
 ```
 
-本服務使用的Token格式為JWT，token內容可使用jwt-decoder解析。
-存取令牌有兩個不同的概念：使用使用者憑據、刷新令牌取得動態存取令牌，或是直接由使用者定義。
+本服務使用的Token格式為JWT，token內容可使用jwt-decoder解析。 存取令牌有兩個不同的概念：使用使用者憑據、刷新令牌取得動態存取令牌，或是直接由使用者定義。
 
 #### 存取令牌\(Access Token\)
 
 此種令牌用於存取API資源，要存取任何API時都需要將此令牌與`Bearer`關鍵字一起包含在HTTP標頭的 `authorization` 項目中。其中 `authorization` 區分大小寫。
 
-_Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透過刷新令牌進行刷新。
+_Notice_ 存取令牌有效期限\(Expiration time\)為 2 小時，因此需要透過刷新令牌進行刷新。
 
-#### 刷新令牌(Refresh Token)
+#### 刷新令牌\(Refresh Token\)
 
 此種令牌用於刷新並取得存取令牌，本身不提供存取使用者資源的權限，使用刷新令牌時其本身也會刷新。將刷新令牌儲存於安全區域，即使存取令牌以某種方式洩漏，攻擊者也無法長時間存取裝置。若刷新令牌也遭洩漏，可以手動註銷刷新令牌以阻止被取得新的刷新令牌，中止非預期的存取。
 
-本平台身分驗證的設計模式為：透過帳號密碼進行初次身分驗證，同時取得刷新令牌與存取令牌。
-刷新令牌有效期限(Expiration time)為 2 個月。並且您使用它時也會進行刷新。之後皆使用存取令牌存取API，並於刷新令牌過期前，使用刷新令牌更新並同時取得存取令牌與刷新令牌。
+本平台身分驗證的設計模式為：透過帳號密碼進行初次身分驗證，同時取得刷新令牌與存取令牌。 刷新令牌有效期限\(Expiration time\)為 2 個月。並且您使用它時也會進行刷新。之後皆使用存取令牌存取API，並於刷新令牌過期前，使用刷新令牌更新並同時取得存取令牌與刷新令牌。
 
-#### 使用者令牌(User Token)
+#### 使用者令牌\(User Token\)
 
-此種令牌可由控制面板中以 `Access Token` 項目建立並規範存取權限，將其限定使用於特定行為，如寫入資料存儲區、存取裝置特定資源的長期存取。
-這種令牌使用方式與存取令牌相同，不同的是這種令牌不會過期。
+此種令牌可由控制面板中以 `Access Token` 項目建立並規範存取權限，將其限定使用於特定行為，如寫入資料存儲區、存取裝置特定資源的長期存取。 這種令牌使用方式與存取令牌相同，不同的是這種令牌不會過期。
 
 ![](.gitbook/assets/token_permission.png)
 
 ### 透過使用者憑證取得驗證令牌
 
-此方式提供使用者使用帳號與密碼取得令牌(包含存取令牌與刷新令牌)。首次進行API存取時會使用該方法。
+此方式提供使用者使用帳號與密碼取得令牌\(包含存取令牌與刷新令牌\)。首次進行API存取時會使用該方法。
 
 * **URL**
 
-  ```
+  ```text
   /oauth/token
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/x-www-form-urlencoded
   ```
 
 * **內文**
 
-  ```
+  ```text
   grant_type=password&username=username&password=password
   ```
 
@@ -91,7 +87,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
     ```
 * **錯誤回應：**
   * **HTTP狀態：** 401 Unauthorized
-  * **回應內容：** 
+  * **回應內容：**
 
     ```javascript
      {  
@@ -103,35 +99,35 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 ### 使用刷新令牌取得令牌
 
-此方法允許使用有效的刷新令牌取得新的令牌(包含存取令牌與刷新令牌)。每當存取令牌過期或刷新令牌可能過期時都該使用該方法刷新。
+此方法允許使用有效的刷新令牌取得新的令牌\(包含存取令牌與刷新令牌\)。每當存取令牌過期或刷新令牌可能過期時都該使用該方法刷新。
 
 * **URL**
 
-  ```
+  ```text
   /oauth/token
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/x-www-form-urlencoded
   ```
 
 * **內文**
 
-  ```
+  ```text
   grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0OTEzMTIzNTcsImlhdCI6MTQ4NjA0MTk1NywianRpIjoiNTg5MzMzNjUzOWNiZWY0YWEzMDE1YWJjIn0.BYwRii9eL7jeQQQqMbuBEZAvwmmVRAU8kWYCNZEDn0s
   ```
 
 * **成功回應：**
   * **HTTP狀態：** 200
-  * **回應內容：** 
+  * **回應內容：**
 
     ```javascript
     {  
@@ -144,7 +140,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
     ```
 * **錯誤回應：**
   * **HTTP狀態：** 401 Unauthorized
-  * **回應內容：** 
+  * **回應內容：**
 
     ```javascript
      {  
@@ -160,7 +156,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 #### 解析JWT資訊
 
-檢查存取令牌是否過期的第一種方法是解析JWT並解碼有效負載(Payload)資訊。存取令牌將具有如下所示的有效負載(Payload)：
+檢查存取令牌是否過期的第一種方法是解析JWT並解碼有效負載\(Payload\)資訊。存取令牌將具有如下所示的有效負載\(Payload\)：
 
 ```javascript
 {
@@ -186,13 +182,13 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   GET
   ```
 
@@ -200,7 +196,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
   **可選：** 通過新增以下URL參數來使用ID指定裝置：
 
-  ```
+  ```text
   id=[device id]
   ```
 
@@ -231,19 +227,19 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/json;charset=UTF-8
   ```
 
@@ -265,26 +261,26 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 ### **刪除使用者裝置**
 
-  此方法允許刪除特定裝置。
+此方法允許刪除特定裝置。
 
-  * **URL**
+* **URL**
 
-    ```
-    /v1/users/{USER_ID}/devices/{DEVICE_ID}
-    ```
+  ```text
+  /v1/users/{USER_ID}/devices/{DEVICE_ID}
+  ```
 
-  * **方法(Method)**
+* **方法\(Method\)**
 
-    ```
-    DELETE
-    ```
+  ```text
+  DELETE
+  ```
 
-  * **成功回應：**
-    * **HTTP狀態：** 200
-  * **錯誤回應：**
-    * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
-    * **HTTP狀態：** 400 Bad request. If the device is connected.
-    * **HTTP狀態：** 404 Not Found. If the device does not exists.
+* **成功回應：**
+  * **HTTP狀態：** 200
+* **錯誤回應：**
+  * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
+  * **HTTP狀態：** 400 Bad request. If the device is connected.
+  * **HTTP狀態：** 404 Not Found. If the device does not exists.
 
 ### 取得裝置狀態資訊
 
@@ -292,13 +288,13 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices/{DEVICE_ID}/stats
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   GET
   ```
 
@@ -323,7 +319,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
   此方法可與伺服器發送事件（SSE）一起使用，以取得有關裝置狀態資訊的即時更新，如tx和rx字節。如果您無法將授權標頭新增到SSE客戶端，則可以將存取令牌以`?authorization=eyJhbGci...`的方式附加到URL中。
 
-### 裝置令牌(Device Token)
+### 裝置令牌\(Device Token\)
 
 如前段說明所示，裝置令牌可做為`Access Token`使用，存取範圍限制為該裝置所擁有的資源，"存取裝置資源"章節的內容皆可以`裝置令牌`作為`存取令牌`使用。
 
@@ -333,13 +329,13 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   GET
   ```
 
@@ -368,19 +364,19 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/json;charset=UTF-8
   ```
 
@@ -417,13 +413,13 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v1/users/{USER_ID}/devices/{DEVICE_ID}/tokens/:token_id
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   DELETE
   ```
 
@@ -435,7 +431,7 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 ### 存取裝置資源
 
-您可以根據您的使用者ID，裝置ID以及您自己在裝置中定義的資源以API進行存取。本節介紹如何存取不同類型的資源，如輸出，輸入，輸入/輸出和回調(CallBack)資源。
+您可以根據您的使用者ID，裝置ID以及您自己在裝置中定義的資源以API進行存取。本節介紹如何存取不同類型的資源，如輸出，輸入，輸入/輸出和回調\(CallBack\)資源。
 
 #### 輸出資源
 
@@ -445,19 +441,19 @@ _Notice_ 存取令牌有效期限(Expiration time)為 2 小時，因此需要透
 
 * **URL**
 
-  ```
+  ```text
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   GET
   ```
 
 * **成功回應：**
   * **HTTP狀態：** 200
-  * **內容類型(Content-Type)**: application/json
+  * **內容類型\(Content-Type\)**: application/json
   * **內文**: A JSON document with the key `out` that stores your resource definition.
 * **錯誤回應：**
   * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
@@ -511,19 +507,19 @@ thing["temperature"] >> [](pson& out){
 
 * **URL**
 
-  ```
+  ```text
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/json;charset=UTF-8
   ```
 
@@ -543,7 +539,7 @@ thing["temperature"] >> [](pson& out){
 
 **範例 1**
 
-如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中有一個輸入資源，例如，用於打開/關閉繼電器(Relay)：
+如果您的帳戶是`alvarolb`，您的裝置標識符是`nodemcu`，並且您的裝置中有一個輸入資源，例如，用於打開/關閉繼電器\(Relay\)：
 
 ```cpp
 thing["relay"] << [](pson& in){
@@ -643,19 +639,19 @@ curl \
 
 * **URL**
 
-  ```
+  ```text
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   POST
   ```
 
-* **內容類型(Content-Type)**
+* **內容類型\(Content-Type\)**
 
-  ```
+  ```text
   Content-Type:application/json;charset=UTF-8
   ```
 
@@ -669,7 +665,7 @@ curl \
 
 * **成功回應：**
   * **HTTP狀態：** 200
-  * **內容類型(Content-Type)**: application/json
+  * **內容類型\(Content-Type\)**: application/json
   * **內文**: A JSON document with the key `out` that stores your resource output.
 * **錯誤回應：**
   * **HTTP狀態：** 401 Unauthorized. If the auth is not success.
@@ -730,13 +726,13 @@ curl \
 
 * **URL**
 
-  ```
+  ```text
   /v2/users/{USER_ID}/devices/{DEVICE_ID}/{RESOURCE_ID}
   ```
 
-* **方法(Method)**
+* **方法\(Method\)**
 
-  ```
+  ```text
   GET
   ```
 

@@ -1,4 +1,4 @@
-# 存取令牌
+# ACCESS TOKENS
 
 可以通過REST API存取所有Thinger.io平台功能，以便將我們的服務作為結合其他項目的後端伺服器。實際上，控制台只是一個與API互動以管理裝置，數據儲存桶，端點，儀表板等的Angular REST客戶端。每個REST API請求必須經過身份驗證才能生效，因此，任何客戶端都需要在每次調用時提供授權。存取令牌是向第三方服務或應用程式提供授權以進行API請求的方式，而無需與其共享使用者名和密碼。此外，通過存取令牌，可以授予對帳戶的特定資源和操作的存取權限，例如讀取特定裝置或寫入自定義數據儲存桶（如[本範例](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-an-access-token)中所示）。
 
@@ -10,7 +10,7 @@
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LpXslUdklMPEtHLTfE2%2F-LpXt-pMGye554_v86_v%2FAccessTokenTab.png?generation=1569322229570086&alt=media)
 
-## 建立令牌設定檔(Access Token Profile)
+## 建立令牌設定檔\(Access Token Profile\)
 
 點擊綠色`Add Token`按鈕將打開新界面以輸入端點詳細資訊，如以下畫面截圖所示：
 
@@ -27,7 +27,7 @@
 
 填寫完所有參數後，再次按下綠色的`New Access Token`以新增一個存取令牌設定檔。接著授權訊息會出現在如下圖所示的藍色文本框中。
 
-![](../.gitbook/assets/image%20%28118%29.png)
+![](../.gitbook/assets/image-118.png)
 
 授權訊息可以透過將`bearer`加入`authorization`中進行身分驗證，這將允許第三方系統使用Thinger.io平台的功能。
 
@@ -86,7 +86,5 @@
 
 可以從存取令牌列表中刪除一個或多個存取令牌設定檔，方法是在左側的複選框中選中它，然後按紅色的"delete"按鈕。
 
-![](../.gitbook/assets/image%20%28158%29.png)
-
-
+![](../.gitbook/assets/image-158.png)
 

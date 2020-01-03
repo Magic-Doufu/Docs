@@ -1,4 +1,4 @@
-# 儀表板(DASHBOARD)
+# DASHBOARDS
 
 儀表板是一個圖形使用者界面，能將您的資訊以不同的圖形和圖表顯示。您可以在儀表板中使用不同的小工具，設定其佈局，維度，顏色和數據源，以便為您的業務或流程產生有用的資訊。
 
@@ -44,7 +44,7 @@ Ready to create your own dashboard?
 
 以下小節介紹了每種視窗小工具類型的不同參數。
 
-### 時序圖表(Time Series Chart)
+### 時序圖表\(Time Series Chart\)
 
 時序圖表是可以隨時間顯示值的圖表。也就是說，在需要顯示時序數據時，例如隨時間變化的溫度變數，這非常有用。可以在同一圖表中繪製單個或多個變數。此小工具的初始設定如下圖所示：
 
@@ -59,7 +59,6 @@ Ready to create your own dashboard?
 * **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
 * **Chart Input**: 設定將值提供何種值給時間序列圖表。有`From device`或`From data bucket`兩種選項。
   * **From Device**: 使用此選項，必須選擇一個裝置（必須已連接才可提供資訊）並指定要繪製的目標資源。下圖是從裝置中選擇裝置`deviceA`和資源`millis`的範例。請注意，當從裝置提供時間序列視窗小工具時，如果關閉或刷新儀表板，它將不會保留資訊，因為它只是從您的裝置到儀表板的即時數據。您可以在兩種不同的刷新模式之間進行選擇，例如以不同的間隔採樣（這將會在線上完成刷新），或者由裝置發起圖表刷新。
-
   * **From Data Bucket**: 使用此選項，視窗小工具將從指定的數據儲存桶中取得歷史資訊以在其上進行繪製。因此，只需選擇在您的帳戶中建立的數據儲存桶ID即可。如果數據儲存桶包含了多個變數，則允許選擇要繪製的變數，如下圖所示。從數據儲存桶中選擇資訊時，您需要建立要顯示的數據時間範圍，可以相對於目前時間，或兩個日期之間的絕對時間段。
 
 ![](../.gitbook/assets/datasource.PNG)
@@ -69,23 +68,21 @@ Ready to create your own dashboard?
 
 ![](../.gitbook/assets/multiplevariable.PNG)
 
-* **資料匯集(Data Aggregation)**: 
+* **資料匯集\(Data Aggregation\)**: 
 
-當數據點很多時，直接從存儲桶中顯示原始數據可能會比較棘手，尤其是在測量值非常嘈雜或不規則的情況下。
-此功能允許使用不同的統計方法匯集數據，例如中位數、均值、最小值或最大值並提供每個週期的數據點計數及計算總結。
-通過使用小工具設定中的下一個表單頁面輸入，以及使用每個時序圖小工具上右上角的參數，可以聚合五分鐘到一周的時間間隔中的數據。
+當數據點很多時，直接從存儲桶中顯示原始數據可能會比較棘手，尤其是在測量值非常嘈雜或不規則的情況下。 此功能允許使用不同的統計方法匯集數據，例如中位數、均值、最小值或最大值並提供每個週期的數據點計數及計算總結。 通過使用小工具設定中的下一個表單頁面輸入，以及使用每個時序圖小工具上右上角的參數，可以聚合五分鐘到一周的時間間隔中的數據。
 
 ![](../.gitbook/assets/iot-data-aggregation.PNG)
 
 下圖展示了使用四種使用不同算法匯集出的同一採樣間隔的數據集：
 
-![](../.gitbook/assets/image%20%28128%29.png)
+![](../.gitbook/assets/image-128.png)
 
 {% hint style="warning" %}
-請注意，只有在具有**InfluxDB** 的"私有伺服器"中，才能使用**Data Aggregation**系統。 
+請注意，只有在具有**InfluxDB** 的"私有伺服器"中，才能使用**Data Aggregation**系統。
 {% endhint %}
 
-### 指針表(Tachometer Chart)
+### 指針表\(Tachometer Chart\)
 
 這是一個相當直觀的小工具，允許以傳統的"指針表"表示形式顯示裝置數據，可自定義不同的數值範圍以及搭配顏色標記，使其令人一目了然從而精確/簡化原有操作。
 
@@ -93,17 +90,17 @@ Ready to create your own dashboard?
 
 可設定參數如下：
 
-![](../.gitbook/assets/image%20%2857%29.png)
+![](../.gitbook/assets/image-57.png)
 
 * **Title**: 小工具的標題。
 * **Subtitle**: 小工具的副標題。
 * **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\)。該小工具具有與以下參數有關的特殊行為。 按下綠色的"+"按鈕，可以根據即時顯示的值顯示不同的背景顏色：
 
-![](../.gitbook/assets/image%20%2865%29.png)
+![](../.gitbook/assets/image-65.png)
 
 圖片為一個當量測到的變數達到危險壓力值，背景將變為紅色的示範。因此，如果您的產品中沒有任何自動系統，此工具將協助您更容易識別和管理事件。
 
-![](../.gitbook/assets/image%20%2850%29.png)
+![](../.gitbook/assets/image-50.png)
 
 * **Chart Input**: 設定如何將值輸入指針表。可以從已連接的**裝置**或**數據桶**。
   * **From Device Resource**: 使用此選項，必須選擇一個裝置（該裝置必須連接上系統提供資源），並指定要使用的資源。
@@ -113,7 +110,7 @@ Ready to create your own dashboard?
 
 最後一個選項卡包含所有有關顯示的選項。這可能是Thinger.io平台中最可自定義的小工具，它允許選擇很多不同的參數，如下圖所示：
 
-![](../.gitbook/assets/image%20%28159%29.png)
+![](../.gitbook/assets/image-159.png)
 
 * **Display options:**
   * **Units**: 用於顯示數據單位的可選資訊，例如ºC。
@@ -124,11 +121,11 @@ Ready to create your own dashboard?
   * **Major Ticks**: 設定每個刻度的範圍。
   * **Show Value**: 決定在數字顯示框中顯示或隱藏數值。
 
-### 虛擬LED(Virtual LED)
+### 虛擬LED\(Virtual LED\)
 
 使用LED指示器是在電子項目中建立簡單圖形界面以表示系統狀態，警報等的常用方法。Thinger.io平台中包含此小工具的目的相同，因此可以用於通過更改其顏色來顯示二進制狀態，通過設定閃爍行為來建立警報或通過使用多個顏色在一個RGB模擬中來顯示多個數據。
 
-![](../.gitbook/assets/image%20%28173%29.png)
+![](../.gitbook/assets/image-173.png)
 
 通過三個步驟，可以用許多不同的方式使用此小工具。首先，在"小工具"選單選項卡中選擇"LED指示器"，然後指出：
 
@@ -153,9 +150,9 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
   * **Color ranges**: 每次按下"+"按鈕時，都會包含一個新的顏色範圍，從而可以定義一個新的範圍以及當所選輸入值屬於該範圍時將顯示的顏色。 
   * **Blinking led option:** 當輸入達到文件設定的範圍時，右側開關可為LED加入指示燈閃爍行為。也可以通過按下LED小工具來關閉閃爍。
 
-![](../.gitbook/assets/image%20%286%29.png)
+![](../.gitbook/assets/image-6.png)
 
-### 環形圖(Donut Chart)
+### 環形圖\(Donut Chart\)
 
 環形圖是可以顯示值的圖表，通常以圓整百分比的形式顯示。也就是說，當你知道變數只會在最大值和最小值之間變動時這非常有用。此小工具只能顯示單個變數，來源可以從裝置即時更新，也可以從數據儲存桶中更新。
 
@@ -174,7 +171,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 * **Max Value**: 變數預期的最大值。
 * **Donut Color**: 環形圖內顯示的顏色。
 
-### 進度條(Progressbar)
+### 進度條\(Progressbar\)
 
 進度條是一個圖表，可以輕鬆地表示某個操作或過程的進度。也就是說，當您有任何流程需要長時間完成並且需要進行監控時這非常有用。這種小工具只能表示單個變數，既可以從裝置即時更新，也可以從數據儲存桶中更新。
 
@@ -192,7 +189,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 * **Min Value**: 變數預期的最小值。
 * **Max Value**: 變數預期的最大值。
 
-### Google地圖(Google Maps)
+### Google地圖\(Google Maps\)
 
 此時，地圖可用於表示地圖中的單個位置。即時跟蹤裝置非常方便，因為圖表可以通過GPRS連接從連接的裝置即時提供。也可以從數據儲存桶中繪製位置，因此也可以跟蹤像Sigfox這樣的裝置。
 
@@ -200,7 +197,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 
 以下是此小工具與連接裝置即時協作的範例：
 
- \[!\[Real-Time GPS location over GPRS using IoT Solution\]\(https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\)
+\[!\[Real-Time GPS location over GPRS using IoT Solution\]\([https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\](https://img.youtube.com/vi/3QDDOPMg22g/0.jpg%29]%28https://www.youtube.com/watch?v=3QDDOPMg22g\)\)
 
 可設定的參數如下：
 
@@ -209,7 +206,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 * **Title**: 小工具的標題。
 * **Subtitle**: 小工具的副標題。
 * **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\).
-* **Location**: 設定如何在地圖中提供位置。可以從連接的**device**或**data bucket**中提供資訊。從數據儲存桶或裝置饋送繪圖(plot)時，所需的緯度和經度（以度為單位）應與數據儲存桶中或裝置資源中存在的變數進行匹配。
+* **Location**: 設定如何在地圖中提供位置。可以從連接的**device**或**data bucket**中提供資訊。從數據儲存桶或裝置饋送繪圖\(plot\)時，所需的緯度和經度（以度為單位）應與數據儲存桶中或裝置資源中存在的變數進行匹配。
 
 ![](../.gitbook/assets/locationvalue.png)
 
@@ -249,7 +246,7 @@ text/value 小工具是一個有用的小工具，用於顯示任意數據，特
 * **Units**:用於顯示數據單位的可選資訊。
 * **Text Color**: 設定文字顏色。
 
-### 時鐘(Clock)
+### 時鐘\(Clock\)
 
 這是一個時鐘小工具，可以在本機時區或UTC時間中顯示目前時間，這在即時監視時非常有用。請注意，此視窗小工具僅從您的電腦取得目前時間。
 
@@ -269,11 +266,11 @@ text/value 小工具是一個有用的小工具，用於顯示任意數據，特
 
 在Thinger.io中，不僅可以在儀表板中顯示資訊，還可以即時控制裝置。在本節中描述了一些可用於控制連接裝置的可用小工具。
 
-### 開關(On/Off State)
+### 開關\(On/Off State\)
 
 On / Off小工具允許控制連接裝置的布爾狀態，例如打開/關閉燈，電機，繼電器或任何其他元件。裝置應該披露一個布爾輸入，就像控制led的那些例子一樣。然後將資源映射到此小工具即可即時更改裝置狀態。如果正確定義了[輸入資源屬性](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources)，這個小工具也能顯示目前裝置狀態。
 
-![](../.gitbook/assets/switchbutton.png) 
+![](../.gitbook/assets/switchbutton.png)
 
 可設定的參數如下：
 
@@ -287,19 +284,20 @@ On / Off小工具允許控制連接裝置的布爾狀態，例如打開/關閉�
 ![](../.gitbook/assets/deviceresource.png)
 
 該小工具有兩種不同的外觀，可以在**Switch Style**參數中指定：
+
 * **Switch**是帶有少量不可設定開關的標準類型。
 * **Button**則是改進後的樣式，可以設定用不同的顏色和Logo。選擇此選項時，將顯示下一個參數：
 
-![](../.gitbook/assets/image%20%28174%29.png)
+![](../.gitbook/assets/image-174.png)
 
 * **On Color**: 當此裝置跟隨的資源值為true時顯示的顏色。
 * **Off Color**: 當此裝置跟隨的資源值為false時顯示的顏色。
 * **Icon**: 此按鈕能夠顯示favicon庫或任何其他圖標庫URL中的可自定義圖標。
 * **Icon Color**: 圖標顏色也可以使用十六進制值進行配置。請注意，兩個按鈕狀態都有不同的顏色選項，因此您可以根據需要自定義它。
 
-  ![](../.gitbook/assets/image%20%28110%29.png)
+  ![](../.gitbook/assets/image-110.png)
 
-### 滑桿(slider)
+### 滑桿\(slider\)
 
 slider小工具允許控制已連接裝置的數字狀態，例如設定閾值，目標溫度或可能遠端控制的任何其他內部裝置狀態。裝置應披露數字輸入，然後將資源映射到此小工具，可以即時更改目標值。如果正確定義了輸入[資源屬性](http://docs.thinger.io/arduino/#coding-adding-resources-input-resources)，這個小工具也能顯示目前裝置狀態。
 
@@ -326,6 +324,4 @@ slider小工具允許控制已連接裝置的數字狀態，例如設定閾值�
 **Note:** 如果通過新增新數據源（設備或數據存儲區）來更改儀表板，則必須禁用並重新啟用儀表板共享以更新授權。出於安全原因，新數據源不會自動共享。
 
 ![](../.gitbook/assets/sharedashboard.png)
-
-## 
 

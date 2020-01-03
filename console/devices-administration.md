@@ -1,4 +1,4 @@
-# 裝置管理
+# DEVICES ADMINISTRATION
 
 ## 建立裝置
 
@@ -6,7 +6,7 @@
 
 要註冊新裝置，請在登錄後，切換到左側選單中的**Devices**部分。
 
-![](../.gitbook/assets/image%20%28149%29.png)
+![](../.gitbook/assets/image-149.png)
 
 此部分將列出您註冊的裝置，並顯示有關連接狀態的一些資訊。類似於下圖的畫面。
 
@@ -22,10 +22,9 @@
 
 選擇裝置類型後，應該填寫如下表單：
 
-![](../.gitbook/assets/adddevice.PNG)
+![](../.gitbook/assets/adddevice%20%281%29.PNG)
 
-在此處輸入給予裝置唯一的`Device Id`、可以幫助您識別裝置的`Device description`以及憑證`device credentials`。每個裝置都有自己的`ID`/`憑證`，因此帳戶中的裝置間不會互相影響。伺服器中的所有密碼都加入透過`PRNG`與非折舊性迭代(non-despreciable amount of iterations)產生出的32字節的鹽，並使用`PBKDF2 SHA256`進行安全存儲。
-保存好您的`device Id`和`device credentials`，因為您需要它們來連接您的裝置（密碼設定後將無法再次檢視）。
+在此處輸入給予裝置唯一的`Device Id`、可以幫助您識別裝置的`Device description`以及憑證`device credentials`。每個裝置都有自己的`ID`/`憑證`，因此帳戶中的裝置間不會互相影響。伺服器中的所有密碼都加入透過`PRNG`與非折舊性迭代\(non-despreciable amount of iterations\)產生出的32字節的鹽，並使用`PBKDF2 SHA256`進行安全存儲。 保存好您的`device Id`和`device credentials`，因為您需要它們來連接您的裝置（密碼設定後將無法再次檢視）。
 
 如果一切順利，你應該看到一些成功的訊息
 
@@ -33,7 +32,7 @@
 
 現在，您可以返回到裝置列表，裝置應顯示為已中斷連接。
 
-![](../.gitbook/assets/device_list.png)
+![](../.gitbook/assets/device_list%20%281%29.png)
 
 現在，您可以使用新裝置ID和裝置憑據來連接新裝置。根據您的裝置，您將需要安裝所需的程式庫或開發環境，因此請根據您的裝置簽出以下部分：
 
@@ -61,7 +60,7 @@
 
 ## Device Explorer
 
-Each device counts with an explorer and administration interface, that allows showing and configuring different devices features. This interface is common for all device types in thinger.io but note that some features such as the "device API explorer" may not be available if the device have not an actual real-time connection with the server. 
+Each device counts with an explorer and administration interface, that allows showing and configuring different devices features. This interface is common for all device types in thinger.io but note that some features such as the "device API explorer" may not be available if the device have not an actual real-time connection with the server.
 
 In the next sections, it is explained each different feature of the device explorer:
 
@@ -73,7 +72,7 @@ Thinger.io平台的一個很酷的功能是，它可以探索裝置中定義的�
 
 在API資源管理器界面中，您將看到許多不同的框列出程式中定義的每個資源。每個資源都有一個ID，該ID與程式中定義的資源名稱相關。
 
-在Thinger.io平台中，您可以定義4種不同類型的資源，分別為：輸入（向裝置發送數據），輸出（裝置將發送資訊），輸入/輸出（您可以在一個調用中發送和接收資訊）以及回調資源(僅用於執行函數而不傳遞任何數據)。從API的角度來看，輸入和輸出數據可以是任何JSON文件。您可以檢視程式庫文件了解如何定義這些不同的資源。
+在Thinger.io平台中，您可以定義4種不同類型的資源，分別為：輸入（向裝置發送數據），輸出（裝置將發送資訊），輸入/輸出（您可以在一個調用中發送和接收資訊）以及回調資源\(僅用於執行函數而不傳遞任何數據\)。從API的角度來看，輸入和輸出數據可以是任何JSON文件。您可以檢視程式庫文件了解如何定義這些不同的資源。
 
 例如，Arduino程式庫中的預設ESP8266範例定義了兩種不同的資源。一個稱為`led`的輸入資源，用於控制`BUILTIN_LED`和一個調用`millis`以提取裝置直行至目前毫秒數的輸出資源，如以下程式中所定義。請注意，資源名稱可以是用於標識基礎資源的任意文字，它們與平台中定義的任何常數無關。
 
@@ -88,8 +87,7 @@ thing["millis"] >> outputValue(millis());
 
 ![](../.gitbook/assets/deviceapi.PNG)
 
-現在您可以看到如何於平台中使用裝置中所定義的資源，因為裝置能夠回報可用資源及其格式（或目前狀態）。您可以在這裡測試您的資源，與它們進行即時互動。您將能夠切換LED狀態，或讀取Arduino裝置運作至目前的毫秒數。
-每次點擊`Run`按鈕都將立即執行您的資源，即根據資源類型，向裝置要求傳感器數值、調用`millis()`或為動作機構發送新狀態，具體行為取決於資源類型（輸入或輸出）。
+現在您可以看到如何於平台中使用裝置中所定義的資源，因為裝置能夠回報可用資源及其格式（或目前狀態）。您可以在這裡測試您的資源，與它們進行即時互動。您將能夠切換LED狀態，或讀取Arduino裝置運作至目前的毫秒數。 每次點擊`Run`按鈕都將立即執行您的資源，即根據資源類型，向裝置要求傳感器數值、調用`millis()`或為動作機構發送新狀態，具體行為取決於資源類型（輸入或輸出）。
 
 關於這一點的好處是每個裝置資源都可以轉換為REST API端點，因此您可以使用標準REST請求如`POST`方法將值發送到裝置，或使用`GET`從裝置讀取資訊等方法來使用或與裝置互動。因此，在這些API端點被結合到其他平台或應用程式之前即可輕鬆對這些端點進行測試。
 
@@ -106,7 +104,7 @@ thing["in_out"] = [](pson& in, pson& out){
 
 ![](../.gitbook/assets/inoutresource.PNG)
 
-除了可以與裝置互動的有用裝置API資源管理器之外，您還可以通過點擊`Show Query`按鈕取得有關REST API端點的特定資訊。它提供方法(method)、URL、內容類型(ContentType)、請求內容(Request Body)和響應內容(Response Body)等資訊。您也可以點擊`Curl`直接複製產生的指令與裝置進行互動。
+除了可以與裝置互動的有用裝置API資源管理器之外，您還可以通過點擊`Show Query`按鈕取得有關REST API端點的特定資訊。它提供方法\(method\)、URL、內容類型\(ContentType\)、請求內容\(Request Body\)和響應內容\(Response Body\)等資訊。您也可以點擊`Curl`直接複製產生的指令與裝置進行互動。
 
 上面的範例轉換為以下REST API調用：
 
@@ -114,7 +112,7 @@ thing["in_out"] = [](pson& in, pson& out){
 
 [此處](http://docs.thinger.io/api/#devices-api-access-device-resources).提供了有關與裝置進行交互的API的更多信息。
 
-### HTTP 裝置回調 (Callback)
+### HTTP 裝置回調 \(Callback\)
 
 由於這些裝置的性質，[thinger.io](http://thinger.io/)在使用回調進行結合的基礎上應用了特殊處理。回調是伺服器的一項功能，通過帶有數據的HTTP查詢來請求處理裝置數據，例如將其存儲在存儲桶中，調用端點設定檔或登錄至應發送的JSON中。
 
@@ -124,14 +122,13 @@ thing["in_out"] = [](pson& in, pson& out){
 
 此內容顯示了可以通過使用回調從伺服器請求的不同功能，只需點擊複選框並選擇將接收數據的資源，例如：
 
-* 將數據存儲至可縮放的[數據桶]中(http://docs.thinger.io/console/#data-buckets)
+* 將數據存儲至可縮放的\[數據桶\]中\([http://docs.thinger.io/console/\#data-buckets](http://docs.thinger.io/console/#data-buckets)\)
 * 調用[端點設定檔](http://docs.thinger.io/console/#endpoints)與第三方結合
 * 使用`Set device property`或`response data`功能檢視或修改[Device Properties](http://docs.thinger.io/api/#Device-properties)。
 
 請注意，無法通過回調新增屬性，數據儲存桶或端點，因此必須先於Web控制台或REST API進行建立
 
-您已設定了回調詳細資訊，系統將準備接收請求。
-與已連接裝置的儀表板中包含的"show query"功能類似，您可以通過點擊`Callback Details`內的"overview"或"cURL Example"選項來找到HTTP請求結構的精確規範和完整的cURL範例。
+您已設定了回調詳細資訊，系統將準備接收請求。 與已連接裝置的儀表板中包含的"show query"功能類似，您可以通過點擊`Callback Details`內的"overview"或"cURL Example"選項來找到HTTP請求結構的精確規範和完整的cURL範例。
 
 內容如下圖所示：
 
@@ -153,8 +150,7 @@ https://<Thinger_Server>/v3/users/<Username>/devices/<Device_ID>/callback?author
 
 ![](../.gitbook/assets/adddevicetoken.PNG)
 
-![](vscode-resource:/c%3A/Users/Jorge/Desktop/Docs-gh-pages_OLD/console/assets/AddDeviceToken.PNG)
-接著點擊右側綠色的`Add`按鈕，會出現一個視窗，您可以設定不同的參數：
+![](vscode-resource:/c%3A/Users/Jorge/Desktop/Docs-gh-pages_OLD/console/assets/AddDeviceToken.PNG) 接著點擊右側綠色的`Add`按鈕，會出現一個視窗，您可以設定不同的參數：
 
 * Token name: 使用代表名稱來記住令牌的發布原因，即IFTTT Access，手機等。
 * Token access: 設定令牌以允許存取或限制對裝置資源的存取。
@@ -162,7 +158,7 @@ https://<Thinger_Server>/v3/users/<Username>/devices/<Device_ID>/callback?author
 
 下圖顯示了設定裝置令牌時的範例畫面截圖。
 
-![](../.gitbook/assets/addtockenform%20%281%29.PNG)
+![](../.gitbook/assets/addtockenform-1.PNG)
 
 令牌此時已經保存，界面將顯示要在REST API調用中使用的存取令牌，如下圖所示。如果您需要幫助以在REST API調用中集成此存取令牌，請檢視[此文件](http://docs.thinger.io/api/#authentication-api-rest-api-authentication)。
 
@@ -200,7 +196,6 @@ thing.set_property("location", data, true);
 pson data;
 //retrieving data from the platform
 thing.set_property("My_Property", data, true);
- 
 ```
 
 \(您可以在本文件的"編纂"部分中了解有關此功能的更多詳細資訊\)
@@ -219,7 +214,7 @@ thing.set_property("My_Property", data, true);
 
 忘記憑證時可以在此直接更新憑證（憑證設定後無法從資料庫中恢復，因為它已加密）。請注意，更改裝置憑證不會中斷裝置，但會在中斷連接後阻止其重新連接。
 
-![](../.gitbook/assets/deviceedit%20%281%29.png)
+![](../.gitbook/assets/deviceedit-1%20%281%29.png)
 
 如果您需要更改裝置ID，則必須刪除該裝置，然後用所需的裝置資訊註冊一個新的裝置。
 

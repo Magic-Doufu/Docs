@@ -4,9 +4,9 @@ description: Plugin for automatically integrating TTN devices in Thinger.io plat
 
 # The Things Network Plugin
 
-![](../.gitbook/assets/image%20%283%29.png)
+![](../.gitbook/assets/image-3.png)
 
-The Things Network \(TTN\) plugin is a solution for using The Things Network HTTP integration in an optimized way, providing features like both uplink and downlink processing, or automatic device and data storage provisioning, so it is not required to configure TTN devices in both places. 
+The Things Network \(TTN\) plugin is a solution for using The Things Network HTTP integration in an optimized way, providing features like both uplink and downlink processing, or automatic device and data storage provisioning, so it is not required to configure TTN devices in both places.
 
 {% hint style="info" %}
 [Note: Plugins are only available for premium Thinger.io servers. Check **this link** to create your own instance within minutes](https://pricing.thinger.io)
@@ -39,7 +39,7 @@ In this section it is described the different interfaces that can be used to con
 
 Every TTN application that is integrated over this plugin, should define a new application with the same application identifier as defined in TTN. Each application defined in this way will allow to customize the plugin behaviour based on the application type.
 
-![TTN aplication configuration ](../.gitbook/assets/image%20%2843%29.png)
+![TTN aplication configuration ](../.gitbook/assets/image-43.png)
 
 It is possible to create as many applications as required. To configure a particular application, just select the application id from the `Application Id` dropdown, and then navigate to the other plugin sections.
 
@@ -49,7 +49,7 @@ Always create applications with the same application identifier as defined in TT
 
 ### Uplink Behaviour
 
-The uplink behaviour allows to configure how the plugin will react on new information received from TTN. 
+The uplink behaviour allows to configure how the plugin will react on new information received from TTN.
 
 ![Uplink behaviour configuration](../.gitbook/assets/captura-de-pantalla-2019-10-02-a-las-10.58.12.png)
 
@@ -69,7 +69,7 @@ In this section it is possible to configure the payload processors that will tra
 
 The interface provides a code editor for NodeJS, where it is possible to define the `uplink` and `downlink`processors. It is also possible to test the code by providing a sample input data both for `uplink` and `downlink`.
 
-![TTN Payload processing configuration](../.gitbook/assets/image%20%2856%29.png)
+![TTN Payload processing configuration](../.gitbook/assets/image-56.png)
 
 In the following, there is information about the uplink and downlink methods.
 
@@ -134,7 +134,7 @@ The downlink method should return a base64 string if the TTN application does no
 {% endtabs %}
 
 {% hint style="info" %}
-Use the interface tester to see if your code is correctly procesing the payloads. 
+Use the interface tester to see if your code is correctly procesing the payloads.
 {% endhint %}
 
 ### TTN Uplink Integration
@@ -143,13 +143,13 @@ Use the interface tester to see if your code is correctly procesing the payloads
 
 ## Plugin Development Details
 
-![](../.gitbook/assets/image%20%28179%29.png)[Github source code](https://github.com/thinger-io/ttn-plugin)
+![](../.gitbook/assets/image-179.png)[Github source code](https://github.com/thinger-io/ttn-plugin)
 
 ### Uplink Data Flow
 
 In this section it is described how the uplink data flow works, from its source in the TTN network, to its final destination in Thinger.io.
 
-![](../.gitbook/assets/image%20%2846%29.png)
+![](../.gitbook/assets/image-46.png)
 
 In the following subsections are described the elements shown in the figure.
 
@@ -214,7 +214,7 @@ Once this information is received by the plugin, it is processed in order to exe
 
 This plugin stores some basic information about the device that is sending data. This information is mainly used for keeping some information necessary for the downlink, like the original device identifier used in TTN; the associated application identifier to handle its downlink processor properly; and the most important, the downlink url the platform should use to issue a downlink request to the TTN network.
 
-![Sample device information stored in Thinger.io for every TTN device](../.gitbook/assets/image%20%2841%29.png)
+![Sample device information stored in Thinger.io for every TTN device](../.gitbook/assets/image-41.png)
 
 #### Uplink Processor
 
@@ -236,11 +236,11 @@ The last step of this plugin is to call the device callback in Thinger.io. This 
 
 In this case, the plugin interacts with the platform over such REST interface, pushing data received from TTN, and processed by the custom uplink method. By default, the plugin initializes an HTTP device to write to a data bucket that is also automatically created. So, every message sent by a TTN device, will write finally write to a specific data bucket. As shown in the following picture:
 
-![HTTP Device created by the TTN Plugin](../.gitbook/assets/image%20%28119%29.png)
+![HTTP Device created by the TTN Plugin](../.gitbook/assets/image-119.png)
 
 After the device callback is done, it will appear as a connected device, showing also its location if it was configured in the plugin options.
 
 ### Downlink Data Flow
 
-![The Things Network Downlink Flow Overview](../.gitbook/assets/image%20%28116%29.png)
+![The Things Network Downlink Flow Overview](../.gitbook/assets/image-116.png)
 

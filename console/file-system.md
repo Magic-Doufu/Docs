@@ -1,4 +1,4 @@
-# 檔案系統
+# FILE SYSTEM
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LumHxzLSZNmgecmD-2Z%2F-LumI6PDjONXhjoNuiZA%2Fimage.png?alt=media&token=5fd94745-c86a-493e-9f38-32f61eedf345)
 
@@ -33,7 +33,7 @@ Storage Explorer是一個完整的檔案管理工具，可以隨時從檔案系�
   * **刷新**：如果從此終端以外的其他來源對檔案系統進行了任何更改，則使用"Refresh"按鈕可以更新文件的狀態。
   * **刪除檔案**："-"按鈕可刪除所有選定的檔案。
   * **上傳檔案**：此按鈕將打開檔案上傳介面，這將在下一部分中進行說明。
-  * **約束**：折疊/打開檔案導航列(左側)。
+  * **約束**：折疊/打開檔案導航列\(左側\)。
   * **存儲**：儲存所有已編輯文件的當前狀態
 * 左側欄是一個檔案導航列，可在其中顯示和選擇要編輯或刪除的內容。
 * 在界面的底部，資源管理器顯示一個終端控制台，使用擴充指令時可以在其中顯示一些訊息。
@@ -54,7 +54,5 @@ Storage Explorer包含一個導航列，其中顯示了檔案的層次結構。�
 
 在檔案系統中，若您不再需要某些檔案時，可以使用Storage Explorer將其刪除。通過按下鍵盤上的command或ctrl按鈕並點擊選擇要刪除的檔案。完成後按頂部欄的"-"圖標。
 
-![](../.gitbook/assets/image%20%287%29.png)
-
-###  
+![](../.gitbook/assets/image-7.png)
 

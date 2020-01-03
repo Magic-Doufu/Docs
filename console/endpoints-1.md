@@ -1,6 +1,6 @@
-# 端點(Endpoints)
+# ENDPOINTS
 
->端點是服務，程序或其他目標的進入點。因此在Thinger.io中，端點可以定義為目標被裝置調用以執行任何操作，例如發送電子郵件，發送SMS，調用REST API，與IFTTT互動，從不同的帳戶調用裝置，或調用其他任何HTTP端點。
+> 端點是服務，程序或其他目標的進入點。因此在Thinger.io中，端點可以定義為目標被裝置調用以執行任何操作，例如發送電子郵件，發送SMS，調用REST API，與IFTTT互動，從不同的帳戶調用裝置，或調用其他任何HTTP端點。
 
 在微控制器中，直接存取這些服務可能很複雜，並且在裝置中需要更多頻寬。通過端點，Thinger.io可以處理裝置請求的端點調用，通過使用ID啟動它們並傳遞所需的任何資訊。它還增加了一些彈性，因為端點請求可以根據需要進行動態更改，而不更動裝置中部署的程式。
 
@@ -8,7 +8,7 @@
 
 要管理所有端點，您需要點擊選單中的`Endpoints`進行存取：
 
-![](../.gitbook/assets/endpointtab.PNG)
+![](../.gitbook/assets/endpointtab%20%281%29.PNG)
 
 然後點擊`Add Endpoint`按鈕，該按鈕將打開一個新界面以輸入端點詳細資訊，如以下畫面截圖所示：
 
@@ -36,7 +36,7 @@
 
 ![](../.gitbook/assets/emailendpoint.png)
 
-有關如何調用端點可參考[此文檔](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints)基本上需要使用`call_endpoint`方法調用端點，其需要端點ID，在此範例中為`ExampleEmail`，並且要將選擇的數據以`pson`文檔發送到端點，此處的`pson`文檔非常類似於JSON，有兩個鍵(key)分別命名為`temperature`與`humidity`分別儲存DHT傳感器的讀數。以下將示範調用端點。
+有關如何調用端點可參考[此文檔](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints)基本上需要使用`call_endpoint`方法調用端點，其需要端點ID，在此範例中為`ExampleEmail`，並且要將選擇的數據以`pson`文檔發送到端點，此處的`pson`文檔非常類似於JSON，有兩個鍵\(key\)分別命名為`temperature`與`humidity`分別儲存DHT傳感器的讀數。以下將示範調用端點。
 
 ```cpp
 pson data;
@@ -60,16 +60,15 @@ thing.call_endpoint("ExampleEmail", data);
 
 ### HTTP 端點
 
-HTTP 端點是一種通用類型的端點，可用於與其他 Web 服務或 Web 應用程式進行互動。因此，可以為此端點發出的任何 HTTP 請求設定方法(method)，URL，標頭和內文。
+HTTP 端點是一種通用類型的端點，可用於與其他 Web 服務或 Web 應用程式進行互動。因此，可以為此端點發出的任何 HTTP 請求設定方法\(method\)，URL，標頭和內文。
 
 可設定的參數如下：
 
 * **Request URL**: 設定方法（GET，POST，PUT，PATCH或DELETE）和欲請求的URL。
 * **Request Headers**: 可以向請求新增標頭，這對於新增授權、暫存控制、設定內容類型等非常有用。
 * **Request Body**: 內文可以是具有特定內容的自定義內文，也可以是具有裝置發送的資訊的 JSON payload。
-在自定義正文中，可以新增自定義變數，如電子郵件範例中所示。這樣，就可以建立不同格式的內容，如XML，SOAP等（請記得在這種情況下新增適當的內容類型\(content-type\)）。
 
-![](../.gitbook/assets/httpendpoint.png)
+  在自定義正文中，可以新增自定義變數，如電子郵件範例中所示。這樣，就可以建立不同格式的內容，如XML，SOAP等（請記得在這種情況下新增適當的內容類型\(content-type\)）。
 
-## 
+![](../.gitbook/assets/httpendpoint%20%281%29.png)
 

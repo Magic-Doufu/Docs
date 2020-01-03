@@ -10,7 +10,7 @@ description: >-
 
 ## 簡介
 
-Sigfox是一家成立於2009年的法國公司，其建立無線網絡以連接電表、智慧手錶和洗衣機等低功耗物體，這些物體需要不斷的發射少量數據。Sigfox採用專有技術，使用工業、科學和醫療的ISM無線頻段進行通訊，該無線頻段在歐洲使用868MHz，在美國使用902MHz。它使用超窄頻技術，可以在極低電力消耗下覆蓋大範圍區域，也因此這種網路被稱為"低功率廣域網（LPWAN）"。該網路基於單跳(single-hop)星型拓撲，需要ISP承載其產生的流量。該訊號還可用於輕鬆覆蓋大面積區域與位於地下的物體。
+Sigfox是一家成立於2009年的法國公司，其建立無線網絡以連接電表、智慧手錶和洗衣機等低功耗物體，這些物體需要不斷的發射少量數據。Sigfox採用專有技術，使用工業、科學和醫療的ISM無線頻段進行通訊，該無線頻段在歐洲使用868MHz，在美國使用902MHz。它使用超窄頻技術，可以在極低電力消耗下覆蓋大範圍區域，也因此這種網路被稱為"低功率廣域網（LPWAN）"。該網路基於單跳\(single-hop\)星型拓撲，需要ISP承載其產生的流量。該訊號還可用於輕鬆覆蓋大面積區域與位於地下的物體。
 
 Sigfox與LPWAN行業的許多公司合作，如德州儀器公司或Silicon Labs公司。ISM無線頻段支援雙向通訊。現有的Sigfox通訊標準**每天最多支援140個上傳訊息**，每個訊息可以承載**12字節**的payload（不包括訊息表頭和傳輸資訊）和每天最多4個下載訊息，每個訊息可以承載8個字節的 payload。如果您想了解有關Sigfox的更多詳細資訊，請造訪[Sigfox Developer Portal](http://makers.sigfox.com/about/)。
 
@@ -31,6 +31,7 @@ Sigfox與LPWAN行業的許多公司合作，如德州儀器公司或Silicon Labs
 我們需要在Thinger.io帳戶中設定一些資源，例如，定義Sigfox數據的存儲位置，以及對Sigfox平台的存取以將數據存儲在我們的帳戶中。所需的步驟在以下小節中定義。
 
 #### 建立數據儲存桶
+
 數據儲存桶用於儲存從Sigfox裝置接收的資訊。因此我們需要建立一個數據儲存桶來存儲我們的Sigfox裝置中的資訊。我們可以使用一個數據儲存桶存儲來自多個裝置的數據，但最好是每個裝置使用一個數據儲存桶。這樣，我們就可以透過建立儀表板，顯示來自每個裝置或感測實體的儲存桶時間序列數據。
 
 然後，打開雲控制台中的`Buckets`部分，並建立一個新的`Data Bucket`。我們需要填寫一些細節，例如：
@@ -70,7 +71,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTbWFydEV2ZXJ5dGhpbmciLCJ1c3IiOiJ
 
 ### 建立 Sigfox 回調
 
-現在，我們建立一個Sigfox回調(Callback)，將訊息從我們的Sigfox裝置推送到我們的Thinger.io數據儲存桶。在我們的範例中，回調是在Sigfox裝置通過網絡發送數據時調用的端點，因此我們將設定指向數據儲存桶的回調。
+現在，我們建立一個Sigfox回調\(Callback\)，將訊息從我們的Sigfox裝置推送到我們的Thinger.io數據儲存桶。在我們的範例中，回調是在Sigfox裝置通過網絡發送數據時調用的端點，因此我們將設定指向數據儲存桶的回調。
 
 要在Sigfox中建立回調，請按照以下步驟操作：
 
@@ -120,8 +121,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJTbWFydEV2ZXJ5dGhpbmciLCJ1c3IiOiJ
     }
    ```
 
-
-   請注意，我們正在將Sigfox變數，像是`{device}`與我們在payload中的自定義數據如`{customData#temp}`混合使用。然後在每次接收訊息時處理它，並且將用即時值取代變數。因此，伺服器將接收具有裝置ID，裝置溫度，濕度，粗略位置（km精度）和訊號品質的JSON payload。
+請注意，我們正在將Sigfox變數，像是`{device}`與我們在payload中的自定義數據如`{customData#temp}`混合使用。然後在每次接收訊息時處理它，並且將用即時值取代變數。因此，伺服器將接收具有裝置ID，裝置溫度，濕度，粗略位置（km精度）和訊號品質的JSON payload。
 
 完成這些步驟後，我們現在完成了將數據推送到數據儲存桶的回調設定。
 
@@ -140,7 +140,6 @@ Arduino MKRFOX1200旨在為尋求為項目中加入SigFox連接的製造商提�
 要對此裝置進行編輯，我們將使用 [Arduino IDE](https://arduino.cc)。在這種情況下，有必要安裝或更新電路板工具組，可以直接從電路板管理器完成，搜尋`mrk`和選擇Arduino SAMD電路板。
 
 ![](../.gitbook/assets/mkrfox1200_install.png)
-
 
 您還需要安裝程式庫管理器中提供的`Arduino SigFox for MKRFox1200`程式庫，同時也**必需**安裝`Arduino Low Power`和`RTCZero`程式庫。
 

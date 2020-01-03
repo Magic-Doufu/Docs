@@ -2,9 +2,9 @@
 description: Plugin to improve the integration of Sigfox devices
 ---
 
-# Sigfox擴充元件
+# Sigfox Plugin
 
-![](../.gitbook/assets/image%20%2877%29.png)
+![](../.gitbook/assets/image-77.png)
 
 此擴充元件是使用Sigfox HTTP回調功能的最佳解決方案，它提供了可輕鬆將這些裝置與Thinger.io平台整合的功能，例如自動設定裝置和存儲桶以及雲端處理上下行鏈路數據。
 
@@ -54,8 +54,7 @@ description: Plugin to improve the integration of Sigfox devices
 
 上行鏈路行為允許設定擴充元件如何處理從Sigfox收到的新資訊。
 
-![](../.gitbook/assets/sigfoxplugincallbackconfir%20%282%29.png)
-
+![](../.gitbook/assets/sigfoxplugincallbackconfir-2.png)
 
 可設定的參數如下：
 
@@ -72,9 +71,9 @@ description: Plugin to improve the integration of Sigfox devices
 
 介面為NodeJS 提供了一個編輯器，可以在其中定義`uplink`和`downlink`處理器。也可以通過為`uplink`和`downlink`提供樣本輸入來測試程式。
 
-![](../.gitbook/assets/image%20%2835%29.png)
+![](../.gitbook/assets/image-35.png)
 
-以下是有關上行鏈路和下行鏈路方法(method)的資訊。
+以下是有關上行鏈路和下行鏈路方法\(method\)的資訊。
 
 {% tabs %}
 {% tab title="上行鏈路\(Uplink\)" %}
@@ -133,7 +132,7 @@ module.exports.downlink = function(payload){
 
 ### 上行鏈路整合
 
-![](../.gitbook/assets/image%20%2858%29.png)
+![](../.gitbook/assets/image-58.png)
 
 ### 下行鏈路整合
 
@@ -143,7 +142,7 @@ module.exports.downlink = function(payload){
 
 在本節中，將描述從Sigfox網絡中的源到Thinger.io中的上行數據流的工作方式。
 
-![](../.gitbook/assets/image%20%28178%29.png)
+![](../.gitbook/assets/image-178.png)
 
 在以下小節中，描述了圖中所示的元素。
 
@@ -187,3 +186,4 @@ Thinger.io擴充元件以JSON格式從Sigfox網絡接收數據。回調包含多
 完成裝置回調後，它將顯示為已連接的裝置，並且如果在擴充元件選項中進行了設定，還會顯示其位置。
 
 ### 下行數據流
+

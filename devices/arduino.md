@@ -6,11 +6,11 @@
 
 客戶端程式庫允許將您的IoT裝置連接到[Thinger.io](http://thinger.io)雲端平台。這是專為Arduino IDE設計的程式庫，因此您可以在幾分鐘內輕易的對裝置程式設計建立出`Input`與`Output`資源以連接它們。
 
-當數據上線，即可顯示於儀表板上、儲存在數據儲存桶(data bucket)中或透過端點發送給第三方服務。
+當數據上線，即可顯示於儀表板上、儲存在數據儲存桶\(data bucket\)中或透過端點發送給第三方服務。
 
 ![](../.gitbook/assets/thingerio-architecture.png)
 
-此平台能夠支援多種網路接口，如Ethernet Shield，Wifi Shield和GSM它還支援其他開發板，如ESP8266（或NodeMCU），TI CC3200。其對Arduino IDE的版本要求為>=1.6.3。
+此平台能夠支援多種網路接口，如Ethernet Shield，Wifi Shield和GSM它還支援其他開發板，如ESP8266（或NodeMCU），TI CC3200。其對Arduino IDE的版本要求為&gt;=1.6.3。
 
 ## 安裝
 
@@ -34,13 +34,13 @@
 
 打開 **管理程式庫**
 
-![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/30a5f56c8917f8a26b03efb2438bfa444d531b2f.png)
+![](../.gitbook/assets/libmanager.jpg)
 
 > 打開程式庫管理器：在Arduino的選單中打開程式庫管理器 `工具 > 管理程式庫`
 
 **搜尋**並安裝 thinger.io 程式庫
 
-![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/0e8bc7c86b5aff26aea7649741b592c8157cae11.png)
+![](../.gitbook/assets/libmanagersearch.jpg)
 
 > 搜尋 `thinger.io` ，然後點擊 `Install` 進行安裝。官方發布更新後，您也可以從此管理器更新程式庫。
 
@@ -58,18 +58,19 @@
 
 最後一步是使用Arduino IDE匯入這個`zip`程式庫。這個步驟將解壓縮並複製這個`zip`程式庫進Arduino程式庫資料夾。這通常位於您的`文件`資料夾下。
 
-![](../.gitbook/assets/add-zip-library.png)
+![](../.gitbook/assets/add-zip-library%20%281%29.png)
 
-> 草稿碼 \> 匯入程式庫 \> 加入.ZIP程式庫..
+> 草稿碼 &gt; 匯入程式庫 &gt; 加入.ZIP程式庫..
 
 現在，應該可以使用一些程式庫提供的範例。
 
+![](../.gitbook/assets/libexample.jpg)
+
 ## 支援的硬體
 
-Thinger.io平台幾乎支援所有具有通訊功能的微控制器或裝置，無論該裝置是否原生具有乙太網、WiFi、GSM或是核心是否來自特定供應商，皆可結合到雲端中。
-因此，硬體的選擇變得多樣，您可以自由選擇想要/合適的裝置，本平台並不會要求購買特定的相容裝置，這在設計物廉網專案時至關重要。
+Thinger.io平台幾乎支援所有具有通訊功能的微控制器或裝置，無論該裝置是否原生具有乙太網、WiFi、GSM或是核心是否來自特定供應商，皆可結合到雲端中。 因此，硬體的選擇變得多樣，您可以自由選擇想要/合適的裝置，本平台並不會要求購買特定的相容裝置，這在設計物廉網專案時至關重要。
 
-在以下各節中，有一些與Arduino IDE相容的裝置。 
+在以下各節中，有一些與Arduino IDE相容的裝置。
 
 對於Raspberry Pi，Intel Edison，BeagleBone Black等其他裝置，或任何其他執行Linux發行版的裝置，請參考Linux文檔。
 
@@ -222,7 +223,7 @@ void loop() {
 
 **⚠ NOTE:** For using MKR1000 over the default TLS/SSL connection it is required to install the Thinger.io server certificate in the board with the Wifi101 Firmware Updater located in the Tools menu.
 
-![](../.gitbook/assets/mkr1000_ssl_certificate.png)
+![](../.gitbook/assets/mkr1000_ssl_certificate%20%281%29.png)
 
 Or it is possible to disable the secure TLS/SSL connection, by declaring the following define before any other include:
 
@@ -328,7 +329,7 @@ void loop() {
 
 **⚠ NOTE:** For using MKR WIFI1010 over the default TLS/SSL connection it is required to install the Thinger.io server certificate in the board with the Wifi101/WiFiNINA Firmware Updater located in the Tools menu and including "thinger.io:443" domain in the bottom text input.
 
-![](../.gitbook/assets/mkr1000_ssl_certificate.png)
+![](../.gitbook/assets/mkr1000_ssl_certificate%20%282%29.png)
 
 Or it is possible to disable the secure TLS/SSL connection, by declaring the following define before any other include:
 
@@ -455,8 +456,6 @@ ThingerSmartConfig thing(USERNAME,
                          false); // required for deep sleep
 ```
 
-
-
 ### ESP32 / Expressif Wroom 32
 
 ESP32 is a series of low-cost, low-power system on a chip microcontrollers with integrated Wi-Fi and dual-mode Bluetooth. There are multiple modules based on this microcontroller that includes different kinds of antennas, pinouts and memory extensions. It is the successor to the ESP8266 microcontroller and is designed to be one of the most relevant IoT impultors during the next years and there is a great diversity of PCBs that exploit its capacities together with other peripherals, integrating LoRa communication, audio amplifiers, LCD screens, etc.
@@ -506,9 +505,9 @@ void loop() {
 
 #### Special ESP32 Features
 
-**DeepSleep:**  ESP32 Sleep mode is a power-saving state that ESP32 can enter when not in use, keeping down the power consumption to 2.5 micro ampheres, maintaining the processor status in the RAM and  allowing to save batery on full wireless implementations. However, when the ESP32 executes this function, all the communication will be losted, being not possible to communicate with the device, until  wake-up event turns it in normal mode again. 
+**DeepSleep:** ESP32 Sleep mode is a power-saving state that ESP32 can enter when not in use, keeping down the power consumption to 2.5 micro ampheres, maintaining the processor status in the RAM and allowing to save batery on full wireless implementations. However, when the ESP32 executes this function, all the communication will be losted, being not possible to communicate with the device, until wake-up event turns it in normal mode again.
 
-**Web Config:** Is a proccess that allows to configure board's WiFi credentials in execution time using a local web server hosted by the device.  This feature allows creating products with flexibe configuration.
+**Web Config:** Is a proccess that allows to configure board's WiFi credentials in execution time using a local web server hosted by the device. This feature allows creating products with flexibe configuration.
 
 **Thinger ESP32 Core**
 
@@ -639,8 +638,4 @@ void loop() {
 ```
 
 Want to add some device resources \(led, sensors, etc.\) to interact with them from the Internet?, check the [Add Resources](arduino.md#coding-adding-resources) section.
-
-
-
-
 
