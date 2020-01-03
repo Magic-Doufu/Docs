@@ -23,8 +23,8 @@ Node-RED是IBM建立的一個開源項目，旨在為Rule Engines市場提供一
 
   3\)將數據發送到連接的裝置。（device write 節點）
 
-  4\) 呼叫端點 \(endpoint call 節點\).  
-  5\) 寫入數據桶 \(bucket write 節點\).
+  4\) 呼叫端點 \(endpoint call 節點\)
+  5\) 寫入數據桶 \(bucket write 節點\)
 
 ## Node-RED 概念
 
