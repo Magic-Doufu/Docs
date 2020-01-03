@@ -135,7 +135,6 @@ Node-RED本質上包含在開發工具中，該工具具有兩個基本組件：
 5.裝置位置更新
 6.端點被調用
 
-The configuration of each type requires to include the ID of the element that wants to be supervised. It is also possible to monitor every elements leaving the identifier field empty.
 每種類型的設定都需要包括要監控的元素ID。也可以將ID字段保留為空以監視每個元素。
 
 當這些事件中的任何一個觸發時，該節點就可以在流程中注入JSON，該JSON具有已生成事件的儲存桶，裝置或端點的ID以及相關數據。
@@ -143,7 +142,6 @@ The configuration of each type requires to include the ID of the element that wa
 ## 有用的流程範例
 
 在本節中，您可以找到我們自己的說明書，其中包含一些有用的流程，您可以使用這些手冊從此整合的擴充元件中獲得最大的效益。
-In this section you can find our own cookbook with some useful flows that you can use to get the maximum benefit from this integration
 
 {% tabs %}
 {% tab title="裝置連線中斷警報" %}
