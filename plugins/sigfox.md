@@ -2,85 +2,93 @@
 description: Plugin to improve the integration of Sigfox devices
 ---
 
-# Sigfox Plugin
+# Sigfox擴充元件
 
 ![](../.gitbook/assets/image%20%2877%29.png)
 
-This plugin is an interface for using Sigfox HTTP Callback feature in an optimized way, providing features to easily integratie these devices with Thinger.io Platform such as automatic device and storage provisioning and both uplink and downlink cloud processing. 
+此擴充元件是使用Sigfox HTTP回調功能的最佳解決方案，它提供了可輕鬆將這些裝置與Thinger.io平台整合的功能，例如自動設定裝置和存儲桶以及雲端處理上下行鏈路數據。
 
 {% hint style="info" %}
-[Note: Plugins are only available for premium Thinger.io servers. Check **this link** to create your own instance within minutes](https://pricing.thinger.io)
+注意：擴充元件僅適用於付費Thinger.io伺服器。確認[**此鏈接**](https://pricing.thinger.io)以在幾分鐘之內建立您自己的實體。
 {% endhint %}
 
-## Plugin Features
+## 擴充元件功能
 
-* Automatic device and bucket provisioning for new devices included in a Sigfox "Device Type".  
-* Store Sigfox device metadata: device location, signal quality, hardware serial, etc. 
-* Store device data automatically in data buckets so it can be easily used from the console.
-* Custom **uplink data processing with NodeJS,** for both `payload_raw` or  `payload_fields` .
-* Support for **defining custom downlink** **callbacks** in NodeJS, so it is possible to configure downlink data in an user-friendly format \(JSON\), and then convert it to `payload_raw` or `payload_fields`, as required by TTN network.
+* 為"Device Type"為Sigfox的新裝置自動設定裝置和儲存桶。
+* 儲存 Sigfox 裝置描述元: 裝置位置、通訊品質、硬體序列號等。
+* 自動將裝置數據存儲在數據桶中，以便可以從控制台輕鬆使用。
+* 可自定義以NodeJS處理的 **uplink** 為 `payload_raw` 或  `payload_fields` 。
+* 支援自定義以NodeJS處理的 **downlink** **callbacks** 因此它可以設定下行資料使用使用者友好的 \(JSON\)之後再將其轉換為TTN網路要求的 `payload_raw` 或 `payload_fields`。
 
-## Sigfox Concepts
+## Sigfox概念
 
-For a better understanding of the following sections, here is described some basic Sigfox concepts:
+為了更好地理解以下各節，在此介紹了一些Sigfox基本概念：
 
-* Device: It is a hardware device with a oficial Sigfox interface.
-* Gateway: It is Sigfox infrastructure hardware interface that basically receives messages from multiple edje devices, and push them to Sigfox server over IP communication. These gateways are exclusively property of Sigfox company. 
-* Uplink: It is a data flow which represents messages sent from a device to the sigfox cloud. There are two different uplink processes: unidirectional uplink \(single data communication from the device to Sigfox network\) and bidirectional uplink, that also allows to Sigfox system sending a Downlink to the device.  
-* Downlink: It is a data flow which represents messages sent from the Sigfox cloud to a device.
-* Device Type: It is a concept that defines a group of devices of the same type, normally sending the same kind of data both in uplink and downlink\). 
+* Device: 這是具有官方Sigfox介面的硬體裝置。
+* Gateway: 它是Sigfox基礎硬體介面，基本上從多個邊緣裝置接收訊息，然後通過IP通訊將它們推送到Sigfox伺服器。這些閘道器是Sigfox公司的專有財產。
+* Uplink: 這是一個串流數據，表示從裝置傳送到sigfox雲的訊息。上行鏈路有兩種不同的過程：單向上行鏈路（從裝置到Sigfox網絡的單個數據通訊）和雙向上行鏈路，這也允許Sigfox系統向裝置傳送下行鏈路。
+* Downlink: 這是一個串流數據，表示從Sigfox雲傳送到裝置的訊息。
+* Device Type: 這是一種概念，它定義出一組通常在上行鏈路和下行鏈路中傳送相同類型的數據的裝置。
 
 {% hint style="info" %}
-[Learn how to configure Sigfox Callback to send data to Thinger.io platform **here** ](https://docs.thinger.io/hardware-devices/sigfox#create-sigfox-callback)\*\*\*\*
+由[**此處** ](https://docs.thinger.io/hardware-devices/sigfox#create-sigfox-callback)了解如何設定Sigfox回調以將數據傳送到Thinger.io平台
 {% endhint %}
 
-## Plugin Configuration
+## 擴充元件設定
 
-In this section it is described the different interfaces that can be used to configure the Sigfox plugin.
+在本節中，將介紹可用於設定Sigfox擴充元件的不同介面。
 
-### Applications
+### 應用程式
 
-Every Sigfox "Device Type" that is integrated over this plugin, should define a new profile in Thinger.io plugin, with the same identifier as defined in Sigfox Platform. Note that each Sigfox Device Type defined in this way will allow to customize the plugin behaviour for that kind of devices.
+通過此擴充元件整合的每個Sigfox"Device Type"都應在Thinger.io擴充元件中定義一個新的設定檔，其ID與Sigfox平台中定義的ID相同。請注意，以此方式定義的Sigfox裝置將會調整擴充元件對此類裝置的行為。
 
 ![](../.gitbook/assets/sigfoxplugindevicetype.png)
 
-It is possible to create as many Device Types profiles as required. To configure a new profile, just select the id from the Device Types dropdown, and then navigate to the other plugin sections.
+可以根據需要建立任意多個設定檔。要設定新的設定檔，只需從"Device Types"下拉列表中選擇ID，然後導航至擴充元件的其他部分。
 
 {% hint style="warning" %}
-Always create the Device Type with the same identifier as defined in Sigfox cloud.
+始終使用與Sigfox雲中定義的ID相同的ID建立裝置類型。
 {% endhint %}
 
-### Callback Config
+### 回調設定
 
-The uplink behaviour allows to configure how the plugin will react on new information received from Sigfox. 
+上行鏈路行為允許設定擴充元件如何處理從Sigfox收到的新資訊。
 
 ![](../.gitbook/assets/sigfoxplugincallbackconfir%20%282%29.png)
 
-The configurable parameters are the following:
 
-* **Auto provision resources:** Enable or disable automatic resource provisioning while receiving messages for non created devices.
-* **Device connection timeout:** When creating a new device, establish the device connection timeout in minutes, so the platform can consider the device as disconnected after a fixed time without receiving a message. 
-* **Device identifier prefix:** When creating a new device, create it with a custom prefix + the original device id.
-* **Bucket identifier prefix:** When creating a new data bucket associated to the device, create it with a custom prefix + the original device id.
-* **Update device location:** Use the location provided in the gateways information to update de current device location.
-* **Initialize downlink data:** When creating a new device, initialize a custom downlink data, that can be modified and processed in further downlink requests.
 
-### Payload Processing
+* **自動設定資源：**在接收未建立的訊息時啟用或禁用自動資源設定裝置。
+* **裝置連接超時：**建立新裝置時，以分鐘為單位建立裝置連接超時，因此平台可以在固定時間後將裝置視為已中斷連線，而不會收到訊息。
+* **裝置ID前綴：**建立新裝置時，請使用自定義前綴+原始裝置ID進行建立。
+* **桶ID前綴：**建立與裝置關聯的新數據桶時，請使用自定義前綴+原始裝置ID進行建立。
+* **更新裝置位置：**使用網關資訊中提供的位置來更新當前裝置位置。
+* **初始化下行鏈路數據：**建立新裝置時，初始化自定義的下行鏈路數據，可以在進一步的下行鏈路請求中對其進行修改和處理。
+可設定的參數如下：
 
-In this section it is possible to configure the payload processors that will transformate the raw data received from Sigfox payload in an uplink message, or the payload that is going to be sent  in a downlink message fron Thinger.io Platform to Sigfox Clous
+* **Auto provision resources:** 對於尚未建立的裝置開啟或關閉其收到訊息時的資源自動處理行為
+* **Device connection timeout:** 建立新裝置時，以分鐘為單位設定裝置連接超時時間，因此平台可以在固定時間後將裝置視為已中斷連線，而不會收到中斷訊息。
+* **Device identifier prefix:** 使用`自定義前綴`+`原始裝置ID`作為名稱建立新裝置。
+* **Bucket identifier prefix:** 使用`自定義前綴`+`原始裝置ID`作為名稱建立與裝置關聯的新數據桶。
+* **Update device location:** 使用閘道器資訊中提供的位置來更新目前裝置位置。
+* **Initialize downlink data:** 建立新裝置時，下行鏈路初始化為自定義的數據，可以在進一步的下行鏈路請求中對其進行修改和處理。
 
-The interface provides a code editor for NodeJS, where it is possible to define the `uplink` and `downlink`processors. It is also possible to test the code by providing a sample input data both for `uplink` and `downlink`.
+### Payload 處理
+
+在此部分中，可以設定 payload 處理器為：將上行訊息中的Sigfox payload轉換成原始資訊，或將來自Thinger.io平台傳送給Sigfox雲的下行訊息處理成payload。
+
+介面為NodeJS 提供了一個編輯器，可以在其中定義`uplink`和`downlink`處理器。也可以通過為`uplink`和`downlink`提供樣本輸入來測試程式。
 
 ![](../.gitbook/assets/image%20%2835%29.png)
 
-In the following, there is information about the uplink and downlink methods.
+以下是有關上行鏈路和下行鏈路方法(method)的資訊。
 
 {% tabs %}
 {% tab title="Uplink" %}
-The uplink method will be called when a device sends a new message through the network. Depending on the configuration done in the Sigfox network, this function can receive two different inputs:
+當裝置通過網絡傳送新訊息時，將調用上行鏈路方法。根據Sigfox網絡中完成的設定，此功能可以接收兩種不同的輸入：
 
-* **Base64 String**: If the Sigfox Device Type define a Custom payload format, this method will receive the raw payload encoded in base64. In this case, it will be necessary to write a function to transform this base64 data to a JSON object.
-* **JSON Object:**The output of this method must be always a JSON object containing the information that is necessary to be used by the platform. In the following, there is an uplink method that converts base64 data into a JSON object with `temperature` and `humidity` parsed from the binary data.
+* **Base64 String** :如果Sigfox裝置類型定義了自定義payload格式，則此方法將接收以base64編碼的原始payload。在這種情況下，有必要編寫一個函數將此base64數據轉換為JSON物件。
+* **JSON Object:** :此方法的輸出必須始終是一個JSON物件，其中包含平台必須使用的資訊。在下面，有一個上行方法將base64數據轉換為JSON物件，並從二進制數據中解析出 `temperature` 和 `humidity` 的範例。
 
 ```javascript
 /* convert a base64 payload to a JSON object that can be used 
@@ -94,21 +102,21 @@ The uplink method will be called when a device sends a new message through the n
 ```
 
 {% hint style="success" %}
-The uplink method must always return a JSON object.
+上行方法必須回傳JSON物件。
 {% endhint %}
 {% endtab %}
 
 {% tab title="Downlink" %}
-The downlink method will be only called when the Sigfox device uplinks a bidirectional mesage to Sigfox Cloud. In this case, Thinger.io server will answer to the callback message that contains your custom Downlink payload in hexadecimal codification. Check out the next sections for more details.
+僅當Sigfox裝置將雙向訊息上行鏈路到Sigfox Cloud時，才會調用下行鏈路方法。在此例，Thinger.io伺服器將回應一個包含十六進制編碼的自定義下行鏈路 payload 回調訊息。請檢視下一部分以獲取更多詳細資訊。
 
-This function will receive different inputs depending on how the plugin is called over its REST API.
+該函數將接收不同的輸入，具體取決於REST API調用擴充元件的方式。
 
-* **JSON Object**: If the downlink call is done for a Thinger.io device that defines a `downlink` property \(that is automatically initialized if `Initialize Downlink Data` is configured in the plugin\), this method will receive the JSON content of this property. It usually consists on a user-friendly device configuration that should be later encoded to binary in base64.
-* **JSON Object**: If the plugin downlink request contains a JSON payload in the POST call, this function will receive this payload instead of the one configured in the device `downlink` property. 
+* **JSON Object**: 如果對一個定義了`downlink`屬性（如果在擴充元件中設定了`Initialize Downlink Data`，這會自動初始化）的Thinger.io裝置進行了下行鏈路調用，此方法將接收此屬性的JSON內容。它通常由使用者友好的裝置設定組成，其後將使用base64將其編碼為二進制。
+* **JSON Object**: 如果擴充元件的下行請求在POST調用中包含JSON payload，則此函數將接收此 payload，而不是接收在裝置的`downlink`屬性中設定的負載。
 
-The output of this method will be a **Base64 String** with the binary information that is going to be sent to Sigfox network.
+該方法的輸出將是包含要傳送到Sigfox網絡的二進制資訊的**Base64 String**。
 
-Example of a downlink method converting a JSON device configuration into base64 as required by Sigfox:
+根據Sigfox的要求將JSON裝置設定轉換為base64的下行方法的範例：
 
 ```javascript
 /* convert a JSON object with the device configuration in a base64
@@ -125,36 +133,36 @@ module.exports.downlink = function(payload){
 {% endtabs %}
 
 {% hint style="info" %}
-Use the interface tester to see if your code is correctly procesing the payloads. 
+使用介面測試器，看看你的程式碼是否正確處理 payload。
 {% endhint %}
 
-## Sigfox Cloud Configuration
+## Sigfox 雲設定
 
-### Uplink Integration
+### 上行鏈路整合
 
 ![](../.gitbook/assets/image%20%2858%29.png)
 
-### Downlink Integration
+### 下行鏈路整合
 
-## Plugin Development Details
+## 擴充元件開發詳細資訊
 
-### Uplink Data Flow
+### 上行數據流
 
-In this section it is described how the uplink data flow works, from its source in the Sigfox network, to its final destination in Thinger.io.
+在本節中，將描述從Sigfox網絡中的源到Thinger.io中的上行數據流的工作方式。
 
 ![](../.gitbook/assets/image%20%28178%29.png)
 
-In the following subsections are described the elements shown in the figure.
+在以下小節中，描述了圖中所示的元素。
 
-#### Sigfox Uplink Callback
+#### Sigfox上行鏈路回調
 
-When Sigfox receives a message from any device, it automatically checks its configured integrations to forward them the information received. This plugin is integrated over HTTP, so, the Sigfox network will issue an HTTP request to the Thinger.io plugin on new messages.
+當Sigfox從任何裝置接收到訊息時，它將自動檢查其整合的設定，以將接收到的資訊轉發。該擴充元件通過HTTP整合，因此，Sigfox網絡將在有新訊息時向Thinger.io擴充元件發出HTTP請求。
 
-#### Sigfox Plugin
+#### Sigfox 擴充元件
 
-Thinger.io plugin receives data from Sigfox network in a JSON format. The callback includes several fields of information, such as `app_id`, `dev_id`, `donwlink_url`, `metadata`, or the actual payload information sent by LoRa devices on `payload_fields` or `payload_raw` fields, depending on the Payload formats configured in the Sigfox application.
+Thinger.io擴充元件以JSON格式從Sigfox網絡接收數據。回調包含多個資訊字段，例如 `app_id`, `dev_id`, `donwlink_url`, `metadata`或LoRa裝置在`payload_fields` or `payload_raw`字段上傳送的實際 payload 資訊，具體取決於Sigfox應用程式中的 payload 格式設定。
 
-Here is an example of the raw information received by the plugin:
+這是擴充元件接收到的原始資訊的範例：
 
 ```javascript
 {
@@ -162,28 +170,27 @@ Here is an example of the raw information received by the plugin:
 }
 ```
 
-Once this information is received by the plugin, it is processed in order to execute the following actions in Thinger.io:
+擴充元件接收到此資訊後，將對其進行處理以在Thinger.io中執行以下操作：
 
-1. Auto provision new device and its associated data bucket if the device does not exists on the platform. It is based on the `dev_id` field. 
-2. Call device callback that will actually push processed data to its associated data bucket, but could do any other action like forwarding data to other endpoints.
+1. 如果是平台上不存在的新裝置，則自動基於`dev_id`字段設定該裝置及其關聯的數據存儲桶。
+2. 調用裝置回調，該回調實際上會將已處理的數據推送到其關聯的數據桶，也可以執行其他操作，例如將數據轉發到其他端點。
 
-#### Uplink Processor
+#### 上行處理器
 
-This plugin allows to configure custom code for processing incoming data. The information sent by Sigfox devices is normally encoded in small binary payloads that cannot be directly used for representation, as they should not contain tags, JSON, ascii text, etc., in order to minimize transmission time. So, it is required to process the data sent by devices in some point of the cloud.
+該擴充元件允許設定用於處理傳入數據的自定義程式碼。Sigfox裝置傳送的資訊通常以小型二進制 payload 進行編碼，這些 payload 不能直接用於表示，因為它們不包含標籤，JSON，ASCII文本等，以最大程度地縮短傳輸時間。因此需要在雲中某個點處理裝置傳送的數據。
 
-This plugin also allows to create custom decoders if necessary. The advantage of using the Thinger.io payload processing \(if necessary\), is that it is using NodeJS runtime instead of plain Javascript, so it is possible to use NodeJS modules like Buffer, that simplifies the condig of the processing functions.
+如果需要，此擴充元件還允許建立自定義解碼器。使用Thinger.io 處理（如果需要） payload 的優點是，它使用NodeJS執行而不是純Javascript，因此可以使用諸如Buffer之類的NodeJS模組，從而簡化了處理功能的設計。
 
-Internaly, payload processors are precompiled after its configuration in the plugin, and executed with the payload data received from Sigfox. The output from this function \(if it gets executed\), is then transmitted to the next final step, which is the device callback.
+在擴充元件中設定payload處理器後將進行預編譯，並與從Sigfox接收到的payload數據一起執行。該函數（如果已執行）的輸出將被傳輸到如下的最終步驟－裝置回調。
 
-#### Device Callback
+#### 裝置回調
 
-The last step of this plugin is to call the device callback in Thinger.io. This plugin auto provision new Sigfox devices as HTTP devices. HTTP devices inside Thinger.io are generic devices that can push data over REST API methods. Thinger.io will be responsable of taking input data and perform different configurable actions with it, like change the device state to connected/disconnected; write provided data to a configured data bucket; send this information to other services over an endpoint; store the provided information as a device property; or return data from one of the device properties.
+該擴充元件的最後一步是在Thinger.io中調用裝置回調。該擴充元件自動將新的Sigfox裝置設定為HTTP裝置。Thinger.io中的HTTP裝置是通用裝置，可以通過REST API方法推送數據。Thinger.io將負責獲取輸入數據並對其執行不同的可設定操作，例如將裝置狀態更改為已連線/已離線、將提供的數據寫入已設定的數據桶、通過端點將該資訊傳送給其他服務、將提供的資訊存儲為裝置屬性或由其中一個裝置屬性回傳數據。
 
-In this case, the plugin interacts with the platform over such REST interface, pushing data received from Sigfox, and processed by the custom uplink method. By default, the plugin initializes an HTTP device to write to a data bucket that is also automatically created. So, every message sent by a Sigfox device, will write finally write to a specific data bucket. As shown in the following picture:
+在這種情況下，擴充元件將通過此類REST介面與平台進行互動，推送從Sigfox接收的數據，並通過自定義的上行鏈路方法進行處理。預設情況下，該擴充元件會初始化HTTP裝置也會寫入自動建立的數據桶。因此，Sigfox裝置傳送的每條資訊都將寫入特定的數據桶。如下圖所示：
 
 ![](../.gitbook/assets/sigfoxdevicecallbackauto.png)
 
-After the device callback is done, it will appear as a connected device, showing also its location if it was configured in the plugin options.
+完成裝置回調後，它將顯示為已連接的裝置，並且如果在擴充元件選項中進行了設定，還會顯示其位置。
 
-### Downlink Data Flow
-
+### 下行數據流
