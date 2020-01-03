@@ -4,7 +4,7 @@ description: >-
   deployment of a private Thinger.io platform server.
 ---
 
-# SERVER DEPLOYMENT
+# 伺服器部署
 
 Freemium帳戶的限制很少，是學習和測試Thinger.io平台的理想選擇，但是為了獲得該平台的最佳性能和可靠性以及存取某些對於專業用途必不可少的進階功能，有部署私有Thinger .io伺服器的必要。 私有實體的好處
 
@@ -21,7 +21,7 @@ Thinger.io支援可以從定價頁面自動啟動的私有雲部署。私有實�
 
 ## 訂閱和部署雲端實體
 
-此過程允許在幾分鐘之內啟動完全私有和自定義的Thinger.io IoT伺服器，只需存取Web主頁"pricing"按鈕中的"pricing"頁面即可（也可在此[**link**](https://github.com/Magic-Doufu/Docs/tree/aae38a2ef91e416338856494803cd0bfbe3bea04/https：/pricing.thinger.io)）。然後執行以下步驟：
+此過程允許在幾分鐘之內啟動完全私有和自定義的Thinger.io IoT伺服器，只需存取Web主頁"pricing"按鈕中的"pricing"頁面即可（也可透過此[**連結**](https://github.com/Magic-Doufu/Docs/tree/aae38a2ef91e416338856494803cd0bfbe3bea04/https：/pricing.thinger.io)）。然後執行以下步驟：
 
 ### 1.選擇任何雲端供應商
 
@@ -50,7 +50,7 @@ Thinger.io支援可以從定價頁面自動啟動的私有雲部署。私有實�
 | **多帳號支援** |  | ✓ | ✓ | ✓ |
 | **叢集伺服器** |  |  |  | ✓ |
 | **高可用性** |  |  |  | ✓ |
-| **推薦的網路規模** | Individual projects | &lt;10 user accounts. | 10 to 50 accounts | &gt;50 user accounts |
+| **推薦的網路規模** | 針對該專案 | &lt;10 user accounts. | 10 to 50 accounts | &gt;50 user accounts |
 
 ### 3. 修改偏好設定
 

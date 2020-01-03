@@ -2,7 +2,7 @@
 description: This section explains how to deploy and to use the platform 擴充元件 System
 ---
 
-# PLUGINS
+# 擴充元件
 
 ## 介紹
 
@@ -12,7 +12,9 @@ Thinger.io IoT平台的核心設計精簡輕巧，以最大程度提高靈活性
 
 有關安裝，升級，故障排除和管理Thinger.io管理擴充的說明和資訊，請參閱 "[管理擴充元件](https://app.gitbook.com/@thinger-io/s/docs/~/drafts/-LrOtZT2lM_x5eeYS6ra/primary/plugins#managing-plugins)" 部分。要了解如何使用現有的擴充元件，可以自下面的列表中尋找並檢視相關內容。
 
-::: tip 注意: 擴充元件僅適用於進階Thinger.io服務器。 選中[**此鏈接** ](https://pricing.thinger.io)以在幾分鐘之內建立您自己的實例 :::
+{% hint style="info" %}
+注意: 擴充元件僅適用於進階Thinger.io服務器。 選中[**此鏈接** ](https://pricing.thinger.io)以在幾分鐘之內建立您自己的實例 
+{% endhint %}
 
 ## 預設擴充元件
 
@@ -45,11 +47,13 @@ Marketplace可以由主選單中點擊"plugins"進入。
 
 此節將提供有關支援擴充元件系統基礎設施與如何建構新擴充元件的深入資訊。
 
-::: danger 抱歉！這正在進行中 :::
+{% hint style="danger" %}
+抱歉！這正在進行中 
+{% endhint %}
 
 ### 擴充元件系統基礎設施
 
 ### 擴充元件 Repository
 
-### 寫一個 Plugin
+### 寫一個擴充元件
 

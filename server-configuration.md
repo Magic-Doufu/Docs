@@ -1,4 +1,4 @@
-# SERVER ADMINISTRATION
+# 伺服器管理
 
 建立新的Thigner.io私有實例後，將為其提供一個標準的Web網域 \(similar to "[https://mycompany.do.thinger.io"\](https://mycompany.do.thinger.io"\)\) ，並使用具有標準Thinger.io品牌外觀的Web控制台。但也可以在此控制台上建立多個品牌重構\(rebrand\)與修改網域，以便為多個客戶品牌客製化平台的外觀。此功能為部署多租戶\(multi-tenant\)環境提供解決方案，也可以建立使用同一私有伺服器的多個使用者帳戶，從而為特定項目建立一個隔離的使用者網路。
 
@@ -143,7 +143,7 @@ Thinger.io伺服器實例可以支援多個使用者帳戶，這些帳戶可以�
 
 此閾值可以前往Subscriptions Management System進行升級，請使用"Admin Email Account"存取[**此鏈接**](https://thinger.chargebeeportal.com)。
 
-### Remove User Account
+### 移除使用者帳戶
 
 使用者帳戶也可以從伺服器實例中刪除，只需選中使用者帳戶設定檔左側的複選框，然後點擊"Remove User"按鈕即可。
 

@@ -1,4 +1,4 @@
-# FILE SYSTEM
+# 檔案系統
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LumHxzLSZNmgecmD-2Z%2F-LumI6PDjONXhjoNuiZA%2Fimage.png?alt=media&token=5fd94745-c86a-493e-9f38-32f61eedf345)
 
@@ -50,7 +50,7 @@ Storage Explorer包含一個導航列，其中顯示了檔案的層次結構。�
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LpXqB3J1BMD5s4OpYSg%2F-LugngoLxkMv8Jes9uZR%2F-LugopLGYysSswo2P4VS%2Fimage.png?alt=media&token=ace67590-ec66-4f73-b28e-2284e37cf75e)
 
-### Deleting Files
+### 刪除檔案
 
 在檔案系統中，若您不再需要某些檔案時，可以使用Storage Explorer將其刪除。通過按下鍵盤上的command或ctrl按鈕並點擊選擇要刪除的檔案。完成後按頂部欄的"-"圖標。
 

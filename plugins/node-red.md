@@ -2,7 +2,7 @@
 description: Plugin to improve the integration of Node-RED into Thinger.io
 ---
 
-# Node-RED Plugin
+# Node-RED 擴充元件
 
 Node-RED是IBM建立的一個開源項目，旨在為Rule Engines市場提供一個簡單但功能強大的框架，其具有易於使用的圖形程式設計界面以及龐大的使用者社群，社群對此貢獻了超過2000個項目。
 
@@ -192,7 +192,7 @@ MQTT是IoT中的擴展通訊協議，其執行在TCP/IP協議上。它被設計�
 
 {% tab title="調整傳入數據" %}
 {% hint style="danger" %}
-This is work in progress, sorry about the inconveniences
+這正在進行中，造成不便深感抱歉。
 {% endhint %}
 {% endtab %}
 {% endtabs %}

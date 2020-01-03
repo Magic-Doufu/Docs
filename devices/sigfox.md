@@ -1,7 +1,5 @@
 ---
-description: >-
-  This section explains what Sigfox infrastructure is and how to integrate their
-  devices with Thinger.io platform in a very simple way.
+description: 本節說明了Sigfox基礎架構是什麼，以及如何以非常簡單的方式將其設備與Thinger.io平台整合。
 ---
 
 # SIGFOX

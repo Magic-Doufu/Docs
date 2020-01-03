@@ -1,4 +1,4 @@
-# DASHBOARDS
+# 儀表板
 
 儀表板是一個圖形使用者界面，能將您的資訊以不同的圖形和圖表顯示。您可以在儀表板中使用不同的小工具，設定其佈局，維度，顏色和數據源，以便為您的業務或流程產生有用的資訊。
 
@@ -7,8 +7,6 @@
 這是一個範例儀表板，其中定義了一些小工具，例如時序圖，甜甜圈圖，地圖或數值，您還可以使用其他許多的小工具。
 
 ![](https://discoursefiles.s3-eu-west-1.amazonaws.com/original/1X/c05197985d9ee92a9e12aaa71ab7508682bc3fbc.gif)
-
-Ready to create your own dashboard?
 
 準備好建立您獨特的儀表板了嗎？
 
@@ -131,7 +129,11 @@ Ready to create your own dashboard?
 
 * **Title**: 小工具的標題。
 * **Subtitle**: 小工具的副標題。
-* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\)。 This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
+* **Background**: 可供選擇的小工具背景顏色 \(預設是白色的\)。
+
+以下內容似乎有點奇怪
+
+ This widget has a particularity behavior in relation to this parameter. Pressing into the green "+" button, It is possible to select different background colors depending on the real time value that is being shown: 
 
 Then, the Led indicator menu tab allows selecting the data source, that can be a connected device or a data bucket:
 
@@ -142,6 +144,8 @@ Then, the Led indicator menu tab allows selecting the data source, that can be a
   * **Manual Data**: It is always possible to manually introduce values in order to create simulate the behavior of the widget.
 
 Finally, the "Display Options" tab allows to custom the led behavior in the next parameters:
+
+以上內容有點奇怪
 
 最後，"Display Options"選項卡允許在以下參數中自定義led行為：
 
@@ -197,7 +201,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 
 以下是此小工具與連接裝置即時協作的範例：
 
-\[!\[Real-Time GPS location over GPRS using IoT Solution\]\([https://img.youtube.com/vi/3QDDOPMg22g/0.jpg\)\]\(https://www.youtube.com/watch?v=3QDDOPMg22g\](https://img.youtube.com/vi/3QDDOPMg22g/0.jpg%29]%28https://www.youtube.com/watch?v=3QDDOPMg22g\)\)
+![https://www.youtube.com/watch?v=3QDDOPMg22g](../.gitbook/assets/0-1.jpg)
 
 可設定的參數如下：
 

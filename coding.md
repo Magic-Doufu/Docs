@@ -2,7 +2,7 @@
 description: 此節內容包含如何使用Thinger.io程式庫簡單的建立適用於裝置的韌體，其中包含輸入與輸出資源、調用端點或基於WebSockets的即時串流等等。
 ---
 
-# FIRMWARE CODING
+# 韌體程式設計
 
 ## 草圖概述
 
