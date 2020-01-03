@@ -1,15 +1,13 @@
 ---
 description: >-
-  Thinger.io is an Open-Source Platform for the Internet of Things. This
-  documentation helps learning about how to use each component to create awesome
-  projects within minutes.
+  Thinger.io是物聯網的開源平台。 這個文件可幫助您學習如何使用每個組件在幾分鐘內完成出色的項目。
 ---
 
 # 總覽
 
 ## Thinger.io是什麼?
 
-Thinger.io為一開源物聯網平台專案，它提供了每個原型設計所需的工具，可以以非常簡單的方式對連接的產品進行原型設計，擴展和管理。我們的目標是使物聯網的使用在全世界被平民化，並簡化大型專案開發流程。
+Thinger.io為一開源物聯網平台專案，它提供了每個原型設計所需的工具，可以以非常簡單的方式對連接的產品進行原型設計，擴展和管理。我們的目標是使物聯網的使用在全世界平民化，並簡化大型專案開發流程。
 
 * **免費的雲端平台：** Thinger.io提供了學習與進行原型設計只有很少限制的終身免費帳戶，當產品準備好要拓展時即可快速大量部署。(大量部署非使用自己建立的平台則需要付費)
 * **簡潔有力：** 只需要幾行程式即可連接裝置並開始使用我們基於Web的控制台讀取數據或控制其功能，從而能夠以簡單的方式連接和管理數千個裝置。
