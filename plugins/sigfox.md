@@ -84,7 +84,7 @@ description: Plugin to improve the integration of Sigfox devices
 以下是有關上行鏈路和下行鏈路方法(method)的資訊。
 
 {% tabs %}
-{% tab title="Uplink" %}
+{% tab title="上行鏈路\(Uplink\)" %}
 當裝置通過網絡傳送新訊息時，將調用上行鏈路方法。根據Sigfox網絡中完成的設定，此功能可以接收兩種不同的輸入：
 
 * **Base64 String** :如果Sigfox裝置類型定義了自定義payload格式，則此方法將接收以base64編碼的原始payload。在這種情況下，有必要編寫一個函數將此base64數據轉換為JSON物件。
@@ -106,7 +106,7 @@ description: Plugin to improve the integration of Sigfox devices
 {% endhint %}
 {% endtab %}
 
-{% tab title="Downlink" %}
+{% tab title="下行鏈路\(Downlink\)" %}
 僅當Sigfox裝置將雙向訊息上行鏈路到Sigfox Cloud時，才會調用下行鏈路方法。在此例，Thinger.io伺服器將回應一個包含十六進制編碼的自定義下行鏈路 payload 回調訊息。請檢視下一部分以獲取更多詳細資訊。
 
 該函數將接收不同的輸入，具體取決於REST API調用擴充元件的方式。
@@ -177,7 +177,7 @@ Thinger.io擴充元件以JSON格式從Sigfox網絡接收數據。回調包含多
 
 #### 上行處理器
 
-該擴充元件允許設定用於處理傳入數據的自定義程式碼。Sigfox裝置傳送的資訊通常以小型二進制 payload 進行編碼，這些 payload 不能直接用於表示，因為它們不包含標籤，JSON，ASCII文本等，以最大程度地縮短傳輸時間。因此需要在雲中某個點處理裝置傳送的數據。
+該擴充元件允許設定用於處理傳入數據的自定義程式碼。Sigfox裝置傳送的資訊為了以最大程度地縮短傳輸時間，通常以小型二進制 payload 進行編碼，這些 payload 不能直接用於表示，因為它們不包含標籤，JSON，ASCII文本等。因此需要在雲中某個點處理裝置傳送的數據。
 
 如果需要，此擴充元件還允許建立自定義解碼器。使用Thinger.io 處理（如果需要） payload 的優點是，它使用NodeJS執行而不是純Javascript，因此可以使用諸如Buffer之類的NodeJS模組，從而簡化了處理功能的設計。
 
