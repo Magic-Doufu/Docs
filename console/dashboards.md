@@ -201,7 +201,7 @@ Finally, the "Display Options" tab allows to custom the led behavior in the next
 
 以下是此小工具與連接裝置即時協作的範例：
 
-![https://www.youtube.com/watch?v=3QDDOPMg22g](../.gitbook/assets/0-1.jpg)
+[![Real-Time GPS location over GPRS using IoT Solution](https://img.youtube.com/vi/3QDDOPMg22g/0.jpg)](https://www.youtube.com/watch?v=3QDDOPMg22g)
 
 可設定的參數如下：
 
