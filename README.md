@@ -52,7 +52,7 @@ Thinger.io為一開源物聯網平台專案，它提供了每個原型設計所�
 可以修改此範例，以使裝置行為適應每個用例。 修改原始碼後，只需上傳草稿碼並等待裝置連接即可。
 
 {% hint style="success" %}
-Find additional information about Thinger.io devices in the next sections:
+在下一部分中找到有關Thinger.io裝置的額外資訊：
 
 1. [**與 Arduino 和 Linux 相容的裝置**](devices/)
 2. [**從零開始： Thinger.io 韌體程式設計指南**](coding.md) 
