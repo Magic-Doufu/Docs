@@ -74,9 +74,7 @@ Thinger.io為一開源物聯網平台專案，它提供了每個原型設計所�
 {% tab title="Sigfox / LoRaWAN 裝置" %}
 任何單獨的Sigfox或LoraWAN裝置只需要將HTTP裝置回調設定到其回調管理器中，都可以使用我們的API作為HTTP裝置進行結合，但如果要使用這些技術建立TTN\(物聯網間網路\)，則最好使用我們發布的擴充元件：
 
-{% page-ref page="plugins/sigfox.md" %}
 
-{% page-ref page="plugins/the-things-network.md" %}
 
 通過選單中的`Device`頁面可以顯示完整的裝置列表。該介面允許管理裝置並檢查其連接狀態並通過點擊每個`Device ID`來存取`Device Dashboard`。
 {% endtab %}
