@@ -8,7 +8,7 @@
 
 要管理所有端點，您需要點擊選單中的`Endpoints`進行存取：
 
-![](../.gitbook/assets/endpointtab%20%281%29.PNG)
+![](../.gitbook/assets/addendpoint%20%281%29.png)
 
 然後點擊`Add Endpoint`按鈕，該按鈕將打開一個新界面以輸入端點詳細資訊，如以下畫面截圖所示：
 

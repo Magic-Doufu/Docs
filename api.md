@@ -30,7 +30,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODYwNDkxNTcsImlhdCI6MTQ4
 
 此種令牌用於存取API資源，要存取任何API時都需要將此令牌與`Bearer`關鍵字一起包含在HTTP標頭的 `authorization` 項目中。其中 `authorization` 區分大小寫。
 
-_Nａｓotice_ 存取令牌有效期限\(Expiration time\)為 2 小時，因此需要透過刷新令牌進行刷新。
+_Notice_ 存取令牌有效期限\(Expiration time\)為 2 小時，因此需要透過刷新令牌進行刷新。
 
 #### 刷新令牌\(Refresh Token\)
 

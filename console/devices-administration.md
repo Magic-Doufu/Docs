@@ -58,11 +58,11 @@
 
 請注意，已連接的裝置儀表板能夠顯示裝置的大略位置，可以根據本文件"properties"部分的說明進行修改。現在我們已將裝置連接到帳戶中，已經準備好開始通過網際網路與裝置進行互動。
 
-## Device Explorer
+## 裝置瀏覽器\(Device Explorer\)
 
-Each device counts with an explorer and administration interface, that allows showing and configuring different devices features. This interface is common for all device types in thinger.io but note that some features such as the "device API explorer" may not be available if the device have not an actual real-time connection with the server.
+每個裝置都有一個資源管理器和管理界面，該界面允許顯示和配置不同的裝置功能。 該介面對於thinger.io中的所有裝置類型都是通用的，但是請注意，如果設備與伺服器之間沒有建立連接，則某些功能（例如“device API explorer”）可能無法使用。
 
-In the next sections, it is explained each different feature of the device explorer:
+在下一部分中，將說明裝置瀏覽器的每個不同功能：
 
 ### 裝置 API
 
@@ -110,7 +110,7 @@ thing["in_out"] = [](pson& in, pson& out){
 
 ![](../.gitbook/assets/showquery.PNG)
 
-[此處](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#devices-api-access-device-resources).提供了有關與裝置進行交互的API的更多信息。
+[此處](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#devices-api-access-device-resources).提供了有關與裝置進行互動的API的更多信息。
 
 ### HTTP 裝置回調 \(Callback\)
 
@@ -158,7 +158,7 @@ https://<Thinger_Server>/v3/users/<Username>/devices/<Device_ID>/callback?author
 
 下圖顯示了設定裝置令牌時的範例畫面截圖。
 
-![](../.gitbook/assets/addtockenform-1.PNG)
+![](https://github.com/Magic-Doufu/Docs/tree/05515e54d120c75b7240900850d8c9c73cc66f7a/.gitbook/assets/addtockenform-1.PNG)
 
 令牌此時已經保存，界面將顯示要在REST API調用中使用的存取令牌，如下圖所示。如果您需要幫助以在REST API調用中集成此存取令牌，請檢視[此文件](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#authentication-api-rest-api-authentication)。
 
