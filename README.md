@@ -67,7 +67,7 @@ Thinger.io為一開源物聯網平台專案，它提供了每個原型設計所�
 4. 將HTTP請求 \(API + TOKEN\) 引入裝置程式或第三方平台，即可開始向Thinger.io傳遞資料。
 
 {% hint style="success" %}
-[有關HTTP裝置的詳細教學**在這裡！**](devices/http-devices.md)
+[有關HTTP裝置的詳細教學**在這裡！**](https://gtrx8fd3ds.gitbook.io/thinger-io/devices/http-devices.md)
 {% endhint %}
 {% endtab %}
 
