@@ -21,7 +21,7 @@
 * **Data source**:
   * **From Device Resource**: 這意味著它將從特定裝置資源（如溫度，運動等）獲取資訊。在此選項中，裝置應與伺服器保持連接。這個功能所提供的好處是：我們可以根據需要更改`Sampling Interval`選項設定採樣率，而無需更動裝置程式。
 
-    **請記住** [此處](http://docs.thinger.io/arduino/#coding-adding-resources)更詳細地描述了如何在裝置中定義資源的過程，不過由DHT傳感器回報溫度和濕度的資源可以這樣寫：
+    **請記住** [此處](http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/#coding-adding-resources)更詳細地描述了如何在裝置中定義資源的過程，不過由DHT傳感器回報溫度和濕度的資源可以這樣寫：
 
     ```cpp
     // define the resource just once in the setup
@@ -31,7 +31,7 @@
     };
     ```
 
-    也可以讓裝置在滿足特定條件時發起事件來串流傳輸資訊。在這種情況下，我們可以在設定數據儲存桶時使用`Update by Device`選項，並按照[此處](http://docs.thinger.io/arduino/#coding-streaming-resources)所述的傳輸串流資源。
+    也可以讓裝置在滿足特定條件時發起事件來串流傳輸資訊。在這種情況下，我們可以在設定數據儲存桶時使用`Update by Device`選項，並按照[此處](http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/#coding-streaming-resources)所述的傳輸串流資源。
 
     使用前面的`TempHum`範例資源，完成後會如下面的程式片段那樣。
 
@@ -47,7 +47,7 @@
 
     這樣，數據儲存桶就訂閱了裝置資源，並且在每次串流調用中都登錄了它的資訊。
 
-  * **From Write Call**: 此選項將設定數據儲存桶為在預設情況不會記錄任何資訊的狀態。它會等待調用寫入函數，如像[這樣](http://docs.thinger.io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep)從Arduino程式庫調用`write_bucket`方法或與 [Sigfox](http://docs.thinger.io/sigfox/#steps-in-thingerio-create-a-data-bucket) 一樣直接調用REST API。此功能允許從不同裝置寫入資料到同一數據儲存桶中，或者紀錄來自未與伺服器永久連接裝置的資訊\(處於睡眠模式的裝置或使用Sigfox等其他技術的資訊\)。
+  * **From Write Call**: 此選項將設定數據儲存桶為在預設情況不會記錄任何資訊的狀態。它會等待調用寫入函數，如像[這樣](http://gtrx8fd3ds.gitbook.io/thinger-io/hardware/climaStick/#quickstart-examples-data-recording-using-sleep)從Arduino程式庫調用`write_bucket`方法或與 [Sigfox](http://gtrx8fd3ds.gitbook.io/thinger-io/sigfox/#steps-in-thingerio-create-a-data-bucket) 一樣直接調用REST API。此功能允許從不同裝置寫入資料到同一數據儲存桶中，或者紀錄來自未與伺服器永久連接裝置的資訊\(處於睡眠模式的裝置或使用Sigfox等其他技術的資訊\)。
 
     以下是ESP8266裝置使用`write_bucket`功能將資訊寫入數據儲存桶的範例：
 

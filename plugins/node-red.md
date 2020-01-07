@@ -140,7 +140,7 @@ Node-RED本質上包含在開發工具中，該工具具有兩個基本組件：
 使用伺服器事件節點的"Device Status Change"屬性，可以檢測到IoT網絡中任何裝置的中斷連線，並在Node-RED中執行流程以使用例如調用電子郵件端點來傳送通知。
 
 {% hint style="info" %}
-[在此處了解如何建立電子郵件端點。](https://docs.thinger.io/console#email-endpoint)
+[在此處了解如何建立電子郵件端點。](https://gtrx8fd3ds.gitbook.io/thinger-io/console#email-endpoint)
 {% endhint %}
 
 下一個流程使用兩個Thinger.io節點，第一個在裝置與伺服器中斷連線時觸發，該事件將產生包含裝置ID、狀態和變更時間的時間戳的JSON格式訊息。第二個節點允許調用Endpoint設定檔以發送帶有附加裝置資訊JSON的警報，因此可以自定義訊息以輕鬆識別問題。
@@ -180,7 +180,7 @@ MQTT是IoT中的擴展通訊協議，其執行在TCP/IP協議上。它被設計�
 通過"device\_location"屬性建立此整合，可以非常簡單的方式整合任何類型的裝置，包括Thinger.io軟體客戶端， Sigfox，TTN甚至HTTP裝置。
 
 {% hint style="info" %}
-[在此處了解如何建立電子郵件端點。](https://docs.thinger.io/console#email-endpoint)
+[在此處了解如何建立電子郵件端點。](https://gtrx8fd3ds.gitbook.io/thinger-io/console#email-endpoint)
 {% endhint %}
 
 使用這個JSON可以將此流程輕易的匯入到您使用的Node-RED工作區：

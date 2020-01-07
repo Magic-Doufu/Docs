@@ -498,7 +498,7 @@ Thinger.io提供一個易用且富有擴充性的虛擬儲存系統，該系統�
 
 ### 自裝置讀取資源\(From Device Resource\)
 
-此方式無須編寫特定方法即可使用，因為他們將透過雲端平台自動蒐集資料，僅須建立數據統並設定採樣間隔即可，如控制台文檔所述[http://docs.thinger.io/console/\#data-buckets](http://docs.thinger.io/console/#data-buckets)。
+此方式無須編寫特定方法即可使用，因為他們將透過雲端平台自動蒐集資料，僅須建立數據統並設定採樣間隔即可，如控制台文檔所述[http://gtrx8fd3ds.gitbook.io/thinger-io/console/\#data-buckets](http://gtrx8fd3ds.gitbook.io/thinger-io/console/#data-buckets)。
 
 ### 串流寫入\(Streaming Resource Data\)
 

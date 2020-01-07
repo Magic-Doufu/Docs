@@ -266,7 +266,7 @@ void setup() {
   // resource output example (i.e. reading a sensor value, a variable, etc)
   thing["millis"] >> outputValue(millis());
 
-  // more details at http://docs.thinger.io/arduino/
+  // more details at http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/
 }
 
 void loop() {
@@ -319,7 +319,7 @@ void setup() {
   // resource output example (i.e. reading a sensor value, a variable, etc)
   thing["millis"] >> outputValue(millis());
 
-  // more details at http://docs.thinger.io/arduino/
+  // more details at http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/
 }
 
 void loop() {
@@ -495,7 +495,7 @@ void setup() {
   // resource output example (i.e. reading a sensor value)
   thing["millis"] >> outputValue(millis());
 
-  // more details at http://docs.thinger.io/arduino/
+  // more details at http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/
 }
 
 void loop() {

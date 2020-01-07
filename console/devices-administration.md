@@ -110,7 +110,7 @@ thing["in_out"] = [](pson& in, pson& out){
 
 ![](../.gitbook/assets/showquery.PNG)
 
-[此處](http://docs.thinger.io/api/#devices-api-access-device-resources).提供了有關與裝置進行交互的API的更多信息。
+[此處](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#devices-api-access-device-resources).提供了有關與裝置進行交互的API的更多信息。
 
 ### HTTP 裝置回調 \(Callback\)
 
@@ -122,9 +122,9 @@ thing["in_out"] = [](pson& in, pson& out){
 
 此內容顯示了可以通過使用回調從伺服器請求的不同功能，只需點擊複選框並選擇將接收數據的資源，例如：
 
-* 將數據存儲至可縮放的\[數據桶\]中\([http://docs.thinger.io/console/\#data-buckets](http://docs.thinger.io/console/#data-buckets)\)
-* 調用[端點設定檔](http://docs.thinger.io/console/#endpoints)與第三方結合
-* 使用`Set device property`或`response data`功能檢視或修改[Device Properties](http://docs.thinger.io/api/#Device-properties)。
+* 將數據存儲至可縮放的\[數據桶\]中\([http://gtrx8fd3ds.gitbook.io/thinger-io/console/\#data-buckets](http://gtrx8fd3ds.gitbook.io/thinger-io/console/#data-buckets)\)
+* 調用[端點設定檔](http://gtrx8fd3ds.gitbook.io/thinger-io/console/#endpoints)與第三方結合
+* 使用`Set device property`或`response data`功能檢視或修改[Device Properties](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#Device-properties)。
 
 請注意，無法通過回調新增屬性，數據儲存桶或端點，因此必須先於Web控制台或REST API進行建立
 
@@ -160,7 +160,7 @@ https://<Thinger_Server>/v3/users/<Username>/devices/<Device_ID>/callback?author
 
 ![](../.gitbook/assets/addtockenform-1.PNG)
 
-令牌此時已經保存，界面將顯示要在REST API調用中使用的存取令牌，如下圖所示。如果您需要幫助以在REST API調用中集成此存取令牌，請檢視[此文件](http://docs.thinger.io/api/#authentication-api-rest-api-authentication)。
+令牌此時已經保存，界面將顯示要在REST API調用中使用的存取令牌，如下圖所示。如果您需要幫助以在REST API調用中集成此存取令牌，請檢視[此文件](http://gtrx8fd3ds.gitbook.io/thinger-io/api/#authentication-api-rest-api-authentication)。
 
 ![](../.gitbook/assets/device_token_value.png)
 

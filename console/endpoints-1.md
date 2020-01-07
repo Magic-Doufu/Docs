@@ -36,7 +36,7 @@
 
 ![](../.gitbook/assets/emailendpoint.png)
 
-有關如何調用端點可參考[此文檔](http://docs.thinger.io/arduino/#coding-using-endpoints-calling-endpoints)基本上需要使用`call_endpoint`方法調用端點，其需要端點ID，在此範例中為`ExampleEmail`，並且要將選擇的數據以`pson`文檔發送到端點，此處的`pson`文檔非常類似於JSON，有兩個鍵\(key\)分別命名為`temperature`與`humidity`分別儲存DHT傳感器的讀數。以下將示範調用端點。
+有關如何調用端點可參考[此文檔](http://gtrx8fd3ds.gitbook.io/thinger-io/arduino/#coding-using-endpoints-calling-endpoints)基本上需要使用`call_endpoint`方法調用端點，其需要端點ID，在此範例中為`ExampleEmail`，並且要將選擇的數據以`pson`文檔發送到端點，此處的`pson`文檔非常類似於JSON，有兩個鍵\(key\)分別命名為`temperature`與`humidity`分別儲存DHT傳感器的讀數。以下將示範調用端點。
 
 ```cpp
 pson data;
